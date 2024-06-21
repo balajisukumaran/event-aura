@@ -19,9 +19,6 @@
 
 .event-wrapper .event-container {
     display: grid;
-    /* justify-content: center;
-    align-items: center;
-    align-content: center; */
     gap: 16px;
 }
 /* Default: 1 column */

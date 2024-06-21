@@ -4,12 +4,11 @@ import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
 import { Popover, FormControlLabel, RadioGroup, Radio, Button } from '@mui/material';
 
 
-const SortPicker = () => {
-    const [selectedOption, setSelectedOption] = useState(' Recent Date');
+const SortPicker = ({ selectedOption, onSortChange }) => {
     const [anchorEl, setAnchorEl] = useState(null);
 
     const handleSortChange = (event) => {
-        setSelectedOption(event.target.value);
+        onSortChange(event.target.value);
         handleClose();
     };
 
@@ -26,7 +25,7 @@ const SortPicker = () => {
 
     return (
         <div className="sort-container">
-            <Button className="sort-selected-option" aria-describedby={id} onClick={handleClick} style={{ color: "#fff" }}>
+            <Button className="sort-selected-option" onClick={handleClick} style={{ color: "#fff" }}>
                 {selectedOption}
                 <ExpandMoreOutlinedIcon />
             </Button>

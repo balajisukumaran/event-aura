@@ -36,10 +36,8 @@
     margin: 0% 5%;
     font-family: Arial, Helvetica, sans-serif;
     text-align: left;
-
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    flex-wrap: wrap;
+    margin-bottom: 5px;
 }
 
 .event-datetime {

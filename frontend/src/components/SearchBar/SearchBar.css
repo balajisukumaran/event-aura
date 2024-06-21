@@ -80,7 +80,12 @@
   .react-datepicker__day--selected,
   .react-datepicker__day--in-range,
   .react-datepicker__day--keyboard-selected {
-    background-color: #FF9A00;
+    background-color: #fbc88d;
     color: white;
+  }
+
+  
+  .react-datepicker__day--selected:hover{
+    background-color: #FF9A00;
   }
   

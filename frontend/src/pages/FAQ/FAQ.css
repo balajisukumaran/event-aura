@@ -1,0 +1,62 @@
+.topic-box {
+    background-color:#FF9A00;
+    background-image: url("../../assets/faq-background.jpg");
+    background-size: cover;
+    color: black;
+    font-weight: bold;
+    padding: 20px;
+    flex: 1;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 3%;
+}
+
+.qa-container {
+    margin: 4%;
+    padding: 2%;
+    color: white;
+    display: grid;
+    gap: 16px;
+}
+
+.qa-container {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+
+/* New Styles */
+
+@media (max-width: 1200px) {
+    .qa-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .topic-box {
+        flex-direction: column;
+        height: auto;
+        padding: 10px;
+        margin: 2%;
+        text-align: center;
+    }
+
+    .qa-container {
+        margin: 1%;
+        padding: 1%;
+    }
+}
+
+@media (max-width: 480px) {
+    .topic-box {
+        padding: 1px;
+        margin: 1%;
+    }
+
+    .qa-container {
+        margin: 1%;
+        padding: 0.5%;
+    }
+}

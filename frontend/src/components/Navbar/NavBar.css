@@ -42,12 +42,11 @@
     color: white;
     font-size: 17px;
     text-decoration: none;
-    /* font-weight: bold; */
     margin-right: 25px;
   }
   
-  .navbar-links a:hover {
-    text-decoration: underline;
+  .navbar-links p:hover {
+    cursor: pointer;
   }
   
   .navbar-menu-icon {

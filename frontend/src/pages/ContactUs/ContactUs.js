@@ -7,7 +7,7 @@ import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 export default function ContactUs() {
     const [messageUs, setMessageUs] = useState({
@@ -18,12 +18,12 @@ export default function ContactUs() {
     const [errors, setErrors] = useState({});
 
     const validate = () => {
-        const newErrors = {};
-        if (!messageUs.name) newErrors.name = true;
-        if (!messageUs.email) newErrors.email = true;
-        if (!validateEmail(messageUs.email)) newErrors.email = true;
-        if (!messageUs.message) newErrors.message = true;
-        setErrors(newErrors);
+        const validationErrors = {};
+        if (!messageUs.name) validationErrors.name = "false";
+        if (!messageUs.email) validationErrors.email = "false";
+        if (!validateEmail(messageUs.email)) validationErrors.email = "false";
+        if (!messageUs.message) validationErrors.message = "false";
+        return validationErrors;
     };
 
     const validateEmail = (email) => {
@@ -37,9 +37,10 @@ export default function ContactUs() {
         setErrors({ ...errors, [field]: false });
     };
 
-    const handleSubmit = () => {
-        validate();
-        if (Object.keys(errors).length === 0) {
+    const handleSubmit = useCallback(() => {
+        const validationErrors = validate();
+        console.log(validationErrors);
+        if (Object.keys(validationErrors).length === 0) {
             toast.success("Message has been sent!");
             // Reset the form
             setMessageUs({
@@ -49,8 +50,10 @@ export default function ContactUs() {
             });
         } else {
             toast.error("Please fill in all fields.");
+            setErrors(validationErrors);
+            console.log(errors);
         }
-    };
+    }, [messageUs, errors]);
 
     return (
         <div className="App">

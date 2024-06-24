@@ -61,6 +61,7 @@
 }
 
 .input-box .input-field input {
+    font-size: 13px;
     border: none;
     border-radius: 5px;
     box-shadow: 1px 1px 1px 1px rgba(1, 1, 1, 0.2);

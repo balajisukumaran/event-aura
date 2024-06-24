@@ -1,4 +1,3 @@
-
 import "../../App.css";
 import "./ContactUs.css";
 import LocalPostOfficeIcon from '@mui/icons-material/LocalPostOffice';
@@ -7,7 +6,7 @@ import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 
 export default function ContactUs() {
     const [messageUs, setMessageUs] = useState({

@@ -597,5 +597,6 @@ export default SearchBar;
 
 ## Acknowledgments
 
-- We are grateful to our TA for teaching us React and Netlify and guiding us along the way.
-- We are thankful for all the resources and official documents that we went through for making our work easier.
+- We are thankful to our professor, Gabriella Mosquera for providing us this learning opportunity.
+- We are grateful to our TAs for teaching us React and Netlify and guiding us along the way.
+- We are also thankful for all the resources and official documents that we went through for making our work easier.

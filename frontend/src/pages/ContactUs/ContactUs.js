@@ -7,7 +7,7 @@ import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 
 export default function ContactUs() {
     const [messageUs, setMessageUs] = useState({
@@ -17,14 +17,14 @@ export default function ContactUs() {
     });
     const [errors, setErrors] = useState({});
 
-    const validate = () => {
+    const validate = useCallback(() => {
         const validationErrors = {};
         if (!messageUs.name) validationErrors.name = "false";
         if (!messageUs.email) validationErrors.email = "false";
         if (!validateEmail(messageUs.email)) validationErrors.email = "false";
         if (!messageUs.message) validationErrors.message = "false";
         return validationErrors;
-    };
+    }, [messageUs]);
 
     const validateEmail = (email) => {
         // Basic email validation using regex
@@ -53,7 +53,7 @@ export default function ContactUs() {
             setErrors(validationErrors);
             console.log(errors);
         }
-    }, [messageUs, errors]);
+    }, [errors, validate]);
 
     return (
         <div className="App">

@@ -7,8 +7,8 @@
 
 ## Authors
 
-- Balaji Sukumaran (balaji.sukumaran@dal.ca)
-- Kabilesh Ravi Chandran (kabilesh@dal.ca)
+- Balaji Sukumaran (bl664064@dal.ca)
+- Kabilesh Ravi Chandran (kb320903@dal.ca)
 - Merin Mary Saju (mr457277@dal.ca)
 - Nikita Davies (nk548914@dal.ca)
 - Sruthi Shaji (sr569206@dal.ca)

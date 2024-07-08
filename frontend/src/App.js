@@ -10,10 +10,6 @@ import Login from './pages/Login/Login';
 
 function App() {
   return (
-    // <div className="App">
-    //   <header className="App-header">
-    //   </header>
-    // </div>
     <Router>
       <NavBar />
       <div className="App">

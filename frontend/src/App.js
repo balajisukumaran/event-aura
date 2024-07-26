@@ -6,6 +6,7 @@ import NavBar from './components/Navbar/NavBar';
 import ContactUs from './pages/ContactUs/ContactUs';
 import FAQ from './pages/FAQ/FAQ';
 import Login from './pages/Login/Login';
+import MainRoute from './router/routes';
 
 
 function App() {
@@ -14,12 +15,7 @@ function App() {
       <NavBar />
       <div className="App">
         <div className="dashboard">
-          <Routes>
-            <Route path='/' element={<LandingPage />} />
-            <Route path='/contact' element={<ContactUs />} />
-            <Route path='/faq' element={<FAQ />} />
-            <Route path='/login' element={<Login />} />
-          </Routes>
+          <MainRoute />
         </div>
       </div>
     </Router>

@@ -2,6 +2,7 @@ import LandingPage from '../pages/LandingPage/LandingPage';
 import ContactUs from '../pages/ContactUs/ContactUs';
 import FAQ from '../pages/FAQ/FAQ';
 import Login from '../pages/Login/Login';
+import EventHistory from '../pages/EventHistory';
 
 const routes = [
   {
@@ -23,6 +24,11 @@ const routes = [
     id: 'login',
     route: '.login',
     component: <Login />,
+  },
+  {
+    id: 'event-history',
+    route: '/event-history',
+    component: <EventHistory />,
   },
 ];
 

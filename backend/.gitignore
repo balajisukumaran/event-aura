@@ -1,33 +1,39 @@
-HELP.md
+# Maven build output
 target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
+# Maven wrapper files
+.mvn/
+.mvn/wrapper/
 
-### IntelliJ IDEA ###
-.idea
-*.iws
+# IDEs and editors
+.idea/
 *.iml
-*.ipr
+*.iws
+*.swp
+*.swo
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
+# OS-specific files
+.DS_Store
+Thumbs.db
 
-### VS Code ###
-.vscode/
+# Log files
+*.log
+
+# Environment variables
+.env
+
+# Other
+*.class
+*.jar
+*.war
+*.ear
+*.db
+*.sql
+*.sqlite
+*.h2
+*.p7b
+*.p12
+*.pfx
+*.pem
+*.key
+*.csr

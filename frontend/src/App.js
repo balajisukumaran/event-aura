@@ -8,6 +8,8 @@ import FAQ from './pages/FAQ/FAQ';
 import Login from './components/Authentication/Login';
 import Signup from './components/Authentication/Signup';
 import ResetPassword from './components/Authentication/ResetPassword';
+// import Login from './pages/Login/Login';
+import MainRoute from './router/routes';
 
 function App() {
   return (
@@ -15,15 +17,16 @@ function App() {
       <NavBar />
       <div className="App">
         <div className="dashboard">
-          <Routes>
-            <Route path='/' element={<LandingPage />} />
-            <Route path='/contact' element={<ContactUs />} />
-            <Route path='/faq' element={<FAQ />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/signup' element={<Signup />} />
-            <Route path='/resetPassword' element={<ResetPassword />} />
-            <Route path='/resetPassword' element={<ResetPassword />} />
-          </Routes>
+          {/*<Routes>*/}
+          {/*  <Route path='/' element={<LandingPage />} />*/}
+          {/*  <Route path='/contact' element={<ContactUs />} />*/}
+          {/*  <Route path='/faq' element={<FAQ />} />*/}
+          {/*  <Route path='/login' element={<Login />} />*/}
+          {/*  <Route path='/signup' element={<Signup />} />*/}
+          {/*  <Route path='/resetPassword' element={<ResetPassword />} />*/}
+          {/*  <Route path='/resetPassword' element={<ResetPassword />} />*/}
+          {/*</Routes>*/}
+          <MainRoute />
         </div>
       </div>
     </Router>

@@ -31,7 +31,7 @@ function Signup(){
         } else if(inputPassword !== testPassword){
             setInvalidPasswordError('Password is incorrect')
         } else {
-            navigate("/dashboard")
+            navigate("/")
         }
     }
 

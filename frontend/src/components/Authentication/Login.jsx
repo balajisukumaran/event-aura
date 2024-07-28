@@ -28,7 +28,7 @@ function Login(){
         } else if(inputPassword !== testPassword){
             setInvalidPasswordError('Password is incorrect')
         } else {
-            navigate("/dashboard")
+            navigate("/")
         }
     }
 

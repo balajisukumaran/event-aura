@@ -1,26 +1,40 @@
 import "./EventDetails.css";
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { EventContext } from '../../context/EventContext';
 import { format, parse } from 'date-fns';
 import ReviewCard from "../../components/ReviewCard/ReviewCard";
 import ReactLoading from "react-loading";
 import { DummyImage } from "../../assets/";
+import { Modal, Box } from '@mui/material';
+import AddReview from "../../components/AddReview/AddReview";
 
 
 export default function EventDetails() {
+    const [openModal, setOpenModal] = useState(false);
+    const [review, setReview] = useState({ description: "", rating: 0 });
     const { events } = useContext(EventContext);
-    const event = events.length > 0 ? events[1] : null;
+
+    const event = events.length > 0 ? events[0] : null;
     const organizer = event ? event.organizer : null;
     const reviews = event ? event.reviews : null;
-    console.log(event);
 
     const formatDateTime = (dateString, timeString) => {
         const parsedDate = parse(dateString, 'dd/MM/yyyy', new Date());
         const formattedDate = format(parsedDate, "do MMMM yyyy");
         return `${formattedDate}, ${timeString}`;
     };
+
+    const handleOpenModal = () => setOpenModal(true);
+    const handleCloseModal = () => setOpenModal(false);
+
+    function onAddReview(event) {
+        event.preventDefault();
+
+        console.log("New review added:", review);
+        handleCloseModal();
+    }
 
     return (
         <div >
@@ -56,7 +70,7 @@ export default function EventDetails() {
                                         />
                                     </div>
                                     <div className="organizer-description">
-                                        <h8 style={{ marginBottom: "20%" }}>Organized by</h8>
+                                        <h6 style={{ marginBottom: "20%" }}>Organized by</h6>
                                         <h5>{organizer.name}</h5>
                                         <p>{organizer.no_of_followers} Followers</p>
 
@@ -75,12 +89,12 @@ export default function EventDetails() {
                             <h6><strong>Location</strong></h6>
                             <p>{event.location}</p>
                             <h6><strong>Ticket Price</strong></h6>
-                            <p>{event.price}/-</p>
+                            <p>${event.price} CAD</p>
                             <button className="event-book-button" >Book Now</button>
                             <div className="review-list-box">
                                 <div className="review-list-header" >
                                     <h5> Reviews</h5>
-                                    <button className="review-add-button"> Add a Review</button>
+                                    <button className="review-add-button" onClick={handleOpenModal}> Add a Review</button>
                                 </div>
                                 {reviews && reviews.map((review, index) => (
                                     <div key={index}>
@@ -90,7 +104,26 @@ export default function EventDetails() {
                             </div>
                         </div>
                     </div >
+                    <Modal
+                        open={openModal}
+                        onClose={handleCloseModal}
+                    >
+                        <Box sx={{
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)',
+                            width: 500,
+                            bgcolor: 'background.paper',
+                            border: '2px solid #000',
+                            boxShadow: 24,
+                            p: 4
+                        }}>
+                            <AddReview review={review} setReview={setReview} onSubmit={onAddReview} onCancel={handleCloseModal} />
+                        </Box>
+                    </Modal>
                 </div>) : <ReactLoading type="spin" color="#fff" />
+
             }
 
         </div >);

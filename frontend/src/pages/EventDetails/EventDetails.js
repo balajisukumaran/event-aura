@@ -9,10 +9,12 @@ import ReactLoading from "react-loading";
 import { DummyImage } from "../../assets/";
 import { Modal, Box } from '@mui/material';
 import AddReview from "../../components/AddReview/AddReview";
+import BookTicket from "../../components/BookTicket/BookTicket";
 
 
 export default function EventDetails() {
-    const [openModal, setOpenModal] = useState(false);
+    const [openReviewModal, setOpenReviewModal] = useState(false);
+    const [openBookModal, setOpenBookModal] = useState(false);
     const [review, setReview] = useState({ description: "", rating: 0 });
     const { events } = useContext(EventContext);
 
@@ -26,14 +28,22 @@ export default function EventDetails() {
         return `${formattedDate}, ${timeString}`;
     };
 
-    const handleOpenModal = () => setOpenModal(true);
-    const handleCloseModal = () => setOpenModal(false);
+    const handleOpenReview = () => setOpenReviewModal(true);
+    const handleOpenBooking = () => setOpenBookModal(true);
+    const handleCloseReview = () => setOpenReviewModal(false);
+    const handleCloseBooking = () => setOpenBookModal(false);
 
     function onAddReview(event) {
         event.preventDefault();
 
         console.log("New review added:", review);
-        handleCloseModal();
+        handleCloseReview();
+    }
+
+    function handleBooking(numTickets, total) {
+        console.log("Num of Tickets:", numTickets);
+        console.log("Total Price: ", total);
+        handleCloseBooking();
     }
 
     return (
@@ -90,11 +100,11 @@ export default function EventDetails() {
                             <p>{event.location}</p>
                             <h6><strong>Ticket Price</strong></h6>
                             <p>${event.price} CAD</p>
-                            <button className="event-book-button" >Book Now</button>
+                            <button className="event-book-button" onClick={handleOpenBooking}>Book Now</button>
                             <div className="review-list-box">
                                 <div className="review-list-header" >
                                     <h5> Reviews</h5>
-                                    <button className="review-add-button" onClick={handleOpenModal}> Add a Review</button>
+                                    <button className="review-add-button" onClick={handleOpenReview}> Add a Review</button>
                                 </div>
                                 {reviews && reviews.map((review, index) => (
                                     <div key={index}>
@@ -105,8 +115,8 @@ export default function EventDetails() {
                         </div>
                     </div >
                     <Modal
-                        open={openModal}
-                        onClose={handleCloseModal}
+                        open={openReviewModal}
+                        onClose={handleCloseReview}
                     >
                         <Box sx={{
                             position: 'absolute',
@@ -119,7 +129,25 @@ export default function EventDetails() {
                             boxShadow: 24,
                             p: 4
                         }}>
-                            <AddReview review={review} setReview={setReview} onSubmit={onAddReview} onCancel={handleCloseModal} />
+                            <AddReview review={review} setReview={setReview} onSubmit={onAddReview} onCancel={handleCloseReview} />
+                        </Box>
+                    </Modal>
+                    <Modal
+                        open={openBookModal}
+                        onClose={handleCloseBooking}
+                    >
+                        <Box sx={{
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)',
+                            width: 500,
+                            bgcolor: '#1A2529',
+                            border: '2px solid #000',
+                            boxShadow: 24,
+                            p: 4
+                        }}>
+                            <BookTicket event={event} onSubmit={handleBooking} />
                         </Box>
                     </Modal>
                 </div>) : <ReactLoading type="spin" color="#fff" />

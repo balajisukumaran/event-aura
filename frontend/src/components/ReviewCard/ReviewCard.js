@@ -1,6 +1,27 @@
 import Rating from '@mui/material/Rating';
 import Divider from '@mui/material/Divider';
 import "./ReviewCard.css";
+import { format, parse } from 'date-fns';
+
+
+const formatDate = (dateString) => {
+    const date = parse(dateString, 'dd/MM/yyyy', new Date());
+    const getDaySuffix = (day) => {
+        if (day > 3 && day < 21) return 'th';
+        switch (day % 10) {
+            case 1: return 'st';
+            case 2: return 'nd';
+            case 3: return 'rd';
+            default: return 'th';
+        }
+    };
+
+    const day = format(date, 'd');
+    const dayWithSuffix = day + getDaySuffix(day);
+
+    return `${dayWithSuffix} ${format(date, 'MMMM, yyyy')}`;
+};
+
 
 
 export default function ReviewCard({ review }) {
@@ -11,8 +32,8 @@ export default function ReviewCard({ review }) {
                     <img style={{ width: "40px", height: "40px", borderRadius: "50%" }} src={review.userimage} alt={`Review Image ${review.username}`} />
                 </div>
                 <div style={{ fontSize: "0.8rem", marginLeft: "5%" }}>
-                    <p >{review.username}</p>
-                    <p>{review.date}</p>
+                    <p>{review.username}</p>
+                    <p>{formatDate(review.date)}</p>
                     <p>{review.description}</p>
                     <Rating
                         name="simple-controlled"
@@ -23,6 +44,6 @@ export default function ReviewCard({ review }) {
                     />
                 </div>
             </div>
-            <Divider style={{ borderColor: 'orange', color: "black" }} variant="middle" component="li" />
+            <Divider style={{ borderColor: 'orange', color: "#1A2529" }} variant="middle" component="li" />
         </div>);
 }

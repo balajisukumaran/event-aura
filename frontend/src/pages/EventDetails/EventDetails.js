@@ -11,21 +11,20 @@ import { Modal, Box } from '@mui/material';
 import AddReview from "../../components/AddReview/AddReview";
 import BookTicket from "../../components/BookTicket/BookTicket";
 import axios from "axios";
-import { useParams } from 'react-router-dom';
-
+import { useParams, Link } from 'react-router-dom';
 
 export default function EventDetails() {
     const [openReviewModal, setOpenReviewModal] = useState(false);
     const [openBookModal, setOpenBookModal] = useState(false);
     const [organizer, setOrganizer] = useState(null);
     const [reviews, setReviews] = useState([]);
+    const [showAllReviews, setShowAllReviews] = useState(false); // New state variable
 
     const { events } = useContext(EventContext);
     const { id } = useParams();
     const event = events.find(event => event.id === id);
 
     useEffect(() => {
-
         const fetchOrganizerDetails = async (organizerId) => {
             try {
                 const response = await axios.get(`http://localhost:8080/api/users/${organizerId}`);
@@ -47,7 +46,6 @@ export default function EventDetails() {
                 console.error("There was an error fetching the reviews!", error);
             }
         };
-
 
         if (event) {
             fetchOrganizerDetails(event.organizerId);
@@ -84,7 +82,6 @@ export default function EventDetails() {
     }
 
     function handleBooking(numTickets, total) {
-
         const order_request = {
             user_id: 1,
             event_id: event.id,
@@ -97,12 +94,10 @@ export default function EventDetails() {
                 if (response.status === 200) {
                     const data = response.data;
                     window.location.href = data.payment_url
-                }
-                else {
+                } else {
                     //provide a toast message.
                     console.error("Payment URL not found in the response");
                 }
-
             }).catch((error) => {
                 //provide a toast message.
                 console.log(error);
@@ -111,12 +106,12 @@ export default function EventDetails() {
     }
 
     return (
-        <div >
+        <div>
             {event ? (
                 <div>
                     <h2 className="event-detail-title">{event.title}</h2>
                     <div className="event-detail-container">
-                        <div className="left-box" >
+                        <div className="left-box">
                             <Carousel
                                 showArrows={false}
                                 autoPlay={false}
@@ -133,32 +128,28 @@ export default function EventDetails() {
                                     <img src={DummyImage} alt={`Dummy Image`} />
                                 }
                             </Carousel>
-                            {
-                                organizer && <div className="organizer-box">
-                                    <div className="organizer-details">
-                                        <div >
-                                            <img
-                                                className="organizer-image"
-                                                src={organizer.imageurl}
-                                                alt="Organizer Image"
-                                            />
-                                        </div>
-                                        <div className="organizer-description">
-                                            <h6 style={{ marginBottom: "20%" }}>Organized by</h6>
-                                            <h5>{organizer.firstname + " " + organizer.lastname}</h5>
-                                            <p>{organizer.no_of_followers} Followers</p>
-
-                                        </div>
-                                    </div>
+                            {organizer && <div className="organizer-box">
+                                <div className="organizer-details">
                                     <div>
-                                        <button className="organizer-follow-button">Follow</button>
+                                        <img
+                                            className="organizer-image"
+                                            src={organizer.imageurl}
+                                            alt="Organizer Image"
+                                        />
+                                    </div>
+                                    <div className="organizer-description">
+                                        <h6 style={{ marginBottom: "20%" }}>Organized by</h6>
+                                        <h5>{organizer.firstname + " " + organizer.lastname}</h5>
+                                        <p>{organizer.no_of_followers} Followers</p>
                                     </div>
                                 </div>
-                            }
-
-                        </div >
+                                <div>
+                                    <button className="organizer-follow-button">Follow</button>
+                                </div>
+                            </div>}
+                        </div>
                         <div className="right-box">
-                            <p> {event.desc}</p>
+                            <p>{event.desc}</p>
                             <h6><strong>Date and Time</strong></h6>
                             <p>{formatDateTime(event.date, event.time)}</p>
                             <h6><strong>Location</strong></h6>
@@ -167,18 +158,25 @@ export default function EventDetails() {
                             <p>${event.price} CAD</p>
                             <button className="event-book-button" onClick={handleOpenBooking}>Book Now</button>
                             <div className="review-list-box">
-                                <div className="review-list-header" >
-                                    <h5> Reviews</h5>
-                                    <button className="review-add-button" onClick={handleOpenReview}> Add a Review</button>
+                                <div className="review-list-header">
+                                    <h5>Reviews</h5>
+                                    <button className="review-add-button" onClick={handleOpenReview}>Add a Review</button>
                                 </div>
-                                {reviews && reviews.map((review, index) => (
+                                {reviews.length > 0 && <ReviewCard review={reviews[0]} />}
+                                {showAllReviews && reviews.slice(1).map((review, index) => (
                                     <div key={index}>
                                         <ReviewCard review={review} />
                                     </div>
                                 ))}
                             </div>
+                            {!showAllReviews && reviews.length > 1 && (
+                                <Link className="custom-link" onClick={() => setShowAllReviews(true)}>Show more reviews</Link>
+                            )}
+                            {showAllReviews && (
+                                <Link className="custom-link" onClick={() => setShowAllReviews(false)}>Show less reviews</Link>
+                            )}
                         </div>
-                    </div >
+                    </div>
                     <Modal
                         open={openReviewModal}
                         onClose={handleCloseReview}
@@ -216,9 +214,7 @@ export default function EventDetails() {
                         </Box>
                     </Modal>
                 </div>) : <ReactLoading type="spin" color="#fff" />
-
             }
-
-        </div >);
-
-};
+        </div>
+    );
+}

@@ -4,6 +4,7 @@ import googleIcon from './images/search.png';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
+import axios from 'axios';
 
 function Login(){
 
@@ -18,17 +19,39 @@ function Login(){
 
     const navigate = useNavigate();
 
-    const handleFormSubmit = (event) => {
+    const handleFormSubmit = async (event) => {
         // to prevent from screen getting refreshed
         event.preventDefault();
-        setInvalidUsernameError('');
-        if(inputUsername !== testUsername){
-            setInvalidUsernameError('Username does not exist');
-            return;
-        } else if(inputPassword !== testPassword){
-            setInvalidPasswordError('Password is incorrect')
-        } else {
-            navigate("/")
+
+        try{
+            // call Login api
+            const loginRequestBody =  {
+                email: inputUsername,
+                password: inputPassword,
+            }
+            const loginResponse = await axios.post('http://localhost:8080/login', loginRequestBody);
+            console.log(loginResponse);
+            // Save data to local storage
+            const { token, email, role } = loginResponse.data;
+            localStorage.setItem('token', token);
+            localStorage.setItem('email', email);
+            localStorage.setItem('role', role);
+            navigate("/");
+
+        } catch (error) {
+            const errorMessage = error.response.data.toLowerCase();
+            console.error('Error during login:', errorMessage);
+            if(errorMessage === "user is not registered"){
+                setInvalidUsernameError("User does not exist, please signup!");
+                setInvalidPasswordError("");
+            } else if (errorMessage === "incorrect password"){
+                setInvalidUsernameError("");
+                setInvalidPasswordError("Password is incorrect")
+            } else {
+                alert('An error occurred. Please try again.');
+            }
+           
+
         }
     }
 
@@ -56,7 +79,7 @@ function Login(){
                                     <input 
                                         type="email" 
                                         name="username" 
-                                        placeholder='Enter Username' 
+                                        placeholder='Enter Email' 
                                         value={inputUsername}
                                         onChange={(e) => setInputUsername(e.target.value)} 
                                         required/>
@@ -83,7 +106,7 @@ function Login(){
                             </div>
                             <button className="google-login-btn" onClick={handleGoogleLoginBtnClick}>
                                 <img src={googleIcon} alt="Google icon" className="google-icon" />
-                                Login with Google
+                                <span>Login with Google</span>
                             </button>
                             <div className="create-account">
                                 <p>Dont have an account? Click <Link to="/signup" className="nav-link"> <span>here</span> </Link> to SIGN UP! </p>

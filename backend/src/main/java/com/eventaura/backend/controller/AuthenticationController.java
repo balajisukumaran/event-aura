@@ -43,6 +43,9 @@ public class AuthenticationController {
         if (!authenticationService.userExists(loginRequest.getEmail())) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User is not registered");
         }
+        if (!authenticationService.validatePassword(loginRequest.getEmail(), loginRequest.getPassword())){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Incorrect password");
+        }
         return ResponseEntity.ok((authenticationService.login(loginRequest)));
     }
 

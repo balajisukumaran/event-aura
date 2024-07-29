@@ -8,6 +8,7 @@ import com.eventaura.backend.response.AuthenticationResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -69,5 +70,13 @@ public class AuthenticationService {
 
     public boolean userExists(String email) {
         return userRepository.findByEmail(email).isPresent();
+    }
+
+    public boolean validatePassword(String email, String password) {
+        // Retrieve user from the database by email
+        var user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        // Check if the provided password matches the stored password
+        return passwordEncoder.matches(password, user.getPassword());
     }
 }

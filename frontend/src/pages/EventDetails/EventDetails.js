@@ -10,20 +10,22 @@ import { DummyImage } from "../../assets/";
 import { Modal, Box } from '@mui/material';
 import AddReview from "../../components/AddReview/AddReview";
 import BookTicket from "../../components/BookTicket/BookTicket";
+import axios from "axios";
+import { useParams } from 'react-router-dom';
 
 
 export default function EventDetails() {
     const [openReviewModal, setOpenReviewModal] = useState(false);
     const [openBookModal, setOpenBookModal] = useState(false);
-    const [review, setReview] = useState({ description: "", rating: 0 });
-    const { events } = useContext(EventContext);
 
-    const event = events.length > 0 ? events[0] : null;
+    const { events } = useContext(EventContext);
+    const { id } = useParams();
+    const event = events.find(event => event.id === id);
     const organizer = event ? event.organizer : null;
     const reviews = event ? event.reviews : null;
 
     const formatDateTime = (dateString, timeString) => {
-        const parsedDate = parse(dateString, 'dd/MM/yyyy', new Date());
+        const parsedDate = parse(dateString, 'dd-MM-yyyy', new Date());
         const formattedDate = format(parsedDate, "do MMMM yyyy");
         return `${formattedDate}, ${timeString}`;
     };
@@ -33,16 +35,47 @@ export default function EventDetails() {
     const handleCloseReview = () => setOpenReviewModal(false);
     const handleCloseBooking = () => setOpenBookModal(false);
 
-    function onAddReview(event) {
-        event.preventDefault();
+    async function handleReview(rating, description) {
+        const review_request = {
+            user_id: event.user_id,
+            event_id: event.id,
+            description: description,
+            rating: rating
+        };
 
-        console.log("New review added:", review);
+        try {
+            const response = await axios.post('http://localhost:8080/api/review/add', review_request);
+            console.log("Review added", response.data);
+        } catch (error) {
+            console.error("There was an error adding the review!", error);
+        }
         handleCloseReview();
     }
 
     function handleBooking(numTickets, total) {
-        console.log("Num of Tickets:", numTickets);
-        console.log("Total Price: ", total);
+
+        const order_request = {
+            user_id: 1,
+            event_id: event.id,
+            no_of_tickets: numTickets,
+            total: total
+        };
+
+        axios.post("http://localhost:8080/api/order/", order_request)
+            .then((response) => {
+                if (response.status === 200) {
+                    const data = response.data;
+                    window.location.href = data.payment_url
+                }
+                else {
+                    //provide a toast message.
+                    console.error("Payment URL not found in the response");
+                }
+
+            }).catch((error) => {
+                //provide a toast message.
+                console.log(error);
+            })
         handleCloseBooking();
     }
 
@@ -81,7 +114,7 @@ export default function EventDetails() {
                                     </div>
                                     <div className="organizer-description">
                                         <h6 style={{ marginBottom: "20%" }}>Organized by</h6>
-                                        <h5>{organizer.name}</h5>
+                                        <h5>{organizer.fullname}</h5>
                                         <p>{organizer.no_of_followers} Followers</p>
 
                                     </div>
@@ -129,7 +162,7 @@ export default function EventDetails() {
                             boxShadow: 24,
                             p: 4
                         }}>
-                            <AddReview review={review} setReview={setReview} onSubmit={onAddReview} onCancel={handleCloseReview} />
+                            <AddReview onSubmit={handleReview} onCancel={handleCloseReview} />
                         </Box>
                     </Modal>
                     <Modal

@@ -20,7 +20,7 @@ export default function BookTicket({ event, onSubmit }) {
 
     return <div>
         {
-            event ? <div style={{ border: "1px solid orange", margin: "1%", padding: "2%", color: "white" }}>
+            event ? <div style={{ border: "1px solid orange", margin: "1%", padding: "3%", color: "white", borderRadius: "10px" }}>
                 <h5 style={{ textAlign: "left" }}> {event.title}</h5>
                 <p style={{ textAlign: "left" }} >{event.location}</p>
                 <div style={{ textAlign: "left", flexDirection: 'row', display: "flex" }} >

@@ -1,7 +1,10 @@
 import Rating from '@mui/material/Rating';
+import { useState } from 'react';
 import "./AddReview.css";
+import axios from 'axios';
 
-export default function AddReview({ review, setReview, onSubmit, onCancel }) {
+export default function AddReview({ onSubmit, onCancel }) {
+    const [review, setReview] = useState({ description: "", rating: 0 });
 
     function handleReview(event, field) {
         const value = field === 'rating' ? event : event.target.value;
@@ -9,6 +12,11 @@ export default function AddReview({ review, setReview, onSubmit, onCancel }) {
             ...prevReview,
             [field]: value
         }));
+    }
+
+    function onAddReview(e) {
+        e.preventDefault();
+        onSubmit(review.rating, review.description);
     }
     return (
         <div className="add-review-container">
@@ -28,7 +36,7 @@ export default function AddReview({ review, setReview, onSubmit, onCancel }) {
                 />
             </div>
             <div className="add-review-buttons">
-                <button onClick={onSubmit}>Post Comment</button>
+                <button onClick={onAddReview}>Post Comment</button>
                 <button onClick={onCancel}>Cancel</button>
             </div>
 

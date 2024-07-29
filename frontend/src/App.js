@@ -12,14 +12,16 @@ import MainRoute from './router/routes';
 
 function App() {
   return (
-    <Router>
-      <NavBar />
-      <div className="App">
-        <div className="dashboard">
-          <MainRoute />
+    <EventProvider>
+      <Router>
+        <NavBar />
+        <div className="App">
+          <div className="dashboard">
+            <MainRoute />
+          </div>
         </div>
-      </div>
-    </Router>
+      </Router>
+    </EventProvider>
   );
 }
 

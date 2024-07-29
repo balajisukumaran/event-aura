@@ -1,7 +1,7 @@
 import "./EventDetails.css";
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { EventContext } from '../../context/EventContext';
 import { format, parse } from 'date-fns';
 import ReviewCard from "../../components/ReviewCard/ReviewCard";
@@ -17,12 +17,43 @@ import { useParams } from 'react-router-dom';
 export default function EventDetails() {
     const [openReviewModal, setOpenReviewModal] = useState(false);
     const [openBookModal, setOpenBookModal] = useState(false);
+    const [organizer, setOrganizer] = useState(null);
+    const [reviews, setReviews] = useState([]);
 
     const { events } = useContext(EventContext);
     const { id } = useParams();
     const event = events.find(event => event.id === id);
-    const organizer = event ? event.organizer : null;
-    const reviews = event ? event.reviews : null;
+
+    useEffect(() => {
+
+        const fetchOrganizerDetails = async (organizerId) => {
+            try {
+                const response = await axios.get(`http://localhost:8080/api/users/${organizerId}`);
+                if (response.status === 200) {
+                    setOrganizer(response.data);
+                }
+            } catch (error) {
+                console.error("There was an error fetching the organizer details!", error);
+            }
+        };
+
+        const fetchReviews = async (eventId) => {
+            try {
+                const response = await axios.get(`http://localhost:8080/api/reviews/all?event=${eventId}`);
+                if (response.status === 200) {
+                    setReviews(response.data);
+                }
+            } catch (error) {
+                console.error("There was an error fetching the reviews!", error);
+            }
+        };
+
+
+        if (event) {
+            fetchOrganizerDetails(event.organizerId);
+            fetchReviews(event.id);
+        }
+    }, [event]);
 
     const formatDateTime = (dateString, timeString) => {
         const parsedDate = parse(dateString, 'dd-MM-yyyy', new Date());
@@ -44,7 +75,7 @@ export default function EventDetails() {
         };
 
         try {
-            const response = await axios.post('http://localhost:8080/api/review/add', review_request);
+            const response = await axios.post('http://localhost:8080/api/reviews/add', review_request);
             console.log("Review added", response.data);
         } catch (error) {
             console.error("There was an error adding the review!", error);
@@ -102,27 +133,28 @@ export default function EventDetails() {
                                     <img src={DummyImage} alt={`Dummy Image`} />
                                 }
                             </Carousel>
+                            {
+                                organizer && <div className="organizer-box">
+                                    <div className="organizer-details">
+                                        <div >
+                                            <img
+                                                className="organizer-image"
+                                                src={organizer.imageurl}
+                                                alt="Organizer Image"
+                                            />
+                                        </div>
+                                        <div className="organizer-description">
+                                            <h6 style={{ marginBottom: "20%" }}>Organized by</h6>
+                                            <h5>{organizer.firstname + " " + organizer.lastname}</h5>
+                                            <p>{organizer.no_of_followers} Followers</p>
 
-                            <div className="organizer-box">
-                                <div className="organizer-details">
-                                    <div >
-                                        <img
-                                            className="organizer-image"
-                                            src={organizer.image}
-                                            alt="Organizer Image"
-                                        />
+                                        </div>
                                     </div>
-                                    <div className="organizer-description">
-                                        <h6 style={{ marginBottom: "20%" }}>Organized by</h6>
-                                        <h5>{organizer.fullname}</h5>
-                                        <p>{organizer.no_of_followers} Followers</p>
-
+                                    <div>
+                                        <button className="organizer-follow-button">Follow</button>
                                     </div>
                                 </div>
-                                <div>
-                                    <button className="organizer-follow-button">Follow</button>
-                                </div>
-                            </div>
+                            }
 
                         </div >
                         <div className="right-box">

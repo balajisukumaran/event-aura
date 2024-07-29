@@ -26,6 +26,9 @@ public class User implements UserDetails {
     private String email;
     private String phone;
     private String password;
+    private String image;
+    private int no_of_followers;
+    private String description;
     private USER_ROLE role;
     private String status;
     private String imageurl;

@@ -8,12 +8,13 @@ const FormStepper = ({currentStep, steps}) => {
       <Stepper activeStep={currentStep} 
       stepClassName={'stepper__step'}
        styleConfig={{
-              activeBgColor: '#176fcd',
+              activeBgColor: 'rgb(255 154 1)',
+              activeColor: "#1A2529",
               activeTextColor: '#fff',
               inactiveBgColor: '#fff',
-              inactiveTextColor: '#2b7cff',
+              inactiveTextColor: '#1A2529',
               completedBgColor: '#fff',
-              completedTextColor: '#2b7cff',
+              completedTextColor: '#1A2529',
               size: '2em'
             }}>
         {steps.map((step, index) => (

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./styles.css";
-import { EventImage } from "../../assets";
+
 import Stepper from "../../components/Stepper/Stepper";
 import  DropzoneComponent from "../../components/ImageUpload/DropzoneComponent";
 import DateTimePicker from "../../components/DateTimePicker/DateTimePicker";
@@ -8,8 +8,7 @@ import LocationForm from "../../components/LocationForm/LocationForm";
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 
-export const CreateEventPage = () => {
-  const [currentStep, setCurrentStep] = useState(0);
+export const EditEvent = () => {
   const [eventName, setEventName] = useState("");
   const [eventDescription, setEventDescription] = useState("");
   const [, setFiles] = useState([]);
@@ -37,16 +36,6 @@ export const CreateEventPage = () => {
   ];
   const handleFilesSelected = (selectedFiles) => {
     setFiles(selectedFiles);
-  };
-
-  const handleNext = (e) => {
-    e.preventDefault();
-    const validationErrors = validateStep(currentStep);
-    if (Object.keys(validationErrors).length === 0) {
-      setCurrentStep((prevStep) => prevStep + 1);
-    } else {
-      setErrors(validationErrors);
-    }
   };
 
   const validateStep = (step) => {
@@ -85,10 +74,7 @@ export const CreateEventPage = () => {
     }
     return errors;
   };
-  const handleBack = (e) => {
-    e.preventDefault();
-    setCurrentStep((prevStep) => Math.max(prevStep - 1, 0));
-  };
+
 
   const handleSubmit = () => {
     toast.success('Event created successfully!!');
@@ -108,19 +94,13 @@ export const CreateEventPage = () => {
                     <div className="card border-0 shadow-sm p-4">
                       <div className="card-body">
                         <form className="row g-3">
-                          <h4 class="fw-bold">Create Event</h4>
+                          <h4 class="fw-bold">Edit Event</h4>
                           <p style={{ margin: "0px" }}>
-                            Please fill the following details about your event
+                            Please update the details about your event
                           </p>
 
-                          <Stepper
-                            currentStep={currentStep}
-                            handleNext={handleNext}
-                            handleBack={handleBack}
-                            steps={steps}
-                          />
                           <div className="content">
-                            {currentStep === 0 && (
+                           
                               <div>
                                 <div>
                                   <label className="form-label fw-semibold mt-2">
@@ -179,8 +159,8 @@ export const CreateEventPage = () => {
                                   />
                                 </div>
                               </div>
-                            )}
-                            {currentStep === 1 && (
+                        
+                            
                               <div>
                                 <DateTimePicker
                                   eventDate={eventDate}
@@ -204,8 +184,8 @@ export const CreateEventPage = () => {
                                   errors={errors}
                                 />
                               </div>
-                            )}
-                            {currentStep === 2 && (
+                        
+                          
                               <LocationForm
                                 selectedOption={selectedOption}
                                 address={address}
@@ -220,18 +200,18 @@ export const CreateEventPage = () => {
                                   setTicketPrice(e.target.value)}
                                 } 
                               />
-                            )}
+                        
                           </div>
                           <div className="buttons">
                             <button
-                              onClick={currentStep === 2 ? handleSubmit : handleNext}
+                              onClick={handleSubmit}
                               style={{backgroundColor: "#FF9A00"}}
                             >
-                              {currentStep === 2 ? "Submit" : "Next"}
+                              {"Submit"}
                             </button>
                             <button
-                              onClick={handleBack}
-                              disabled={currentStep === 0}
+                              // onClick={handleBack}
+                             
                             >
                               Back
                             </button>

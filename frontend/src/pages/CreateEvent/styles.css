@@ -1,0 +1,10 @@
+.block {
+    border: 2px solid #919293; 
+    border-radius: 8px;
+    
+}
+  
+  .buttons button {
+    float: right;
+  }
+  

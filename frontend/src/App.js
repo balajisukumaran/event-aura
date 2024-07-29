@@ -7,25 +7,19 @@ import ContactUs from './pages/ContactUs/ContactUs';
 import FAQ from './pages/FAQ/FAQ';
 import Login from './pages/Login/Login';
 import { EventProvider } from './context/EventContext';
+import MainRoute from './router/routes';
 
 
 function App() {
   return (
-    <EventProvider>
-      <Router>
-        <NavBar />
-        <div className="App">
-          <div className="dashboard">
-            <Routes>
-              <Route path='/' element={<LandingPage />} />
-              <Route path='/contact' element={<ContactUs />} />
-              <Route path='/faq' element={<FAQ />} />
-              <Route path='/login' element={<Login />} />
-            </Routes>
-          </div>
+    <Router>
+      <NavBar />
+      <div className="App">
+        <div className="dashboard">
+          <MainRoute />
         </div>
-      </Router>
-    </EventProvider>
+      </div>
+    </Router>
   );
 }
 

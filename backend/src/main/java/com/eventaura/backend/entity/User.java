@@ -16,24 +16,24 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "Users")
+@Document(collection = "users")
 public class User implements UserDetails {
 
     @Id
     private String id;
-    private String first_name;
-    private String last_name;
+    private String firstname;
+    private String lastname;
     private String email;
     private String phone;
     private String password;
-    private USER_ROLE user_type;
+    private USER_ROLE role;
     private String status;
-    private String image_url;
+    private String imageurl;
 
     // Return the list of roles: user, admin
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(user_type.name()));
+        return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
     @Override
@@ -43,6 +43,8 @@ public class User implements UserDetails {
 
     @Override
     public String getPassword(){ return password; }
+
+    public USER_ROLE getRole(){ return role; }
 
     @Override
     public boolean isAccountNonExpired() {

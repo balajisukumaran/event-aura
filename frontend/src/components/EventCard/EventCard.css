@@ -2,7 +2,6 @@
     margin: 10px;
     padding : 10px;
     border: 1px solid #ddd;
-    border-radius: 30px;
     color: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     background-color: white;
@@ -49,6 +48,7 @@
     align-items: flex-end;
     font-family: Arial, Helvetica, sans-serif;
     margin: 0 5%;
+    white-space: nowrap;
 }
 
 .event-desc {

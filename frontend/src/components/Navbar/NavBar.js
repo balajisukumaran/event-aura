@@ -21,6 +21,7 @@ const NavBar = () => {
                 <p onClick={() => navigate("/login")}>Events</p>
                 <p onClick={() => navigate("/faq")}>FAQs</p>
                 <p onClick={() => navigate("/contact")}>Contact Us</p>
+                <p onClick={() => navigate("/event-history")}>Event History</p>
 
                 <p><button className='login-register-button' onClick={() => navigate("/login")}>Login</button> </p>
             </div>

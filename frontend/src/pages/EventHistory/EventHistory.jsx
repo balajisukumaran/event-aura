@@ -13,8 +13,9 @@ const EventHistory = () => {
 
   return (
     <div className="event-history">
+      <button className='event-history-button'>Create Event</button>
       <Tabs TabIndicatorProps={{style: {background:'#FF9A00'}}} className="event-history-tabs" centered value={selectedTab} onChange={handleChange}>
-        {tabs.map((tab) => <Tab className="event-history-tabs-item" label={tab.name} key={tab.id} sx={{ '&.Mui-selected': { color: 'red' } }} />)}
+        {tabs.map((tab) => <Tab className="event-history-tabs-item" label={tab.name} key={tab.id} />)}
       </Tabs>
       <EventSlider events={events} className="event-history-slider" />
     </div>

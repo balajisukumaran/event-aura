@@ -21,7 +21,7 @@ public class Order {
     private String eventId;
     private Integer numTickets;
     private String orderStatus;
-    private Date createdAt;
+    private String createdAt;
     private Float totalAmount;
 
 

@@ -18,5 +18,8 @@ public class User {
     private String fullname;
     private String email;
     private String password;
+    private String image;
+    private int no_of_followers;
+    private String description;
     private USER_ROLE role;
 }

@@ -8,11 +8,10 @@
 .slider-wrapper {
   display: flex;
   transition: transform 0.5s ease-in-out;
-  margin-left: 40px;
+  margin-left: 50px;
 }
 
 .slide {
-  flex: 1 0 33.33%;
   box-sizing: border-box;
   padding: 0 10px;
 }

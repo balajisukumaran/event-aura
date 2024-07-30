@@ -84,8 +84,8 @@ export default function EventDetails() {
 
     function handleBooking(numTickets, total) {
         const order_request = {
-            user_id: 1,
-            event_id: event.id,
+            user_id: localStorage.getItem("userId"),
+            event,
             no_of_tickets: numTickets,
             total: total
         };

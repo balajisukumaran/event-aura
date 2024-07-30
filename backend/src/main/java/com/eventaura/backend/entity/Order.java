@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.sql.Date;
 
 @Document(collection = "orders")
 @Data
@@ -18,7 +17,7 @@ public class Order {
     private String id;
 
     private String userId;
-    private String eventId;
+    private Event event;
     private Integer numTickets;
     private String orderStatus;
     private String createdAt;

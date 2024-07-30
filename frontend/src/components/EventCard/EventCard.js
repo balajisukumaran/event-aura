@@ -1,11 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './EventCard.css';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Carousel } from 'react-responsive-carousel';
 import { DummyImage } from "../../assets/";
+import CancelBookingModal from '../CancelBookingModal';
 
 const EventCard = ({ event }) => {
     const navigate = useNavigate();
+    const location = useLocation();
+    const [openModal, setOpenModal] = useState(false);
+
+    const handleCancelBookingClick = (e) => {
+        e.stopPropagation();
+       event.onCancelBooking();
+    };
+
+    const onClickCancel = (e) => {
+        e.stopPropagation();
+        setOpenModal(true);
+    }
+
     return (
         <div className="event-card" onClick={() => navigate("/events/" + event.id)}>
             <Carousel
@@ -34,11 +48,20 @@ const EventCard = ({ event }) => {
                 </div>
             </div>
             <div className="event-info">
-
                 <div className="event-desc">{event.description}</div>
             </div>
-
-
+            {
+                (event?.organizerId !== localStorage.getItem("userId") && location.pathname === '/event-history') ? (
+                    <div className='event-cta'>
+                        <button className='event-cta-btn' onClick={onClickCancel}>Cancel Booking</button>
+                    </div>
+                ) : <div className='event-cta-empty' />
+            }
+            <CancelBookingModal
+                open={openModal}
+                handleConfirm={handleCancelBookingClick}
+                handleClose={() => setOpenModal(false)}
+            />
         </div>
     );
 };

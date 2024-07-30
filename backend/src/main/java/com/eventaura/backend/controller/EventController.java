@@ -1,23 +1,36 @@
 package com.eventaura.backend.controller;
 
+import com.eventaura.backend.entity.Event;
 import com.eventaura.backend.repository.EventRepository;
+import com.eventaura.backend.service.EventService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import com.eventaura.backend.repository.Event;
 
 import java.util.List;
 
+
 @RestController
+@RequestMapping("/api/events")
 public class EventController {
 
-    @PostMapping(path="/create", produces = "application/json")
-    public Object processRequest(@RequestBody Event requestBody )
-    {
-        return null;
+
+    @Autowired
+    private EventService eventService;
+    @GetMapping(path = "/", produces = "application/json")
+    public ResponseEntity<Object> getEvents() {
+        try{
+            List<Event> events = eventService.getEvents();
+            return new ResponseEntity(events, HttpStatus.OK);
+        }
+        catch (Exception ex){
+            return new ResponseEntity("Error while fetching events.", HttpStatus.BAD_REQUEST);
+        }
     }
 
-    @GetMapping(path = "/events", produces = "application/json")
-    public List<Event> getEventsByUserId(@RequestParam String userId) {
-        return EventRepository.findAllByUserId(userId);
-    }
+    // @GetMapping(path = "/events", produces = "application/json")
+    // public List<Event> getEventsByUserId(@RequestParam String userId) {
+    //     // return EventRepository.findAllByUserId(userId);
+    // }
 }

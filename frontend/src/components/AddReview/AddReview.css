@@ -1,0 +1,21 @@
+.add-review-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.add-review-star{
+    margin: 3% 0;
+    display: flex;
+}
+
+.add-review-buttons{
+    display: flex;
+    justify-content: space-between;
+}
+
+.add-review-buttons button{
+    height: 40px;
+    background-color: orange;
+    border: none;
+    border-radius: 5px;
+}

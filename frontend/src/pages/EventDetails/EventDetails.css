@@ -1,0 +1,87 @@
+.event-detail-title{
+    margin: 2%;
+    text-align: left;
+}
+.event-detail-container {
+    margin: 2%;
+    flex-direction: row;
+    display: flex;
+}
+
+.left-box{
+    width: 50%;
+
+}
+
+.right-box{
+    margin: 1% 2%;
+    text-align: start;
+    width: 50%;
+}
+
+.organizer-box{
+    width: 100%;
+    border: 1px solid orange;
+    padding: 5%;
+    display: flex;
+    flex-direction: row; /*need to change for small screen */
+    justify-content: space-between;
+
+}
+
+.organizer-details{
+    display: flex;
+    flex-direction: row; /*need to change for small screen */
+
+}
+
+.organizer-details .organizer-image{
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    margin-left: 10%;
+}
+
+.organizer-details .organizer-description{
+    display: flex;
+    flex-direction: column;
+    white-space: nowrap;
+    text-align: left;
+    margin-left: 10%;
+}
+
+.organizer-follow-button, .review-add-button{
+    background-color: orange;
+    width: 120px;
+    height: 40px;
+}
+
+.event-book-button {
+    background-color: orange;
+    width: 200px;
+    height: 40px; 
+}
+
+.review-list-box{
+    width: 100%;
+    border: 1px solid orange;
+    margin-top: 10%;
+}
+
+.review-list-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5%;
+}
+
+.custom-link {
+    color: orange;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.custom-link:hover {
+    text-decoration: underline; /* Optional: adds underline on hover if you want to indicate it's clickable */
+}

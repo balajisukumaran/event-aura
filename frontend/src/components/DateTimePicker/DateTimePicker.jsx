@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
+import "./DateTimePicker.css";
 
 const DateTimePicker = ({eventDate, eventStartTime, eventEndTime, handleDateChange, handleStartTimeChange, handleEndTimeChange, errors }) => {
     const [isSingleEvent, setIsSingleEvent] = useState(true);
@@ -39,12 +40,14 @@ const DateTimePicker = ({eventDate, eventStartTime, eventEndTime, handleDateChan
                     <div className='row mt-2'>
                     <div className="form-group col-md-5">
                         <label className="form-label fw-semibold mt-2">Start time</label>
+                        <div className="time-picker-container">
                             <input type="time"  className={`form-control mt-1 ${errors.eventStartTime ? 'border-danger' : ''}`}  id="start-time" value={eventStartTime} onChange={handleStartTimeChange}/>
                             {errors.eventStartTime && (
                                     <div className="text-danger mt-1">
                                       {errors.eventStartTime}
                                     </div>
                                   )}
+                    </div>
                     </div>
                     <div className="form-group col-md-5">
                         <label className="form-label fw-semibold mt-2">End time</label>

@@ -10,7 +10,6 @@ import com.eventaura.backend.utils.Awsutils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class EventServiceImpl implements EventService{
@@ -31,22 +30,21 @@ public class EventServiceImpl implements EventService{
         return eventRepository.findById(id);
     }
 
-    // @Override
-    // public Event createEvent(Event event) {
-    //     return eventRepository.save(event);
-    // }
-
     @Override
     public Event createEvent(Event event, List<MultipartFile> images) {
         List<String> imageUrls = new ArrayList<>();
-        for (MultipartFile image : images) {
-            String imageUrl = awsUtils.uploadFileToS3(image, "EVENT_IMAGES", event.getTitle());
-            imageUrls.add(awsUtils.fetchImageUrl(awsUtils.getS3BucketName(), imageUrl));
+        
+        if (images != null && !images.isEmpty()) {
+            for (MultipartFile image : images) {
+                String imageUrl = awsUtils.uploadFileToS3(image, "EVENT_IMAGES", event.getTitle());
+                imageUrls.add(awsUtils.fetchImageUrl(awsUtils.getS3BucketName(), imageUrl));
+            }
         }
+        
         event.setImages(imageUrls);
         return eventRepository.save(event);
     }
-
+    
     @Override
     public void deleteEvent(String id) {
         eventRepository.deleteById(id);
@@ -64,6 +62,23 @@ public class EventServiceImpl implements EventService{
             event.setStartTime(eventDetails.getStartTime());
             event.setEndTime(eventDetails.getEndTime());
             event.setOrganizerId(eventDetails.getOrganizerId());
+            event.setEventType(eventDetails.getEventType());
+            event.setLocationType(eventDetails.getLocationType());
+            if (newImages != null && !newImages.isEmpty()) {
+                // Delete old images
+                List<String> oldImageUrls = event.getImages();
+                for (String oldImageUrl : oldImageUrls) {
+                    awsUtils.deleteFilefromS3(oldImageUrl);
+                }
+
+                // Upload new images
+                List<String> newImageUrls = new ArrayList<>();
+                for (MultipartFile image : newImages) {
+                    String imageUrl = awsUtils.uploadFileToS3(image, "EVENT_IMAGES", event.getTitle());
+                    newImageUrls.add(awsUtils.fetchImageUrl(awsUtils.getS3BucketName(), imageUrl));
+                }
+                event.setImages(newImageUrls);
+            }
             return eventRepository.save(event);
         }).orElseThrow();
     }

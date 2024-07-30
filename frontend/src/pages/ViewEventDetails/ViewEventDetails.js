@@ -1,26 +1,22 @@
-import "./ViewEventDetails.css";
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import React, { useContext, useState, useEffect } from 'react';
-import { format, parse } from 'date-fns';
+import React, {  useState, useEffect } from 'react';
 import ReactLoading from "react-loading";
 import { DummyImage } from "../../assets";
 import { Modal, Box } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import api from "../../services";
-
+import "./ViewEventDetails.css";
 
 export default function ViewEventDetails() {
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
     const [event, setEvent] = useState();
     const { id } = useParams();
     const [loading, setLoading] = useState(true);
-
-
   const navigate = useNavigate();
 
-
+console.log(event);
     useEffect(() => {
         api.events.getEventId(id)
         .then(response => {
@@ -33,11 +29,11 @@ export default function ViewEventDetails() {
             setLoading(false);
         });
     }, []);
-    const formatDateTime = (dateString, timeString) => {
-        const parsedDate = parse(dateString, 'dd-MM-yyyy', new Date());
-        const formattedDate = format(parsedDate, "do MMMM yyyy");
-        return `${formattedDate}, ${timeString}`;
-    };
+
+    function formatDate(date) {
+        const [year, month, day] = date.split('-');
+        return `${day}-${month}-${year}`;
+      }
 
     const handleOpenDeleteModal = () => setOpenDeleteModal(true);
     const handleCloseDeleteModal = () => setOpenDeleteModal(false);
@@ -92,9 +88,11 @@ console.log(error);
 
                         </div >
                         <div className="right-box">
-                            <p> {event.desc}</p>
-                            <h6><strong>Date and Time</strong></h6>
-                            <p>{formatDateTime(event.date, event.time)}</p>
+                            <p> {event.description}</p>
+                            <h6><strong>Date</strong></h6>
+                            <p>{formatDate(event.date)}</p>
+                            <h6><strong>Time</strong></h6>
+                            <p>{`${event.startTime} - ${event.endTime}`}</p>
                             <h6><strong>Location</strong></h6>
                             <p>{event.location}</p>
                             <h6><strong>Ticket Price</strong></h6>

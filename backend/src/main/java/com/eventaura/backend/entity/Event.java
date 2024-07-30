@@ -25,6 +25,8 @@ public class Event {
     private Float price;
     private String location;
     private String organizerId;
+    private String eventType;
+    private String locationType;
 
     private List<String> images;
 

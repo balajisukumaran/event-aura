@@ -30,7 +30,7 @@ const EventCard = ({ event }) => {
                 <div className="event-title">{event.title}</div>
                 <div className="event-datetime">
                     <span className="event-date">{event.date}</span>
-                    <span className="event-time">{event.time}</span>
+                    <span className="event-time">{event.startTime} - {event.endTime}</span>
                 </div>
             </div>
             <div className="event-info">

@@ -1,6 +1,7 @@
 .custom-number-input {
     background-color:  #ff9800;
-    color: #333; 
+    color: white; 
+    font-weight: bold;
     border: 2px solid #ff9800; 
     border-radius: 4px;
     font-size: 16px; 

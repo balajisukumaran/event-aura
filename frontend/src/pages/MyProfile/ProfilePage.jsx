@@ -214,7 +214,7 @@ const ProfilePage = () => {
           <Grid item xs={12} md={8} className="profile-content">
             {selectedOption === 'personalInformation' && (
               <>
-                <Typography variant="h6" gutterBottom>Personal Information</Typography>
+                <Typography variant="h6" gutterBottom className="black-text-important">Personal Information</Typography>
                 <Grid container spacing={2}>
                   <Grid item xs={12} sm={6}>
                     <TextField
@@ -296,7 +296,7 @@ const ProfilePage = () => {
             )}
             {selectedOption === 'accountSettings' && (
               <>
-                <Typography variant="h6" gutterBottom>Account Settings</Typography>
+                <Typography variant="h6" gutterBottom className="black-text-important">Account Settings</Typography>
                 <Grid container spacing={2}>
                   <Grid item xs={12} className="profile-actions">
                     <Button

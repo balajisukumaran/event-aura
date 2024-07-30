@@ -1,7 +1,6 @@
 import LandingPage from '../pages/LandingPage/LandingPage';
 import ContactUs from '../pages/ContactUs/ContactUs';
 import FAQ from '../pages/FAQ/FAQ';
-import Login from '../pages/Login/Login';
 import EventHistory from '../pages/EventHistory';
 import {CreateEventPage} from "../pages/CreateEvent/CreateEventPage";
 import { EditEvent } from '../pages/EditEvent/EditEvent';

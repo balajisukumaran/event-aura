@@ -1,9 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import { TextField, Button, Typography, Grid } from "@mui/material";
+import { put } from "../../services/utils";
+import ConfirmationDialog from "./ConfirmationDialog";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./EventDetails.css"; // Import the CSS file for additional styles
+import "./EventDetails.css";
 
-const EventDetails = ({ event, onNavigate }) => {
+const EventDetails = ({ event, onNavigate, onEventUpdate }) => {
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [action, setAction] = useState("");
+
+  const handleOpenDialog = (actionType) => {
+    setAction(actionType);
+    setDialogOpen(true);
+  };
+
+  const handleCloseDialog = () => {
+    setDialogOpen(false);
+  };
+
+  const handleConfirm = async (eventId, comments) => {
+    const apiEndpoint = `/events/${eventId}/approve-reject`;
+    try {
+      const response = await put(apiEndpoint, {
+        isApproved: action === "Approve",
+        comments,
+      });
+
+      onEventUpdate(); // Refresh the event list
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   if (!event) {
     return (
       <Typography variant="h6" className="text-light">
@@ -114,6 +142,7 @@ const EventDetails = ({ event, onNavigate }) => {
               variant="contained"
               color="success"
               style={{ marginRight: 10 }}
+              onClick={() => handleOpenDialog("Approve")}
             >
               Approve
             </Button>
@@ -121,12 +150,20 @@ const EventDetails = ({ event, onNavigate }) => {
               variant="contained"
               color="error"
               style={{ marginRight: 10 }}
+              onClick={() => handleOpenDialog("Reject")}
             >
               Reject
             </Button>
           </div>
         </Grid>
       </Grid>
+      <ConfirmationDialog
+        open={dialogOpen}
+        event={event}
+        onClose={handleCloseDialog}
+        onConfirm={handleConfirm}
+        action={action}
+      />
     </div>
   );
 };

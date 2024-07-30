@@ -87,4 +87,13 @@ public class EventServiceImpl implements EventService{
             return eventRepository.save(event);
         }).orElseThrow();
     }
+
+    @Override
+    public Event approveEvent(String id, String comments, boolean isApproved) {
+        return eventRepository.findById(id).map(event -> {
+            event.setIsApproved(isApproved);
+            event.setComment(comments);
+            return eventRepository.save(event);
+        }).orElseThrow();
+    }
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -70,7 +71,17 @@ public class EventController {
         Event updatedEvent = eventService.updateEvent(id, event, images);
         return new EventResponse("Event updated successfully", updatedEvent);
     }
-    
+
+    @PutMapping("/{id}/approve-reject")
+    public EventResponse approveRejectEvent(
+            @PathVariable String id,
+            @RequestBody Map<String, Object> request) {
+        boolean isApproved = (boolean) request.get("isApproved");
+        String comments = (String) request.get("comments");
+        Event updatedEvent = eventService.approveEvent(id, comments, isApproved);
+        return new EventResponse("Event updated successfully", updatedEvent);
+    }
+
     @DeleteMapping("/{id}")
     public EventResponse deleteEvent(@PathVariable String id) {
         eventService.deleteEvent(id);

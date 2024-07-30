@@ -15,4 +15,5 @@ public interface EventService {
     Event createEvent(Event event, List<MultipartFile> images);
     void deleteEvent(String id);
     Event updateEvent(String id, Event eventDetails, List<MultipartFile> newImages);
+    Event approveEvent(String id, String comments, boolean isApproved);
 }

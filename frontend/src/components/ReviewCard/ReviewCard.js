@@ -34,7 +34,7 @@ export default function ReviewCard({ review }) {
                 <div style={{ fontSize: "0.8rem", marginLeft: "5%" }}>
                     <p>{review.username}</p>
                     <p>{formatDate(review.date)}</p>
-                    <p>{review.description}</p>
+                    <p>{review.comment}</p>
                     <Rating
                         name="simple-controlled"
                         value={review.rating}

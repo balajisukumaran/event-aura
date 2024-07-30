@@ -1,0 +1,31 @@
+.event-details {
+  background-color: #202b2e; /* Dark background color */
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.text-field .MuiInputBase-input {
+  color: white; /* Text color for input fields */
+}
+
+.text-field .MuiInputLabel-root {
+  color: #cccccc; /* Label color */
+}
+
+.text-field .MuiOutlinedInput-root {
+  fieldset {
+    border-color: #444444; /* Border color */
+  }
+
+  &:hover fieldset {
+    border-color: #ffffff; /* Border color on hover */
+  }
+
+  &.Mui-focused fieldset {
+    border-color: #ff9a00; /* Border color when focused */
+  }
+}
+
+.event-image {
+  border-radius: 5px;
+}

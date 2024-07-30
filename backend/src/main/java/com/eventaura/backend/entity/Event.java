@@ -27,8 +27,25 @@ public class Event {
     private String organizerId;
     private String eventType;
     private String locationType;
-
+    private Boolean isApproved;
+    private String comment;
     private List<String> images;
+
+    public Boolean getApproved() {
+        return isApproved;
+    }
+
+    public void setApproved(Boolean approved) {
+        isApproved = approved;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 
     public String getOrganizerId() {
         return organizerId;

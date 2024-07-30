@@ -24,7 +24,7 @@ export const EditEvent = () => {
   const [selectedOption, setSelectedOption] = useState("Venue");
   const [address, setAddress] = useState("");
   const [ticketPrice, setTicketPrice] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [, setLoading] = useState(true);
 
   const navigate = useNavigate();
 
@@ -42,22 +42,15 @@ export const EditEvent = () => {
     return `${hours}:${minutes}`;
   }
 
-  function formatDate(date) {
-    const [day, month, year] = date.split("-");
-    return `${year}-${month}-${day}`;
-  }
-
   useEffect(() => {
     api.events
       .getEventId(id)
       .then((response) => {
         const formattedStartTime = formatTime(response.startTime);
         const formattedEndTime = formatTime(response.endTime);
-        const formattedDate = formatDate(response.date);
-        console.log(formatDate);
         setEventName(response.title);
         setEventDescription(response.description);
-        setEventDate(formattedDate);
+        setEventDate(response.date);
         setEventStartTime(formattedStartTime);
         setEventEndTime(formattedEndTime);
         setAddress(response.location);
@@ -77,28 +70,22 @@ export const EditEvent = () => {
       setAddress("");
     }
   };
-  const steps = [
-    { label: "Event Details" },
-    { label: "Date and Time" },
-    { label: "Location" },
-  ];
+
   const handleFilesSelected = (selectedFiles) => {
     setFiles(selectedFiles);
   };
 
-  const validateStep = (step) => {
+  const validate = () => {
     const today = new Date().toISOString().split("T")[0];
     const errors = {};
-    switch (step) {
-      case 0:
+    
         if (!eventName) {
           errors.eventName = "Event Name is required";
         }
         if (!eventDescription) {
           errors.eventDescription = "Event Description is required";
         }
-        break;
-      case 1:
+      
         if (!eventDate) {
           errors.eventDate = "Event Date is required";
         }
@@ -111,20 +98,24 @@ export const EditEvent = () => {
         if (!eventEndTime) {
           errors.eventEndTime = "Event End Time is required";
         }
-        break;
-      case 2:
+      
         if (!address && selectedOption === "Venue") {
           errors.address = "Event Location is required";
         }
-        break;
-      default:
-        break;
-    }
     return errors;
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmitClick = (e) => {
     e.preventDefault();
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length === 0) {
+      handleSubmit();
+    } else {
+      setErrors(validationErrors);
+    }
+  };
+
+  const handleSubmit = async () => {
     const formData = new FormData();
     formData.append(
       "event",
@@ -152,18 +143,17 @@ export const EditEvent = () => {
       formData.append("images", file);
     });
     try {
-      await axios.put(`http://localhost:8080/api/events/${id}`, formData, {
+      await axios.put(`https://event-aura-yt4akn7xpq-uc.a.run.app/api/events/${id}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
       navigate("/events");
-      toast.success("Event created successfully!!");
+      toast.success("Event edited successfully!!");
     } catch (error) {
+      toast.success("An error occurred!!");
       console.log(error);
     }
-    toast.success("Event created successfully!!");
-    navigate("/events");
   };
 
   return (
@@ -282,7 +272,7 @@ export const EditEvent = () => {
                 </div>
                 <div className="buttons">
                   <button
-                    onClick={handleSubmit}
+                    onClick={handleSubmitClick}
                     style={{ backgroundColor: "#FF9A00" }}
                   >
                     {"Submit"}

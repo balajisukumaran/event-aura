@@ -16,7 +16,7 @@ export default function ViewEventDetails() {
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
     const [event, setEvent] = useState();
     const { id } = useParams();
-    const [loading, setLoading] = useState(true);
+    const [, setLoading] = useState(true);
     const navigate = useNavigate();
 
     console.log(event);

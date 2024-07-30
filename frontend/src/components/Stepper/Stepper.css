@@ -1,0 +1,27 @@
+  .content {
+    margin-bottom: 20px;
+  }
+  
+  .buttons button {
+    padding: 8px 20px;
+    margin: 0 5px;
+    border: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .buttons button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+  
+  .buttons button:not(:disabled) {
+    background-color: #176fcd;
+    color: white;
+  }
+  
+  .stepper__step {
+    border: 1px solid #176fcd !important;
+    cursor: default !important;
+  }
+  

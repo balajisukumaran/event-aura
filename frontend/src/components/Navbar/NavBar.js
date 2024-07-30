@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useHistory, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./NavBar.css";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useNavigate } from "react-router-dom";
@@ -13,7 +13,7 @@ const NavBar = () => {
   };
 
   useEffect(() => {
-    const storedRole = localStorage.getItem("role");
+    const storedRole = "ADMIN"; //localStorage.getItem("role");
     if (!storedRole) {
       navigate("/login");
     } else {
@@ -29,14 +29,12 @@ const NavBar = () => {
         </Link>
       </div>
       <div className="navbar-links">
-        <p onClick={() => navigate("/login")}>Events</p>
+        <p onClick={() => navigate("/event-history")}>Events</p>
         <p onClick={() => navigate("/faq")}>FAQs</p>
         <p onClick={() => navigate("/contact")}>Contact Us</p>
-        <p onClick={() => navigate("/event-history")}>Event History</p>
         {role === "ADMIN" && (
           <p onClick={() => navigate("/approvals")}>Approvals</p>
         )}
-
         <p>
           <button
             className="login-register-button"
@@ -51,7 +49,7 @@ const NavBar = () => {
       </div>
       {isMenuOpen && (
         <div className="navbar-dropdown">
-          <Link to="/login" onClick={toggleMenu}>
+          <Link to="/event-history" onClick={toggleMenu}>
             Events
           </Link>
           <Link to="/faq" onClick={toggleMenu}>
@@ -60,6 +58,11 @@ const NavBar = () => {
           <Link to="/contact" onClick={toggleMenu}>
             Contact
           </Link>
+          {role === "ADMIN" && (
+            <Link to="/approvals" onClick={toggleMenu}>
+              Approvals
+            </Link>
+          )}
           <Link to="/login" onClick={toggleMenu}>
             Login
           </Link>

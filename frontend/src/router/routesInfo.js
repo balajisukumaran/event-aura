@@ -7,12 +7,12 @@ import { CreateEventPage } from "../pages/CreateEvent/CreateEventPage";
 import { EditEvent } from "../pages/EditEvent/EditEvent";
 import Login from "../components/Authentication/Login";
 import Signup from "../components/Authentication/Signup";
+import ResetPassword from "../components/Authentication/ResetPassword";
 import EventDetails from "../pages/EventDetails/EventDetails";
 import BookingSuccess from "../pages/BookingSuccess/BookingSuccess";
 import BookingFailure from "../pages/BookingFailure/BookingFailure";
 import ViewEventDetails from "../pages/ViewEventDetails/ViewEventDetails";
 import ProfilePage from "../pages/MyProfile/ProfilePage";
-import ResetPassword from "../components/Authentication/ResetPassword";
 
 const routes = [
   {

@@ -33,7 +33,7 @@ public class AuthenticationController {
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@RequestBody SignupRequest signupRequest){
         if (authenticationService.userExists(signupRequest.getEmail())) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User exists, please login");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User exists");
         }
         return ResponseEntity.ok((authenticationService.signup(signupRequest)));
     }

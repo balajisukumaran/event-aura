@@ -13,10 +13,6 @@ function Login(){
     const [invalidUsernameError, setInvalidUsernameError] = useState('');
     const [invalidPasswordError, setInvalidPasswordError] = useState('');
 
-    // Dummy values for login
-    const testUsername = "vvinod@dal.ca";
-    const testPassword = "csci5709";
-
     const navigate = useNavigate();
 
     const handleFormSubmit = async (event) => {
@@ -50,8 +46,6 @@ function Login(){
             } else {
                 alert('An error occurred. Please try again.');
             }
-           
-
         }
     }
 

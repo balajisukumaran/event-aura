@@ -4,6 +4,7 @@ import googleIcon from './images/search.png';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
+import axios from 'axios';
 
 function Signup(){
     const [inputFirstName, setInputFirstName] = useState('');
@@ -14,24 +15,71 @@ function Signup(){
     const [inputConfirmPassword, setInputConfirmPassword] =  useState('');
     const [invalidUsernameError, setInvalidUsernameError] = useState('');
     const [invalidPasswordError, setInvalidPasswordError] = useState('');
-
-    // Dummy values for login
-    const testUsername = "vvinod@dal.ca";
-    const testPassword = "csci5709";
+    const [invalidPhoneNumberError, setInvalidPhoneNumberError] = useState('');
 
     const navigate = useNavigate();
 
-    const handleFormSubmit = (event) => {
+    const validatePhoneNumber = () => {
+        const phoneNumberPattern = /^\d{10}$/;
+        return phoneNumberPattern.test(inputPhoneNumber);
+    };
+
+    const validatePasswordLength = () => {
+        return inputPassword.length >= 8;
+    };
+
+    const handleFormSubmit = async (event) => {
         // // to prevent from screen getting refreshed
         event.preventDefault();
         setInvalidUsernameError('');
-        if(inputEmail !== testUsername){
-            setInvalidUsernameError('Username does not exist');
+        setInvalidPhoneNumberError('');
+        setInvalidPasswordError('');
+
+        // Invalid phone number check
+        if (!validatePhoneNumber()) {
+            setInvalidPhoneNumberError('Must be a valid phone number');
             return;
-        } else if(inputPassword !== testPassword){
-            setInvalidPasswordError('Password is incorrect')
-        } else {
-            navigate("/")
+        }
+
+        // Password length check
+        if (!validatePasswordLength()) {
+            setInvalidPasswordError('Password must be at least 8 characters long');
+            return;
+        }
+
+        // Password match check
+        if(inputPassword !== inputConfirmPassword){
+            setInvalidPasswordError('Passwords do not match');
+            return;
+        }
+
+        try{
+            const signupRequestBody =  {
+                firstname: inputFirstName,
+                lastname: inputLastName,
+                email: inputEmail,
+                phone: inputPhoneNumber,
+                password: inputPassword,
+                role: "ATTENDEE"
+            }
+
+            const signupResponse = await axios.post('http://localhost:8080/signup', signupRequestBody);
+            // Save data to local storage
+            const { token, email, role } = signupResponse.data;
+            localStorage.setItem('token', token);
+            localStorage.setItem('email', email);
+            localStorage.setItem('role', role);
+            navigate("/");
+
+        } catch (error){
+            const errorMessage = error.response.data.toLowerCase();
+            console.error('Error during login:', errorMessage);
+            if(errorMessage === "user exists"){
+                alert("User already exists, please login!");
+                navigate("/login");
+            } else {
+                alert('An error occurred. Please try again.');
+            }
         }
     }
 
@@ -82,6 +130,7 @@ function Signup(){
                                         onChange={(e) => setInputEmail(e.target.value)} 
                                         required/>
                                 </div>
+                                <div>{invalidPhoneNumberError && <div className="error-message">{invalidPhoneNumberError}</div>}</div>
                                 <div className="form-input">
                                     <input 
                                         type="tel" 

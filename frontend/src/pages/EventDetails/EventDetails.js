@@ -24,6 +24,7 @@ export default function EventDetails() {
     const { id } = useParams();
     const event = events.find(event => event.id === id);
 
+
     useEffect(() => {
         const fetchOrganizerDetails = async (organizerId) => {
             try {

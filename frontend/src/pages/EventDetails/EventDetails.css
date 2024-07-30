@@ -75,3 +75,13 @@
     align-items: center;
     margin: 5%;
 }
+
+.custom-link {
+    color: orange;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.custom-link:hover {
+    text-decoration: underline; /* Optional: adds underline on hover if you want to indicate it's clickable */
+}

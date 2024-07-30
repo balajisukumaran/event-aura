@@ -1,18 +1,19 @@
 import React, { useState } from "react";
+import axios from "axios";
 import "./styles.css";
-import { EventImage } from "../../assets";
 import Stepper from "../../components/Stepper/Stepper";
 import  DropzoneComponent from "../../components/ImageUpload/DropzoneComponent";
 import DateTimePicker from "../../components/DateTimePicker/DateTimePicker";
 import LocationForm from "../../components/LocationForm/LocationForm";
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
+import api from "../../services";
 
 export const CreateEventPage = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [eventName, setEventName] = useState("");
   const [eventDescription, setEventDescription] = useState("");
-  const [, setFiles] = useState([]);
+  const [files, setFiles] = useState([]);
   const [eventDate, setEventDate] = useState("");
   const [eventStartTime, setEventStartTime] = useState("");
   const [eventEndTime, setEventEndTime] = useState("");
@@ -90,9 +91,36 @@ export const CreateEventPage = () => {
     setCurrentStep((prevStep) => Math.max(prevStep - 1, 0));
   };
 
-  const handleSubmit = () => {
-    toast.success('Event created successfully!!');
-    navigate('/events')
+  const handleSubmit = async() => {
+    debugger
+    console.log("in submit");
+    const formData = new FormData();
+        formData.append("event", new Blob([JSON.stringify({
+            title: eventName,
+            description: eventDescription,
+            date: eventDate,
+            startTime: eventStartTime,
+            endTime: eventEndTime,
+            location: address,
+            price: ticketPrice,
+            // TODO : to be changed
+            organizerId: "66a7d5b555572a2845f307f4"
+        })], {
+            type: "application/json"
+        }));
+
+        files.forEach(file => {
+            formData.append("images", file);
+        });
+       const response = await axios.post(`http://localhost:8080/api/events`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        });
+      if(response){
+        navigate('/events');
+        toast.success('Event created successfully!!');
+      }
   };
 
   return (

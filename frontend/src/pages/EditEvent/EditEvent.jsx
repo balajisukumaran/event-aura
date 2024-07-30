@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./styles.css";
 
 import Stepper from "../../components/Stepper/Stepper";
@@ -6,9 +6,11 @@ import  DropzoneComponent from "../../components/ImageUpload/DropzoneComponent";
 import DateTimePicker from "../../components/DateTimePicker/DateTimePicker";
 import LocationForm from "../../components/LocationForm/LocationForm";
 import { toast } from 'react-toastify';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import api from "../../services";
 
 export const EditEvent = () => {
+  const { id } = useParams();
   const [eventName, setEventName] = useState("");
   const [eventDescription, setEventDescription] = useState("");
   const [, setFiles] = useState([]);
@@ -20,8 +22,54 @@ export const EditEvent = () => {
   const [selectedOption, setSelectedOption] = useState("Venue");
   const [address, setAddress] = useState("");
   const [ticketPrice, setTicketPrice] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
+
+
+  function formatTime(time) {
+    const [timePart, modifier] = time.split(' ');
+    let [hours, minutes] = timePart.split(':');
+
+    if (hours === '12') {
+        hours = '00';
+    }
+    if (modifier === 'PM') {
+        hours = parseInt(hours, 10) + 12;
+    }
+
+    return `${hours}:${minutes}`;
+}
+
+
+function formatDate(date) {
+  const [day, month, year] = date.split('-');
+  return `${year}-${month}-${day}`;
+}
+
+  useEffect(() => {
+    api.events.getEventId(id)
+    .then(response => {
+        const formattedStartTime = formatTime(response.startTime);
+        const formattedEndTime = formatTime(response.endTime);
+        const formattedDate = formatDate(response.date);
+        console.log(formatDate);
+        setEventName(response.title);
+        setEventDescription(response.description);
+        setEventDate(formattedDate);
+        setEventStartTime(formattedStartTime);
+        setEventEndTime(formattedEndTime);
+        setAddress(response.location);
+        setTicketPrice(response.price);
+    })
+    .catch(error => {
+        console.error("Error fetching properties:", error);
+    })
+    .finally(() => {
+        setLoading(false);
+    });
+}, []);
+
 
   const handleOptionClick = (option) => {
     setSelectedOption(option);
@@ -210,7 +258,7 @@ export const EditEvent = () => {
                               {"Submit"}
                             </button>
                             <button
-                              // onClick={handleBack}
+                              onClick={() => navigate("/events")}
                              
                             >
                               Back

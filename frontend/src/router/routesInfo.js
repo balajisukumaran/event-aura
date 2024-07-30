@@ -7,6 +7,7 @@ import { EditEvent } from '../pages/EditEvent/EditEvent';
 import EventDetails from '../pages/EventDetails/EventDetails';
 import BookingSuccess from '../pages/BookingSuccess/BookingSuccess';
 import BookingFailure from "../pages/BookingFailure/BookingFailure";
+import ViewEventDetails from '../pages/ViewEventDetails/ViewEventDetails';
 
 const routes = [
   {
@@ -36,7 +37,7 @@ const routes = [
   },
   {
     id: 'editEvent',
-    route: '/edit-event',
+    route: '/edit-event/:id',
     component: <EditEvent />
   },
   {
@@ -53,6 +54,11 @@ const routes = [
     id: 'payment-failure-page',
     route: '/payment/failure/:id',
     component: <BookingFailure />,
+  },
+  {
+    id: 'organizer-event-details',
+    route: '/view-event/:id',
+    component: <ViewEventDetails />,
   },
 ];
 

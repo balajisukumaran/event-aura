@@ -1,0 +1,178 @@
+/* Base styles */
+.profile-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #1A2529;
+}
+
+.profile-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 1200px;
+  max-height: 500px; /* Fixed height */
+  flex-wrap: wrap; /* Allow items to wrap */
+}
+
+.profile-options {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-right: 1px solid #ddd;
+  background-color: white;
+  width: 100%;
+  max-width: 250px; /* Fixed width for larger screens */
+  height: 100%; /* Full height */
+  color: black; /* Change text color to black */
+  
+}
+
+.profile-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.profile-avatar-container {
+  position: relative;
+}
+
+.profile-avatar {
+  width: 80px !important;
+  height: 80px !important;
+  border-radius: 50%; /* Make it circular */
+  margin-bottom: 10px;
+}
+
+.camera-icon {
+  position: absolute;
+  bottom: -5px;
+  right: 0;
+  background-color: black;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+  padding: 10px; /* Adjust padding */
+  cursor: pointer; /* Add pointer cursor */
+  z-index: 1;
+  width: 30px; /* Slightly larger icon */
+  height: 30px; /* Slightly larger icon */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-name {
+  color: orange;
+  margin: 0;
+}
+
+.profile-options-list {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.profile-option {
+  padding: 10px;
+  cursor: pointer;
+  color: black; /* Change text color to black */
+}
+
+.selected-option {
+  background-color: #f0f0f0; /* Highlight selected option */
+  color: black; /* Ensure text color remains black */
+}
+
+.profile-content {
+  padding: 20px;
+  flex: 1;
+  height: auto;
+  overflow-y: auto;
+}
+
+.profile-actions {
+  display: flex;
+  flex-direction: column; /* Stack buttons vertically on small screens */
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.save-button {
+  background-color: orange !important;
+  color: white !important;
+}
+
+.orange-button,
+.red-button {
+  background-color: orange !important;
+  color: white !important;
+  width: 100%; /* Make buttons full width */
+}
+
+.red-button {
+  background-color: red !important;
+  border-color: red !important;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .profile-container {
+    flex-direction: column; /* Stack columns vertically */
+    align-items: center;
+  }
+
+  .profile-options {
+    width: 100%; /* Full width for small screens */
+    border-right: none; /* Remove border on small screens */
+    border-bottom: 1px solid #ddd; /* Add bottom border instead */
+  }
+
+  .profile-content {
+    width: 100%; /* Full width for small screens */
+  }
+
+  .profile-actions {
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 10px;
+  }
+
+  .camera-icon {
+    bottom: -10px; /* Adjust position */
+    width: 30px;
+    height: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-avatar {
+    width: 60px !important;
+    height: 60px !important;
+  }
+
+  .camera-icon {
+    width: 25px;
+    height: 25px;
+    padding: 8px;
+  }
+
+  .profile-name {
+    font-size: 14px; /* Adjust font size */
+  }
+
+  .profile-content {
+    padding: 10px; /* Adjust padding */
+  }
+}
+.black-text-important {
+  color: orange !important;
+  font-weight: 200;
+}

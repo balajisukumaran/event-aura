@@ -5,6 +5,7 @@ import Login from '../pages/Login/Login';
 import EventDetails from '../pages/EventDetails/EventDetails';
 import BookingSuccess from '../pages/BookingSuccess/BookingSuccess';
 import BookingFailure from "../pages/BookingFailure/BookingFailure";
+import ProfilePage from '../pages/MyProfile/ProfilePage';
 
 const routes = [
   {
@@ -41,6 +42,11 @@ const routes = [
     id: 'payment-failure-page',
     route: '/payment/failure/:id',
     component: <BookingFailure />,
+  },
+  {
+    id: 'profile',
+    route: '/profile',
+    component: <ProfilePage />,
   },
 ];
 

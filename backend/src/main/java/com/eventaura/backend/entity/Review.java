@@ -4,6 +4,8 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Date;
+
 @Data
 @Document(collection = "reviews")
 public class Review {
@@ -13,5 +15,7 @@ public class Review {
     private Float rating;
     private String comment;
 
-    private User added_user;
+    private String userId;
+    private String eventId;
+    private String addedAt;
 }

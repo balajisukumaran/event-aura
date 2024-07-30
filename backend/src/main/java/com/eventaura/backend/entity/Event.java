@@ -17,18 +17,17 @@ public class Event {
     @Id
     private String id;
 
-    private Date date;
-    private Time startTime;
-    private Time endTime;
+    private String date;
+    private String startTime;
+    private String endTime;
     private String title;
     private String description;
     private Float price;
-    private Integer maxSlots;
     private String location;
-    private User organizer;
-    private boolean isAvailable;
+    private String organizerId;
+    private String eventType;
+    private String locationType;
 
-    @JsonIgnore
     private List<String> images;
 
     @JsonIgnore

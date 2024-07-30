@@ -3,7 +3,7 @@ import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import React, { useContext, useState, useEffect } from 'react';
 import { EventContext } from '../../context/EventContext';
-import { format, parse } from 'date-fns';
+import { format, parse, isValid } from 'date-fns';
 import ReviewCard from "../../components/ReviewCard/ReviewCard";
 import ReactLoading from "react-loading";
 import { DummyImage } from "../../assets/";
@@ -23,6 +23,7 @@ export default function EventDetails() {
     const { events } = useContext(EventContext);
     const { id } = useParams();
     const event = events.find(event => event.id === id);
+
 
     useEffect(() => {
         const fetchOrganizerDetails = async (organizerId) => {
@@ -53,11 +54,11 @@ export default function EventDetails() {
         }
     }, [event]);
 
-    const formatDateTime = (dateString, timeString) => {
-        const parsedDate = parse(dateString, 'dd-MM-yyyy', new Date());
-        const formattedDate = format(parsedDate, "do MMMM yyyy");
-        return `${formattedDate}, ${timeString}`;
-    };
+    function formatDate(date) {
+        const parsedDate = parse(date, 'yyyy-MM-dd', new Date());
+        return format(parsedDate, 'MMMM d, yyyy');
+    }
+
 
     const handleOpenReview = () => setOpenReviewModal(true);
     const handleOpenBooking = () => setOpenBookModal(true);
@@ -150,8 +151,10 @@ export default function EventDetails() {
                         </div>
                         <div className="right-box">
                             <p>{event.desc}</p>
-                            <h6><strong>Date and Time</strong></h6>
-                            <p>{formatDateTime(event.date, event.time)}</p>
+                            <h6><strong>Date</strong></h6>
+                            <p>{formatDate(event.date)}</p>
+                            <h6><strong>Time</strong></h6>
+                            <p>{`${event.startTime} - ${event.endTime}`}</p>
                             <h6><strong>Location</strong></h6>
                             <p>{event.location}</p>
                             <h6><strong>Ticket Price</strong></h6>

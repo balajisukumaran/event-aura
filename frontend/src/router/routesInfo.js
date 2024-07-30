@@ -1,7 +1,9 @@
 import LandingPage from '../pages/LandingPage/LandingPage';
 import ContactUs from '../pages/ContactUs/ContactUs';
 import FAQ from '../pages/FAQ/FAQ';
-import Login from '../pages/Login/Login';
+import Login from "../components/Authentication/Login";
+import Signup from '../components/Authentication/Signup';
+import ResetPassword from '../components/Authentication/ResetPassword';
 import {CreateEventPage} from "../pages/CreateEvent/CreateEventPage";
 import { EditEvent } from '../pages/EditEvent/EditEvent';
 import EventDetails from '../pages/EventDetails/EventDetails';
@@ -30,6 +32,21 @@ const routes = [
     id: 'login',
     route: '/login',
     component: <Login />,
+  },
+  {
+    id: 'signup',
+    route: '/signup',
+    component: <Signup />,
+  },
+  {
+    id: 'signup',
+    route: '/signup/admin',
+    component: <Signup role={"ADMIN"} />,
+  },
+  {
+    id: 'resetPassword',
+    route: '/resetPassword',
+    component: <ResetPassword />,
   },
   {
     id: 'createEvent',

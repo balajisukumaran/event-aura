@@ -1,15 +1,11 @@
 import LandingPage from '../pages/LandingPage/LandingPage';
 import ContactUs from '../pages/ContactUs/ContactUs';
 import FAQ from '../pages/FAQ/FAQ';
-<<<<<<< HEAD
 import Login from "../components/Authentication/Login";
 import Signup from '../components/Authentication/Signup';
 import ResetPassword from '../components/Authentication/ResetPassword';
-=======
-import Login from '../pages/Login/Login';
 import {CreateEventPage} from "../pages/CreateEvent/CreateEventPage";
 import { EditEvent } from '../pages/EditEvent/EditEvent';
->>>>>>> develop
 import EventDetails from '../pages/EventDetails/EventDetails';
 import BookingSuccess from '../pages/BookingSuccess/BookingSuccess';
 import BookingFailure from "../pages/BookingFailure/BookingFailure";

@@ -34,11 +34,8 @@ const EventHistory = () => {
       const response = await getAllOrders();
       setBookedEvents(response);
     };
-    
-    if(!createdEvents.length) {
-      getEvents();
-      getOrders();
-    }
+    getEvents();
+    getOrders();
   }, []);
 
   return (

@@ -4,11 +4,13 @@ import { Tab, Tabs } from "@mui/material";
 import { events, tabs } from "./constants";
 import './style.scss';
 import { cancelOrder, getAllEvents, getAllOrders } from "./apiUtils";
+import { useNavigate } from "react-router-dom";
 
 const EventHistory = () => {
   const [selectedTab, setSelectedTab] = useState(0);
   const [createdEvents, setCreatedEvents] = useState([]);
   const [bookedEvents, setBookedEvents] = useState([]);
+  const navigate = useNavigate();
   
   const handleChange = (event, newValue) => {
     setSelectedTab(newValue);
@@ -41,8 +43,8 @@ const EventHistory = () => {
       <Tabs TabIndicatorProps={{style: {background:'#FF9A00'}}} className="event-history-tabs" centered value={selectedTab} onChange={handleChange}>
         {tabs.map((tab) => <Tab className="event-history-tabs-item" label={tab.name} key={tab.id} />)}
       </Tabs>
-      {selectedTab === 0 && (createdEvents?.length ? <EventSlider events={createdEvents} className="event-history-slider" /> : <div className="event-history-placeholder">You didn't create any events</div>) }
-      {selectedTab === 1 && ( bookedEvents?.length ? <EventSlider events={bookedEvents?.map((bookedEvent) => ({...bookedEvent?.event, onCancelBooking: () => onCancelBooking(bookedEvent?.id)}))} className="event-history-slider" /> : <div className="event-history-placeholder">You didn't book any events</div>) }
+      {selectedTab === 0 && (createdEvents?.length ? <EventSlider events={createdEvents?.map((createdEvent) => ({ ...createdEvent, onCardClick: () => navigate(`/view-event/${createdEvent?.id}`) }))} className="event-history-slider" /> : <div className="event-history-placeholder">You didn't create any events</div>) }
+      {selectedTab === 1 && ( bookedEvents?.length ? <EventSlider events={bookedEvents?.map((bookedEvent) => ({...bookedEvent?.event,  onCardClick: () => navigate(`/events/${bookedEvent?.event?.id}`), onCancelBooking: () => onCancelBooking(bookedEvent?.id)}))} className="event-history-slider" /> : <div className="event-history-placeholder">You didn't book any events</div>) }
     </div>
   )
 };

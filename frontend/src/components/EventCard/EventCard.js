@@ -21,7 +21,7 @@ const EventCard = ({ event }) => {
     }
 
     return (
-        <div className="event-card" onClick={() => navigate("/events/" + event.id)}>
+        <div className="event-card" onClick={event?.onCardClick ? () => event.onCardClick() : () => navigate("/events/" + event.id)}>
             <Carousel
                 autoPlay={true}
                 infiniteLoop={true}

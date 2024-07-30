@@ -34,14 +34,6 @@ public class Event {
 
     private List<String> images;
 
-    public String getOrganizerId() {
-        return organizerId;
-    }
-
-    public void setOrganizerId(String organizerId) {
-        this.organizerId = organizerId;
-    }
-
     @JsonIgnore
     private List<Review> reviews = new ArrayList<Review>();
 

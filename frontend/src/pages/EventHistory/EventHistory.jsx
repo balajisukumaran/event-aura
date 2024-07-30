@@ -39,7 +39,7 @@ const EventHistory = () => {
 
   return (
     <div className="event-history">
-      <button className='event-history-button'>Create Event</button>
+      <button className='event-history-button' onClick={() => navigate("/create-event")}>Create Event</button>
       <Tabs TabIndicatorProps={{style: {background:'#FF9A00'}}} className="event-history-tabs" centered value={selectedTab} onChange={handleChange}>
         {tabs.map((tab) => <Tab className="event-history-tabs-item" label={tab.name} key={tab.id} />)}
       </Tabs>

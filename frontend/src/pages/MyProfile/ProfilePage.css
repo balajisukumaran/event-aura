@@ -44,6 +44,7 @@
 
 .profile-avatar-container {
   position: relative;
+  
 }
 
 .profile-avatar {
@@ -57,7 +58,6 @@
   position: absolute;
   bottom: -5px;
   right: 0;
-  background-color: black;
   border-radius: 50%;
   border: 2px solid #ddd;
   padding: 10px; /* Adjust padding */

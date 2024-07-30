@@ -20,7 +20,7 @@ const UserDropdown = ({ handleLogout }) => {
             <Link to="/profile" className="dropdown-item">
               Profile
             </Link>
-            <a className="dropdown-item" onClick={handleLogout}>
+            <a className="dropdown-item" onClick={handleLogout} href="/">
               Logout
             </a>
           </div>

@@ -22,7 +22,7 @@ export const CreateEventPage = () => {
   const [errors, setErrors] = useState({});
 
   const [selectedOption, setSelectedOption] = useState("Venue");
-  const [eventType, setEventType] = useState("Single");
+  const [eventType,] = useState("Single");
   const [address, setAddress] = useState("");
   const [ticketPrice, setTicketPrice] = useState("");
 
@@ -128,7 +128,7 @@ export const CreateEventPage = () => {
     }
 
     try {
-      await axios.post(`http://localhost:8080/api/events`, formData, {
+      await axios.post(`https://event-aura-yt4akn7xpq-uc.a.run.app/api/events`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -136,6 +136,7 @@ export const CreateEventPage = () => {
       navigate("/events");
       toast.success("Event created successfully!!");
     } catch (error) {
+      toast.error("An error occurred!!");
       console.log(error);
     }
   };

@@ -24,7 +24,7 @@ function Signup(props){
             setInputRole("ADMIN");
             setIsAdmin(true);
         }
-    }, []);
+    }, [props.role]);
 
     const navigate = useNavigate();
 

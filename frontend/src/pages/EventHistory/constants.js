@@ -1,7 +1,7 @@
 const events = [
   {
     id: 1,
-    image: 'https://www.hachettebookgroup.com/wp-content/uploads/2020/02/Matsuri.png?w=1024',
+    images: ['https://www.hachettebookgroup.com/wp-content/uploads/2020/02/Matsuri.png?w=1024'],
     title: 'Summer Festival',
     date: '2023-07-25',
     time: '10:00 AM',
@@ -9,7 +9,7 @@ const events = [
   },
   {
     id: 2,
-    image: 'https://terrapinn-cdn.com/exhibition/aerospace-tech-week/Img/balkiz-conference-audience-.jpg',
+    images: ['https://terrapinn-cdn.com/exhibition/aerospace-tech-week/Img/balkiz-conference-audience-.jpg'],
     title: 'Tech Conference 2023',
     date: '2023-08-10',
     time: '09:00 AM',
@@ -17,7 +17,7 @@ const events = [
   },
   {
     id: 3,
-    image: 'https://www.artplacer.com/wp-content/uploads/2022/05/New-header-fairs-2.jpg',
+    images: ['https://www.artplacer.com/wp-content/uploads/2022/05/New-header-fairs-2.jpg'],
     title: 'Art Exhibition',
     date: '2023-09-15',
     time: '06:00 PM',

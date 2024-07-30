@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import EventSlider from "../../components/EventSlider";
 import { Tab, Tabs } from "@mui/material";
 import { events, tabs } from "./constants";
 import './style.scss';
+import { getAllEvents } from "./apiUtils";
 
 const EventHistory = () => {
   const [selectedTab, setSelectedTab] = useState(0);
@@ -10,6 +11,10 @@ const EventHistory = () => {
   const handleChange = (event, newValue) => {
     setSelectedTab(newValue);
   };
+
+  useEffect(() => {
+    getAllEvents("66a7d5b555572a2845f307f4");
+  }, []);
 
   return (
     <div className="event-history">

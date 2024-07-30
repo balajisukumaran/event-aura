@@ -23,10 +23,10 @@ public class Event {
     private String title;
     private String description;
     private Float price;
-    private Integer maxSlots;
     private String location;
-    private User organizer;
-    private boolean isAvailable;
+    private String organizerId;
+    private String eventType;
+    private String locationType;
 
     private List<String> images;
 

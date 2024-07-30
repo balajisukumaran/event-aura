@@ -95,4 +95,5 @@ public class User {
     private String status;
     private String imageurl;
     private USER_ROLE role;
+    private int no_of_followers = 0;
 }

@@ -1,3 +1,6 @@
+/**
+ * Author : Nikita Davies
+ */
 package com.eventaura.backend.configuration;
 
 import org.springframework.context.annotation.Bean;
@@ -18,7 +21,7 @@ public class AwsConfig {
 
     @Value("${s3.region.name}")
     private String s3RegionName;
-    
+
     @Bean
     public AmazonS3 getAmazonS3Client() {
         final BasicAWSCredentials basicAWSCredentials = new BasicAWSCredentials(accessKeyId, accessKeySecret);

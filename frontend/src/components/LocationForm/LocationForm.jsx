@@ -1,4 +1,6 @@
-
+/**
+ * Author : Nikita Davies
+ */
 import React from 'react';
 
 const LocationForm = ({selectedOption, handleOptionClick, address, ticketPrice, handleAddressChange, handleTicketChange}) => {

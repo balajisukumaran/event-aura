@@ -2,6 +2,7 @@ import LandingPage from '../pages/LandingPage/LandingPage';
 import ContactUs from '../pages/ContactUs/ContactUs';
 import FAQ from '../pages/FAQ/FAQ';
 import Login from '../pages/Login/Login';
+import ProfilePage from '../pages/MyProfile/ProfilePage';
 
 const routes = [
   {
@@ -23,6 +24,11 @@ const routes = [
     id: 'login',
     route: '.login',
     component: <Login />,
+  },
+  {
+    id: 'profile',
+    route: '/profile',
+    component: <ProfilePage />,
   },
 ];
 

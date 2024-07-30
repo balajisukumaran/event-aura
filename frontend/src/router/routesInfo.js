@@ -35,6 +35,11 @@ const routes = [
     component: <Signup />,
   },
   {
+    id: 'signup',
+    route: '/signup/admin',
+    component: <Signup role={"ADMIN"} />,
+  },
+  {
     id: 'resetPassword',
     route: '/resetPassword',
     component: <ResetPassword />,

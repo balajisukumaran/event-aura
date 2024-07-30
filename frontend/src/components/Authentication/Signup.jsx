@@ -1,12 +1,13 @@
 import './styles.css';
 import loginImg from './images/login-image.png';
 import googleIcon from './images/search.png';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
 import axios from 'axios';
 
-function Signup(){
+function Signup(props){
+    const [isAdmin, setIsAdmin] = useState(false);
     const [inputFirstName, setInputFirstName] = useState('');
     const [inputLastName, setInputLastName] = useState('');
     const [inputEmail, setInputEmail] = useState('');
@@ -17,6 +18,13 @@ function Signup(){
     const [invalidUsernameError, setInvalidUsernameError] = useState('');
     const [invalidPasswordError, setInvalidPasswordError] = useState('');
     const [invalidPhoneNumberError, setInvalidPhoneNumberError] = useState('');
+
+    useEffect(() => {
+        if (props.role === "ADMIN") {
+            setInputRole("ADMIN");
+            setIsAdmin(true);
+        }
+    }, []);
 
     const navigate = useNavigate();
 
@@ -145,14 +153,15 @@ function Signup(){
                                         onChange={(e) => setInputPhoneNumber(e.target.value)} 
                                         required/>
                                 </div>
-                                <div className="form-input">
-                                    <select name="role" value={inputRole} onChange={handleRoleChange} required>
-                                        <option value="" disabled>Select User Type</option>
-                                        <option value="ATTENDEE">ATTENDEE</option>
-                                        <option value="ORGANIZER">ORGANIZER</option>
-                                        <option value="ADMIN">ADMIN</option>
-                                    </select>
-                                </div>
+                                {!isAdmin && (
+                                    <div className="form-input">
+                                        <select name="role" value={inputRole} onChange={handleRoleChange} required>
+                                            <option value="" disabled>Select User Type</option>
+                                            <option value="ATTENDEE">ATTENDEE</option>
+                                            <option value="ORGANIZER">ORGANIZER</option>
+                                        </select>
+                                    </div>
+                                )}
                                 <div className="form-input">
                                     <div>{invalidPasswordError && <div className="error-message">{invalidPasswordError}</div>}</div>
                                     <input 

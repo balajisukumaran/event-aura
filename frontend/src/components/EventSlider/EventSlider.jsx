@@ -5,7 +5,7 @@ import './style.scss';
 const EventSlider = ({ events, className }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const slidesToShow = 3;
-
+console.log(events);
   const nextSlide = () => {
     setCurrentIndex((prevIndex) => (prevIndex + slidesToShow) % events.length);
   };

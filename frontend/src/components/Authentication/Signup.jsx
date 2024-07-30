@@ -70,10 +70,12 @@ function Signup(){
 
             const signupResponse = await axios.post('http://localhost:8080/signup', signupRequestBody);
             // Save data to local storage
-            const { token, email, role } = signupResponse.data;
+            console.log(signupResponse.data);
+            const { token, email, role, id } = signupResponse.data;
             localStorage.setItem('token', token);
             localStorage.setItem('email', email);
             localStorage.setItem('role', role);
+            localStorage.setItem('userId', id);
             navigate("/");
 
         } catch (error){

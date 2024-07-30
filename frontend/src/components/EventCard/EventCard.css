@@ -51,6 +51,10 @@
     white-space: nowrap;
 }
 
+.event-datetime .event-time {
+    font-size: 0.7em;
+}
+
 .event-desc {
     font-size: 0.8em;
     margin: 0% 5%;

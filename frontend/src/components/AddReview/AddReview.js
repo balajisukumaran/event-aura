@@ -1,7 +1,6 @@
 import Rating from '@mui/material/Rating';
 import { useState } from 'react';
 import "./AddReview.css";
-import axios from 'axios';
 
 export default function AddReview({ onSubmit, onCancel }) {
     const [review, setReview] = useState({ description: "", rating: 0 });
@@ -36,8 +35,8 @@ export default function AddReview({ onSubmit, onCancel }) {
                 />
             </div>
             <div className="add-review-buttons">
-                <button onClick={onAddReview}>Post Comment</button>
                 <button onClick={onCancel}>Cancel</button>
+                <button onClick={onAddReview}>Post Comment</button>
             </div>
 
 

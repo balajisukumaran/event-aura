@@ -6,14 +6,14 @@ steps:
       - "--platform"
       - "linux/amd64"
       - "-t"
-      - "us-central1-docker.pkg.dev/serverless-430022/eventaura/backend-image:latest"
+      - "us-central1-docker.pkg.dev/serverless-430022/eventAura/backend-image:latest"
       - "./backend" # Setting build context to the backend folder
 
   # Step 2: Push the Docker image to Google Artifact Registry
   - name: "gcr.io/cloud-builders/docker"
     args:
       - "push"
-      - "us-central1-docker.pkg.dev/serverless-430022/eventaura/backend-image:latest"
+      - "us-central1-docker.pkg.dev/serverless-430022/eventAura/backend-image:latest"
 
   # Step 3: Deploy the Docker image to Google Cloud Run
   - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
@@ -23,7 +23,7 @@ steps:
       - "deploy"
       - "event-aura"
       - "--image"
-      - "us-central1-docker.pkg.dev/serverless-430022/eventaura/backend-image:latest"
+      - "us-central1-docker.pkg.dev/serverless-430022/eventAura/backend-image:latest"
       - "--platform"
       - "managed"
       - "--region"
@@ -34,4 +34,4 @@ steps:
 logs_bucket: gs://test-bucket-dal
 
 images:
-  - "us-central1-docker.pkg.dev/serverless-430022/eventaura/backend-image:latest"
+  - "us-central1-docker.pkg.dev/serverless-430022/eventAura/backend-image:latest"

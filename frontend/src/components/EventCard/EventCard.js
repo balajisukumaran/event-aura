@@ -19,10 +19,10 @@ const EventCard = ({ event }) => {
 
                 {event.images && event.images.length > 0 ? (
                     event.images.map((image, index) => (
-                        <img key={index} className='event-image' src={image} />
+                        <img key={index} className="event-image" src={image} alt={`event ${index + 1}`} />
                     ))
                 ) : (
-                    <img className='event-image' src={DummyImage} alt={`Dummy Image`} />
+                    <img className='event-image' src={DummyImage} alt={`Dummy`} />
                 )}
 
             </Carousel>
@@ -30,7 +30,7 @@ const EventCard = ({ event }) => {
                 <div className="event-title">{event.title}</div>
                 <div className="event-datetime">
                     <span className="event-date">{event.date}</span>
-                    <span className="event-time">{event.time}</span>
+                    <span className="event-time">{event.startTime} - {event.endTime}</span>
                 </div>
             </div>
             <div className="event-info">

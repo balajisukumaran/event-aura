@@ -24,6 +24,18 @@ export default function EventDetails() {
     const { id } = useParams();
     const event = events.find(event => event.id === id);
 
+    const fetchReviews = async (eventId) => {
+        try {
+            const response = await axios.get(`http://localhost:8080/api/reviews/all?event=${eventId}`);
+            if (response.status === 200) {
+                setReviews(response.data);
+            }
+        } catch (error) {
+            console.error("There was an error fetching the reviews!", error);
+        }
+    };
+
+
     useEffect(() => {
         const fetchOrganizerDetails = async (organizerId) => {
             try {
@@ -36,28 +48,17 @@ export default function EventDetails() {
             }
         };
 
-        const fetchReviews = async (eventId) => {
-            try {
-                const response = await axios.get(`http://localhost:8080/api/reviews/all?event=${eventId}`);
-                if (response.status === 200) {
-                    setReviews(response.data);
-                }
-            } catch (error) {
-                console.error("There was an error fetching the reviews!", error);
-            }
-        };
-
         if (event) {
             fetchOrganizerDetails(event.organizerId);
             fetchReviews(event.id);
         }
     }, [event]);
 
-    const formatDateTime = (dateString, timeString) => {
-        const parsedDate = parse(dateString, 'dd-MM-yyyy', new Date());
-        const formattedDate = format(parsedDate, "do MMMM yyyy");
-        return `${formattedDate}, ${timeString}`;
-    };
+    function formatDate(date) {
+        const parsedDate = parse(date, 'yyyy-MM-dd', new Date());
+        return format(parsedDate, 'MMMM d, yyyy');
+    }
+
 
     const handleOpenReview = () => setOpenReviewModal(true);
     const handleOpenBooking = () => setOpenBookModal(true);
@@ -79,6 +80,7 @@ export default function EventDetails() {
             console.error("There was an error adding the review!", error);
         }
         handleCloseReview();
+        fetchReviews(event.id);
     }
 
     function handleBooking(numTickets, total) {
@@ -122,10 +124,10 @@ export default function EventDetails() {
                                 {event.images && event.images.length > 0 ?
                                     event.images.map((image, index) => (
                                         <div key={index}>
-                                            <img src={image} alt={`Event Image ${index + 1}`} />
+                                            <img src={image} alt={`event visual ${index + 1}`} />
                                         </div>
                                     )) :
-                                    <img src={DummyImage} alt={`Dummy Image`} />
+                                    <img src={DummyImage} alt={`dummy visual`} />
                                 }
                             </Carousel>
                             {organizer && <div className="organizer-box">
@@ -134,7 +136,7 @@ export default function EventDetails() {
                                         <img
                                             className="organizer-image"
                                             src={organizer.imageurl}
-                                            alt="Organizer Image"
+                                            alt="organizer visual"
                                         />
                                     </div>
                                     <div className="organizer-description">
@@ -144,14 +146,16 @@ export default function EventDetails() {
                                     </div>
                                 </div>
                                 <div>
-                                    <button className="organizer-follow-button">Follow</button>
+                                    <button className="event-book-button">Follow</button>
                                 </div>
                             </div>}
                         </div>
                         <div className="right-box">
                             <p>{event.desc}</p>
-                            <h6><strong>Date and Time</strong></h6>
-                            <p>{formatDateTime(event.date, event.time)}</p>
+                            <h6><strong>Date</strong></h6>
+                            <p>{formatDate(event.date)}</p>
+                            <h6><strong>Time</strong></h6>
+                            <p>{`${event.startTime} - ${event.endTime}`}</p>
                             <h6><strong>Location</strong></h6>
                             <p>{event.location}</p>
                             <h6><strong>Ticket Price</strong></h6>
@@ -160,7 +164,7 @@ export default function EventDetails() {
                             <div className="review-list-box">
                                 <div className="review-list-header">
                                     <h5>Reviews</h5>
-                                    <button className="review-add-button" onClick={handleOpenReview}>Add a Review</button>
+                                    <button className="event-book-button" onClick={handleOpenReview}>Add a Review</button>
                                 </div>
                                 {reviews.length > 0 && <ReviewCard review={reviews[0]} />}
                                 {showAllReviews && reviews.slice(1).map((review, index) => (

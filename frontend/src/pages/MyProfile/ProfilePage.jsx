@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Typography,
@@ -16,42 +16,44 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle
-} from '@mui/material';
-import { Visibility, VisibilityOff, CameraAlt } from '@mui/icons-material';
-import './ProfilePage.css';
+  DialogTitle,
+} from "@mui/material";
+import { Visibility, VisibilityOff, CameraAlt } from "@mui/icons-material";
+import "./ProfilePage.css";
 
 const ProfilePage = () => {
   const navigate = useNavigate();
-  const [selectedOption, setSelectedOption] = useState('personalInformation');
+  const [selectedOption, setSelectedOption] = useState("personalInformation");
   const [profile, setProfile] = useState({
-    firstname: '',
-    lastname: '',
-    email: '',
-    password: '',
-    phone: '',
-    status: 'active',
-    imageurl: ''
+    firstname: "",
+    lastname: "",
+    email: "",
+    password: "",
+    phone: "",
+    status: "active",
+    imageurl: "",
   });
+  // TO DO: Change user id
   const userId = "66a72c971c8184337945e28b";
   const [editedProfile, setEditedProfile] = useState({ ...profile });
   const [errors, setErrors] = useState({});
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [selectedFile, setSelectedFile] = useState(null);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [snackbarMessage, setSnackbarMessage] = useState("");
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [actionType, setActionType] = useState('');
+  const [actionType, setActionType] = useState("");
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/api/users/${userId}`);
+        const response = await axios.get(
+          `http://localhost:8080/api/users/${userId}`
+        );
         const userData = response.data;
         setProfile(userData);
         setEditedProfile(userData);
       } catch (error) {
-        console.error('Error fetching user data:', error);
+        console.error("Error fetching user data:", error);
       }
     };
 
@@ -64,17 +66,20 @@ const ProfilePage = () => {
     const { name, value } = e.target;
     setEditedProfile((prevProfile) => ({
       ...prevProfile,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const validateFields = () => {
     const newErrors = {};
-    if (!editedProfile.firstname) newErrors.firstname = 'First Name is required';
-    if (!editedProfile.lastname) newErrors.lastname = 'Last Name is required';
-    if (!editedProfile.email || !/\S+@\S+\.\S+/.test(editedProfile.email)) newErrors.email = 'Valid Email is required';
-    if (!editedProfile.phone) newErrors.phone = 'Phone Number is required';
-    if (!editedProfile.password || editedProfile.password === '********') newErrors.password = 'Password is required';
+    if (!editedProfile.firstname)
+      newErrors.firstname = "First Name is required";
+    if (!editedProfile.lastname) newErrors.lastname = "Last Name is required";
+    if (!editedProfile.email || !/\S+@\S+\.\S+/.test(editedProfile.email))
+      newErrors.email = "Valid Email is required";
+    if (!editedProfile.phone) newErrors.phone = "Phone Number is required";
+    if (!editedProfile.password || editedProfile.password === "********")
+      newErrors.password = "Password is required";
     return newErrors;
   };
 
@@ -88,11 +93,11 @@ const ProfilePage = () => {
         );
         setProfile(editedProfile);
         setErrors({});
-        setSnackbarMessage('Profile saved successfully!');
+        setSnackbarMessage("Profile saved successfully!");
         setSnackbarOpen(true);
         navigate(0);
       } catch (error) {
-        console.error('Error updating profile:', error);
+        console.error("Error updating profile:", error);
       }
     } else {
       setErrors(validationErrors);
@@ -101,31 +106,30 @@ const ProfilePage = () => {
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    setSelectedFile(file);
     uploadImage(file); // Call the upload function immediately after selection
   };
 
   const uploadImage = async (file) => {
     const reader = new FileReader();
     reader.onloadend = async () => {
-      const base64Image = reader.result.split(',')[1]; // Get base64 string
+      const base64Image = reader.result.split(",")[1]; // Get base64 string
       try {
         const uploadResponse = await axios.post(
-          'https://ksqj45fgb6.execute-api.us-east-1.amazonaws.com/prod/s3upload',
+          "https://ksqj45fgb6.execute-api.us-east-1.amazonaws.com/prod/s3upload",
           { image: base64Image }
         );
         const uploadedImageUrl = uploadResponse.data.s3_url;
-        
-        await axios.put(
-          `http://localhost:8080/api/users/${userId}`,
-          { ...profile, imageurl: uploadedImageUrl }
-        );
+
+        await axios.put(`http://localhost:8080/api/users/${userId}`, {
+          ...profile,
+          imageurl: uploadedImageUrl,
+        });
         setErrors({});
-        setSnackbarMessage('Profile image uploaded and saved successfully!');
+        setSnackbarMessage("Profile image uploaded and saved successfully!");
         setSnackbarOpen(true);
         navigate(0);
       } catch (error) {
-        console.error('Image upload or update failed:', error);
+        console.error("Image upload or update failed:", error);
       }
     };
     reader.readAsDataURL(file); // Correctly read file as Data URL
@@ -146,24 +150,23 @@ const ProfilePage = () => {
 
   const handleConfirmAction = async () => {
     try {
-      if (actionType === 'disable') {
+      if (actionType === "disable") {
         await axios.put(`http://localhost:8080/api/users/${userId}/disable`);
-        setSnackbarMessage('Account temporarily disabled.');
+        setSnackbarMessage("Account temporarily disabled.");
         setTimeout(() => {
-          navigate('/'); // Navigate after 20 seconds
+          navigate("/"); // Navigate after 20 seconds
         }, 5000);
-        
-      } else if (actionType === 'delete') {
+      } else if (actionType === "delete") {
         await axios.delete(`http://localhost:8080/api/users/${userId}`);
-        setSnackbarMessage('Account permanently deleted.');
+        setSnackbarMessage("Account permanently deleted.");
         setTimeout(() => {
-          navigate('/'); // Navigate after 20 seconds
+          navigate("/"); // Navigate after 20 seconds
         }, 5000);
       }
       setSnackbarOpen(true);
       handleDialogClose();
     } catch (error) {
-      console.error('Error performing action:', error);
+      console.error("Error performing action:", error);
     }
   };
 
@@ -171,40 +174,60 @@ const ProfilePage = () => {
     <div className="profile-page">
       <Box className="profile-container">
         <Grid container>
-          <Grid item xs={12} md={4} className="profile-options" style={{ display: 'flex', flexDirection: 'column' }}>
+          <Grid
+            item
+            xs={12}
+            md={4}
+            className="profile-options"
+            style={{ display: "flex", flexDirection: "column" }}
+          >
             <div className="profile-header">
               <div className="profile-avatar-container">
-                <Avatar alt={profile.firstname} src={editedProfile.imageurl} className="profile-avatar" />
+                <Avatar
+                  alt={profile.firstname}
+                  src={editedProfile.imageurl}
+                  className="profile-avatar"
+                />
                 <label htmlFor="file-upload" className="camera-icon">
                   <input
                     id="file-upload"
                     type="file"
                     accept="image/*"
-                    style={{ display: 'none' }}
+                    style={{ display: "none" }}
                     onChange={handleFileChange}
                   />
                   <CameraAlt />
                 </label>
               </div>
               <Typography variant="h6" className="profile-name">
-                <strong>{profile.firstname} {profile.lastname}</strong>
+                <strong>
+                  {profile.firstname} {profile.lastname}
+                </strong>
               </Typography>
             </div>
             <div className="profile-options-list">
               <List component="nav">
                 <ListItem
                   button
-                  selected={selectedOption === 'personalInformation'}
-                  onClick={() => handleOptionClick('personalInformation')}
-                  className={selectedOption === 'personalInformation' ? 'selected-option' : ''}
+                  selected={selectedOption === "personalInformation"}
+                  onClick={() => handleOptionClick("personalInformation")}
+                  className={
+                    selectedOption === "personalInformation"
+                      ? "selected-option"
+                      : ""
+                  }
                 >
                   <ListItemText primary="Personal Information" />
                 </ListItem>
                 <ListItem
                   button
-                  selected={selectedOption === 'accountSettings'}
-                  onClick={() => handleOptionClick('accountSettings')}
-                  className={selectedOption === 'accountSettings' ? 'selected-option' : ''}
+                  selected={selectedOption === "accountSettings"}
+                  onClick={() => handleOptionClick("accountSettings")}
+                  className={
+                    selectedOption === "accountSettings"
+                      ? "selected-option"
+                      : ""
+                  }
                 >
                   <ListItemText primary="Account Settings" />
                 </ListItem>
@@ -212,9 +235,15 @@ const ProfilePage = () => {
             </div>
           </Grid>
           <Grid item xs={12} md={8} className="profile-content">
-            {selectedOption === 'personalInformation' && (
+            {selectedOption === "personalInformation" && (
               <>
-                <Typography variant="h6" gutterBottom className="black-text-important">Personal Information</Typography>
+                <Typography
+                  variant="h6"
+                  gutterBottom
+                  className="black-text-important"
+                >
+                  Personal Information
+                </Typography>
                 <Grid container spacing={2}>
                   <Grid item xs={12} sm={6}>
                     <TextField
@@ -268,7 +297,7 @@ const ProfilePage = () => {
                     <TextField
                       label="Password"
                       name="password"
-                      type={passwordVisible ? 'text' : 'password'}
+                      type={passwordVisible ? "text" : "password"}
                       value={editedProfile.password}
                       onChange={handleInputChange}
                       fullWidth
@@ -280,36 +309,56 @@ const ProfilePage = () => {
                           <IconButton
                             edge="end"
                             onClick={togglePasswordVisibility}
-                            aria-label={passwordVisible ? 'Hide password' : 'Show password'}
+                            aria-label={
+                              passwordVisible
+                                ? "Hide password"
+                                : "Show password"
+                            }
                           >
-                            {passwordVisible ? <Visibility /> : <VisibilityOff />}
+                            {passwordVisible ? (
+                              <Visibility />
+                            ) : (
+                              <VisibilityOff />
+                            )}
                           </IconButton>
-                        )
+                        ),
                       }}
                     />
                   </Grid>
                   <Grid item xs={12} className="profile-actions">
-                    <Button variant="contained" className="save-button" onClick={handleSave}>Save</Button>
+                    <Button
+                      variant="contained"
+                      className="save-button"
+                      onClick={handleSave}
+                    >
+                      Save
+                    </Button>
                   </Grid>
                 </Grid>
               </>
             )}
-            {selectedOption === 'accountSettings' && (
+            {selectedOption === "accountSettings" && (
               <>
-                <Typography variant="h6" gutterBottom className="black-text-important">Account Settings</Typography>
+                <Typography
+                  variant="h6"
+                  gutterBottom
+                  className="black-text-important"
+                >
+                  Account Settings
+                </Typography>
                 <Grid container spacing={2}>
                   <Grid item xs={12} className="profile-actions">
                     <Button
                       variant="contained"
                       className="orange-button"
-                      onClick={() => handleDialogOpen('disable')}
+                      onClick={() => handleDialogOpen("disable")}
                     >
                       Temporarily Disable Account
                     </Button>
                     <Button
                       variant="contained"
                       className="red-button"
-                      onClick={() => handleDialogOpen('delete')}
+                      onClick={() => handleDialogOpen("delete")}
                     >
                       Permanently Delete Account
                     </Button>
@@ -330,24 +379,22 @@ const ProfilePage = () => {
       />
 
       {/* Confirmation Dialog */}
-      <Dialog
-        open={dialogOpen}
-        onClose={handleDialogClose}
-      >
+      <Dialog open={dialogOpen} onClose={handleDialogClose}>
         <DialogTitle>Confirm Action</DialogTitle>
         <DialogContent>
           <Typography variant="body1">
-            Are you sure you want to {actionType === 'disable' ? 'temporarily disable' : 'permanently delete'} your account?
+            Are you sure you want to{" "}
+            {actionType === "disable"
+              ? "temporarily disable"
+              : "permanently delete"}{" "}
+            your account?
           </Typography>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleDialogClose} color="primary">
             Cancel
           </Button>
-          <Button
-            onClick={handleConfirmAction}
-            color="secondary"
-          >
+          <Button onClick={handleConfirmAction} color="secondary">
             Confirm
           </Button>
         </DialogActions>

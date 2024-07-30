@@ -1,3 +1,6 @@
+/**
+ * Author : Nikita Davies
+ */
 import React from 'react';
 import { Stepper, Step } from 'react-form-stepper';
 import "./Stepper.css"

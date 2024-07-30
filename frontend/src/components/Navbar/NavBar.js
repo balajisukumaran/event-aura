@@ -1,16 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './NavBar.css';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useNavigate } from 'react-router-dom';
+import UserDropdown from '../UserDropdown/UserDropdown';
 
 const NavBar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [,setIsLoggedIn] = React.useState(false);
     const navigate = useNavigate();
+    const token = localStorage?.getItem("token");
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
+
+    useEffect(() => {
+        setIsLoggedIn(localStorage.getItem("token") ? true : false);
+      }, [setIsLoggedIn]);
 
     return (
         <nav className="navbar">
@@ -22,7 +29,7 @@ const NavBar = () => {
                 <p onClick={() => navigate("/faq")}>FAQs</p>
                 <p onClick={() => navigate("/contact")}>Contact Us</p>
 
-                <p><button className='login-register-button' onClick={() => navigate("/login")}>Login</button> </p>
+                {!token ?  (<p><button className='login-register-button' onClick={() => navigate("/login")}>Login</button> </p>) : <UserDropdown />}
             </div>
             <div className="navbar-menu-icon" onClick={toggleMenu}>
                 <MenuIcon fontSize="large" style={{ color: "#FF9A00" }} />
@@ -33,7 +40,8 @@ const NavBar = () => {
                         <Link to="/login" onClick={toggleMenu}>Events</Link>
                         <Link to="/faq" onClick={toggleMenu}>FAQ</Link>
                         <Link to="/contact" onClick={toggleMenu}>Contact</Link>
-                        <Link to="/login" onClick={toggleMenu}>Login</Link>
+                        {!token ?  (<Link to="/login" onClick={toggleMenu}>Login</Link>) : <UserDropdown />}
+                        
                     </div>
                 )
             }

@@ -1,0 +1,35 @@
+.navbar .nav-link {
+    display: flex;
+    align-items: center;
+    color: #1A2529;
+}
+  
+.navbar .nav-link:hover {
+    color: orange;
+}
+
+
+.nav-item .dropdown {
+    margin: 0px;
+}
+  
+
+.dropdown-menu .dropdown-item {
+    color: #1A2529;
+}
+  
+.dropdown-menu .dropdown-item:hover {
+    color: orange;
+}
+  
+
+.dropdown-menu {
+    background-color: white;
+    border: 1px solid #ddd;
+}
+
+
+.navbar .nav-item.dropdown {
+    display: flex;
+    align-items: center;
+}

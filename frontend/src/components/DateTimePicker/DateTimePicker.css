@@ -1,26 +1,28 @@
+/**
+ * Author : Nikita Davies
+ */
 
 
 input[type="date"]:focus,
 input[type="time"]:focus {
-  border-color: #FF9A00; /* Orange border on focus */
-  box-shadow: 0 0 5px #FF9A00; /* Orange shadow on focus */
+  border-color: #FF9A00; 
+  box-shadow: 0 0 5px #FF9A00; 
 }
 
-/* Apply styles to the buttons */
 .btn-primary {
-  background-color: #FF9A00; /* Orange background */
-  border-color: #FF9A00; /* Orange border */
-  color: #fff; /* White text */
+  background-color: #FF9A00; 
+  border-color: #FF9A00;
+  color: #fff; 
 }
 
 .btn-outline-secondary {
-  border-color: #FF9A00; /* Orange border */
-  color: #FF9A00; /* Orange text */
+  border-color: #FF9A00; 
+  color: #FF9A00; 
 }
 
 .btn-outline-secondary:hover {
-  background-color: #FF9A00; /* Orange background on hover */
-  color: #fff; /* White text on hover */
+  background-color: #FF9A00; 
+  color: #fff; 
 }
 
   

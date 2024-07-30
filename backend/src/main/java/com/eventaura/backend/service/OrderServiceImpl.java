@@ -49,9 +49,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void cancelOrder(String orderId) {
-        Order order= orderRepository.findById(orderId).get();
-        order.setOrderStatus("cancelled");
-        orderRepository.save(order);
+        orderRepository.deleteById(orderId);
     }
 
     @Override

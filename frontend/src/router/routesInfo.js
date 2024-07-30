@@ -7,10 +7,16 @@ import { EditEvent } from '../pages/EditEvent/EditEvent';
 import Login from "../components/Authentication/Login";
 import Signup from '../components/Authentication/Signup';
 import ResetPassword from '../components/Authentication/ResetPassword';
+import Login from "../components/Authentication/Login";
+import Signup from '../components/Authentication/Signup';
+import ResetPassword from '../components/Authentication/ResetPassword';
+import {CreateEventPage} from "../pages/CreateEvent/CreateEventPage";
+import { EditEvent } from '../pages/EditEvent/EditEvent';
 import EventDetails from '../pages/EventDetails/EventDetails';
 import BookingSuccess from '../pages/BookingSuccess/BookingSuccess';
 import BookingFailure from "../pages/BookingFailure/BookingFailure";
 import ViewEventDetails from '../pages/ViewEventDetails/ViewEventDetails';
+import ProfilePage from '../pages/MyProfile/ProfilePage';
 
 const routes = [
   {
@@ -37,6 +43,21 @@ const routes = [
     id: 'event-history',
     route: '/event-history',
     component: <EventHistory />,
+  },
+  {
+    id: 'signup',
+    route: '/signup',
+    component: <Signup />,
+  },
+  {
+    id: 'signup',
+    route: '/signup/admin',
+    component: <Signup role={"ADMIN"} />,
+  },
+  {
+    id: 'resetPassword',
+    route: '/resetPassword',
+    component: <ResetPassword />,
   },
   {
     id: 'createEvent',
@@ -77,6 +98,10 @@ const routes = [
     id: 'organizer-event-details',
     route: '/view-event/:id',
     component: <ViewEventDetails />,
+  },{
+    id: 'profile',
+    route: '/profile',
+    component: <ProfilePage />,
   },
 ];
 

@@ -11,6 +11,7 @@ function Signup(){
     const [inputLastName, setInputLastName] = useState('');
     const [inputEmail, setInputEmail] = useState('');
     const [inputPhoneNumber, setInputPhoneNumber] = useState('');
+    const [inputRole, setInputRole] = useState('');
     const [inputPassword, setInputPassword] =  useState('');
     const [inputConfirmPassword, setInputConfirmPassword] =  useState('');
     const [invalidUsernameError, setInvalidUsernameError] = useState('');
@@ -23,6 +24,10 @@ function Signup(){
         const phoneNumberPattern = /^\d{10}$/;
         return phoneNumberPattern.test(inputPhoneNumber);
     };
+
+    const handleRoleChange = (event) => {
+        setInputRole(event.target.value);
+    }
 
     const validatePasswordLength = () => {
         return inputPassword.length >= 8;
@@ -60,7 +65,7 @@ function Signup(){
                 email: inputEmail,
                 phone: inputPhoneNumber,
                 password: inputPassword,
-                role: "ATTENDEE"
+                role: inputRole
             }
 
             const signupResponse = await axios.post('http://localhost:8080/signup', signupRequestBody);
@@ -139,6 +144,14 @@ function Signup(){
                                         value={inputPhoneNumber}
                                         onChange={(e) => setInputPhoneNumber(e.target.value)} 
                                         required/>
+                                </div>
+                                <div className="form-input">
+                                    <select name="role" value={inputRole} onChange={handleRoleChange} required>
+                                        <option value="" disabled>Select User Type</option>
+                                        <option value="ATTENDEE">ATTENDEE</option>
+                                        <option value="ORGANIZER">ORGANIZER</option>
+                                        <option value="ADMIN">ADMIN</option>
+                                    </select>
                                 </div>
                                 <div className="form-input">
                                     <div>{invalidPasswordError && <div className="error-message">{invalidPasswordError}</div>}</div>

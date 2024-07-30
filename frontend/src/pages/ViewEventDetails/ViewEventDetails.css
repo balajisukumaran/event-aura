@@ -1,0 +1,51 @@
+.event-detail-title{
+    text-align: left;
+}
+.event-detail-container {
+    margin: 2%;
+    flex-direction: row;
+    display: flex;
+}
+
+.event-header {
+    justify-content: space-between;
+    flex-direction: row;
+    display: flex;
+}
+
+.button-header {
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    margin: 2%;
+}
+
+.modal-button {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    margin: 2%;
+}
+
+.left-box{
+    width: 50%;
+
+}
+
+.right-box{
+    margin: 1% 2%;
+    text-align: start;
+    width: 50%;
+}
+
+.event-book-button {
+    background-color: #FF9A00;;
+    color: white;
+    height: 40px; 
+    width: 140px;
+    border-radius: 8px;
+    font-weight: 600;
+    border: none;
+    margin: 10px
+}
+

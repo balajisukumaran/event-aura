@@ -1,3 +1,6 @@
+/**
+ * Author : Nikita Davies
+ */
 import * as api from "./utils";
 
 /**

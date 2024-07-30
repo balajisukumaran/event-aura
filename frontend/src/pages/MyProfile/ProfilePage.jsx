@@ -33,6 +33,7 @@ const ProfilePage = () => {
     status: 'active',
     imageurl: ''
   });
+  // TO DO: Change user id
   const userId = "66a72c971c8184337945e28b";
   const [editedProfile, setEditedProfile] = useState({ ...profile });
   const [errors, setErrors] = useState({});

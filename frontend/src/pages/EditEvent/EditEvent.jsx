@@ -1,3 +1,6 @@
+/**
+ * Author : Nikita Davies
+ */
 import React, { useState, useEffect } from "react";
 import "./styles.css";
 import axios from "axios";

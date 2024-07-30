@@ -29,7 +29,7 @@ export default function ReviewCard({ review }) {
         <div>
             <div className="review-detail-card">
                 <div>
-                    <img style={{ width: "40px", height: "40px", borderRadius: "50%" }} src={review.userimage} alt={`Review Image ${review.username}`} />
+                    <img style={{ width: "40px", height: "40px", borderRadius: "50%" }} src={review.userimage} alt={`Review ${review.username}`} />
                 </div>
                 <div style={{ fontSize: "0.8rem", marginLeft: "5%" }}>
                     <p>{review.username}</p>

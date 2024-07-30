@@ -8,6 +8,7 @@ import EventDetails from '../pages/EventDetails/EventDetails';
 import BookingSuccess from '../pages/BookingSuccess/BookingSuccess';
 import BookingFailure from "../pages/BookingFailure/BookingFailure";
 import ViewEventDetails from '../pages/ViewEventDetails/ViewEventDetails';
+import ProfilePage from '../pages/MyProfile/ProfilePage';
 
 const routes = [
   {
@@ -59,6 +60,10 @@ const routes = [
     id: 'organizer-event-details',
     route: '/view-event/:id',
     component: <ViewEventDetails />,
+  },{
+    id: 'profile',
+    route: '/profile',
+    component: <ProfilePage />,
   },
 ];
 

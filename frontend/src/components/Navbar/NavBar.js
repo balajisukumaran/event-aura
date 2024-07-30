@@ -18,10 +18,9 @@ const NavBar = () => {
                 <Link to="/" className="navbar-brand-link">Event Aura</Link>
             </div>
             <div className="navbar-links">
-                <p onClick={() => navigate("/login")}>Events</p>
+                <p onClick={() => navigate("/event-history")}>Events</p>
                 <p onClick={() => navigate("/faq")}>FAQs</p>
                 <p onClick={() => navigate("/contact")}>Contact Us</p>
-                <p onClick={() => navigate("/event-history")}>Event History</p>
 
                 <p><button className='login-register-button' onClick={() => navigate("/login")}>Login</button> </p>
             </div>

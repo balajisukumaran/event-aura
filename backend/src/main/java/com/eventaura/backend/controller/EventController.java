@@ -1,5 +1,5 @@
 /**
- * Authors : Nikita Davies, Sruthi Shaji
+ * Authors : Nikita Davies, Sruthi Shaji, Kabilesh Ravi Chandran
  */
 
 package com.eventaura.backend.controller;

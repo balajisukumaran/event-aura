@@ -1,3 +1,7 @@
+/**
+ * Authors : Kabilesh Ravi Chandran, Sruthi Shaji
+ */
+
 import React, { useState } from 'react';
 import './EventCard.css';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -13,6 +17,7 @@ const EventCard = ({ event }) => {
     const handleCancelBookingClick = (e) => {
         e.stopPropagation();
        event.onCancelBooking();
+       setOpenModal(false)
     };
 
     const onClickCancel = (e) => {
@@ -60,7 +65,10 @@ const EventCard = ({ event }) => {
             <CancelBookingModal
                 open={openModal}
                 handleConfirm={handleCancelBookingClick}
-                handleClose={() => setOpenModal(false)}
+                handleClose={(e) => {
+                    e.stopPropagation();
+                    setOpenModal(false);
+                }}
             />
         </div>
     );

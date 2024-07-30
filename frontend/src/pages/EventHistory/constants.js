@@ -1,3 +1,7 @@
+/**
+ * Authors : Kabilesh Ravi Chandran
+ */
+
 const tabs = [
   {
     id: 'myevents',

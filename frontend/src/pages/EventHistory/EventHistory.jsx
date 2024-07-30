@@ -1,7 +1,11 @@
+/**
+ * Authors : Kabilesh Ravi Chandran
+ */
+
 import React, { useEffect, useState } from "react";
 import EventSlider from "../../components/EventSlider";
 import { Tab, Tabs } from "@mui/material";
-import { events, tabs } from "./constants";
+import { tabs } from "./constants";
 import './style.scss';
 import { cancelOrder, getAllEvents, getAllOrders } from "./apiUtils";
 import { useNavigate } from "react-router-dom";
@@ -12,12 +16,12 @@ const EventHistory = () => {
   const [bookedEvents, setBookedEvents] = useState([]);
   const navigate = useNavigate();
   
-  const handleChange = (event, newValue) => {
+  const handleChange = (_, newValue) => {
     setSelectedTab(newValue);
   };
 
   const onCancelBooking = (orderId) => {
-    cancelOrder(orderId)
+    cancelOrder(orderId);
   };
 
   useEffect(() => {

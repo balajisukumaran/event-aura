@@ -1,5 +1,5 @@
 /**
- * Author : Sruthi Shaji
+ * Author : Sruthi Shaji, Kabilesh Ravi Chandran
  */
 package com.eventaura.backend.controller;
 

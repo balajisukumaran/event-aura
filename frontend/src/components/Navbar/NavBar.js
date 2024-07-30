@@ -7,7 +7,7 @@ import UserDropdown from '../UserDropdown/UserDropdown';
 
 const NavBar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+    const [,setIsLoggedIn] = React.useState(false);
     const navigate = useNavigate();
     const token = localStorage?.getItem("token");
 
@@ -17,7 +17,7 @@ const NavBar = () => {
 
     useEffect(() => {
         setIsLoggedIn(localStorage.getItem("token") ? true : false);
-      }, []);
+      }, [setIsLoggedIn]);
 
     return (
         <nav className="navbar">

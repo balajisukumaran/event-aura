@@ -5,6 +5,9 @@ import Login from '../pages/Login/Login';
 import EventHistory from '../pages/EventHistory';
 import {CreateEventPage} from "../pages/CreateEvent/CreateEventPage";
 import { EditEvent } from '../pages/EditEvent/EditEvent';
+import Login from "../components/Authentication/Login";
+import Signup from '../components/Authentication/Signup';
+import ResetPassword from '../components/Authentication/ResetPassword';
 import EventDetails from '../pages/EventDetails/EventDetails';
 import BookingSuccess from '../pages/BookingSuccess/BookingSuccess';
 import BookingFailure from "../pages/BookingFailure/BookingFailure";
@@ -45,6 +48,16 @@ const routes = [
     id: 'editEvent',
     route: '/edit-event/:id',
     component: <EditEvent />
+  },
+  {
+    id: 'signup',
+    route: '/signup',
+    component: <Signup />,
+  },
+  {
+    id: 'resetPassword',
+    route: '/resetPassword',
+    component: <ResetPassword />,
   },
   {
     id: 'event-detail-page',

@@ -24,6 +24,17 @@ export default function EventDetails() {
     const { id } = useParams();
     const event = events.find(event => event.id === id);
 
+    const fetchReviews = async (eventId) => {
+        try {
+            const response = await axios.get(`http://localhost:8080/api/reviews/all?event=${eventId}`);
+            if (response.status === 200) {
+                setReviews(response.data);
+            }
+        } catch (error) {
+            console.error("There was an error fetching the reviews!", error);
+        }
+    };
+
 
     useEffect(() => {
         const fetchOrganizerDetails = async (organizerId) => {
@@ -34,17 +45,6 @@ export default function EventDetails() {
                 }
             } catch (error) {
                 console.error("There was an error fetching the organizer details!", error);
-            }
-        };
-
-        const fetchReviews = async (eventId) => {
-            try {
-                const response = await axios.get(`http://localhost:8080/api/reviews/all?event=${eventId}`);
-                if (response.status === 200) {
-                    setReviews(response.data);
-                }
-            } catch (error) {
-                console.error("There was an error fetching the reviews!", error);
             }
         };
 
@@ -80,6 +80,7 @@ export default function EventDetails() {
             console.error("There was an error adding the review!", error);
         }
         handleCloseReview();
+        fetchReviews(event.id);
     }
 
     function handleBooking(numTickets, total) {
@@ -145,7 +146,7 @@ export default function EventDetails() {
                                     </div>
                                 </div>
                                 <div>
-                                    <button className="organizer-follow-button">Follow</button>
+                                    <button className="event-book-button">Follow</button>
                                 </div>
                             </div>}
                         </div>
@@ -163,7 +164,7 @@ export default function EventDetails() {
                             <div className="review-list-box">
                                 <div className="review-list-header">
                                     <h5>Reviews</h5>
-                                    <button className="review-add-button" onClick={handleOpenReview}>Add a Review</button>
+                                    <button className="event-book-button" onClick={handleOpenReview}>Add a Review</button>
                                 </div>
                                 {reviews.length > 0 && <ReviewCard review={reviews[0]} />}
                                 {showAllReviews && reviews.slice(1).map((review, index) => (

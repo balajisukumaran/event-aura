@@ -36,8 +36,8 @@ export default function AddReview({ onSubmit, onCancel }) {
                 />
             </div>
             <div className="add-review-buttons">
-                <button onClick={onAddReview}>Post Comment</button>
                 <button onClick={onCancel}>Cancel</button>
+                <button onClick={onAddReview}>Post Comment</button>
             </div>
 
 

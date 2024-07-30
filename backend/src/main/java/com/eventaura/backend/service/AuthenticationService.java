@@ -79,4 +79,12 @@ public class AuthenticationService {
         // Check if the provided password matches the stored password
         return passwordEncoder.matches(password, user.getPassword());
     }
+
+    public void updatePassword(String email, String encodedPassword) {
+        var user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        user.setPassword(encodedPassword);
+        userRepository.save(user);
+    }
+
 }

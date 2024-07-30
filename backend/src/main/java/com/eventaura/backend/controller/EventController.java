@@ -18,6 +18,7 @@ public class EventController {
 
     @Autowired
     private EventService eventService;
+    private EventRepository eventRepository;
     @GetMapping(path = "/", produces = "application/json")
     public ResponseEntity<Object> getEvents() {
         try{
@@ -29,8 +30,14 @@ public class EventController {
         }
     }
 
-    // @GetMapping(path = "/events", produces = "application/json")
-    // public List<Event> getEventsByUserId(@RequestParam String userId) {
-    //     // return EventRepository.findAllByUserId(userId);
-    // }
+     @GetMapping(path = "/user", produces = "application/json")
+     public ResponseEntity<Object> getEventsByUserId(@RequestParam String userId) {
+         try{
+             List<Event> events = eventService.getEventsByOrganizerId(userId);
+             return new ResponseEntity(events, HttpStatus.OK);
+         }
+         catch (Exception ex){
+             return new ResponseEntity("Error while fetching events.", HttpStatus.BAD_REQUEST);
+         }
+     }
 }

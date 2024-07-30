@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface EventService {
     List<Event> getEvents();
+
+    List<Event> getEventsByOrganizerId(String organizerId);
 }

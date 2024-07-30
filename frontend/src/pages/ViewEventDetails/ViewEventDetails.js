@@ -31,7 +31,7 @@ export default function ViewEventDetails() {
             .finally(() => {
                 setLoading(false);
             });
-    }, []);
+    }, [id]);
 
     function formatDate(date) {
         const [year, month, day] = date.split('-');
@@ -82,10 +82,10 @@ export default function ViewEventDetails() {
                                 {event?.images && event?.images?.length > 0 ?
                                     event?.images.map((image, index) => (
                                         <div key={index}>
-                                            <img src={image} alt={`Event Image ${index + 1}`} />
+                                            <img src={image} alt={`event ${index + 1}`} />
                                         </div>
                                     )) :
-                                    <img src={DummyImage} alt={`Dummy Image`} />
+                                    <img src={DummyImage} alt={`dummy`} />
                                 }
                             </Carousel>
 

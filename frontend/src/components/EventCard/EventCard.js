@@ -19,7 +19,7 @@ const EventCard = ({ event }) => {
 
                 {event.images && event.images.length > 0 ? (
                     event.images.map((image, index) => (
-                        <img key={index} className='event-image' src={image} />
+                        <img key={index} className="event-image" src={image} alt={`event ${index + 1}`} />
                     ))
                 ) : (
                     <img className='event-image' src={DummyImage} alt={`Dummy`} />

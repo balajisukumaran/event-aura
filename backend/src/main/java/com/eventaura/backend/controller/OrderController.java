@@ -1,3 +1,6 @@
+/**
+ * Author : Sruthi Shaji
+ */
 package com.eventaura.backend.controller;
 
 import com.eventaura.backend.entity.Order;
@@ -71,10 +74,8 @@ public class OrderController {
     }
 
     @GetMapping("/user")
-    public ResponseEntity<List<Order>> getOrderHistory(@RequestHeader("Authorization") String jwt) throws Exception {
-        User user = new User();
-        List<Order> orders = orderService.getUsersOrder(user.getId());
-        return new ResponseEntity<>(orders, HttpStatus.OK);
+    public ResponseEntity<List<Order>> getOrderHistory( @RequestParam String userId) throws Exception {
+            List<Order> orders = orderService.getUsersOrder(userId);
+            return new ResponseEntity<>(orders, HttpStatus.OK);
     }
-
 }

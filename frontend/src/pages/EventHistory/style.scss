@@ -5,6 +5,12 @@
   flex-direction: column;
   margin-top: 30px;
 
+  &-placeholder {
+    width: 100%;
+    text-align: center;
+    margin-top: 100px;
+  }
+
   &-button {
     background-color: #FF9A00;
     border: none;

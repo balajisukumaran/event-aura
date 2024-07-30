@@ -20,7 +20,7 @@ export default function BookTicket({ event, onSubmit }) {
 
     return <div>
         {
-            event ? <div style={{ border: "1px solid orange", margin: "1%", padding: "3%", color: "white", borderRadius: "10px" }}>
+            event ? <div style={{ margin: "1%", padding: "3%", color: "white", borderRadius: "10px" }}>
                 <h5 style={{ textAlign: "left" }}> {event.title}</h5>
                 <p style={{ textAlign: "left" }} >{event.location}</p>
                 <div style={{ textAlign: "left", flexDirection: 'row', display: "flex" }} >
@@ -30,7 +30,7 @@ export default function BookTicket({ event, onSubmit }) {
                     </div>
                     <div style={{ padding: "1%", border: "1px solid orange", width: "50%" }}>
                         <h6 style={{ color: 'orange', fontSize: "11px" }}>Time</h6>
-                        <p>{event.time}</p>
+                        <p>{event.startTime}</p>
                     </div>
                 </div>
                 <div style={{ justifyContent: 'space-between', display: "flex", alignItems: 'center', textAlign: "left" }}>
@@ -55,7 +55,7 @@ export default function BookTicket({ event, onSubmit }) {
                         <p>{event.price * numTickets} CAD </p>
                     </div>
                     <div>
-                        <button style={{ backgroundColor: 'orange', border: "none", height: "40px", width: "100px", borderRadius: "5px" }} onClick={handleSubmit}>Continue</button>
+                        <button className='event-book-button' onClick={handleSubmit}>Continue</button>
                     </div>
                 </div>
             </div>

@@ -21,7 +21,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order createOrder(OrderRequest req, User user) {
         Order order = new Order();
-        order.setEventId(req.getEvent_id());
+        order.setEvent(req.getEvent());
         order.setUserId(req.getUser_id());
         order.setNumTickets(req.getNo_of_tickets());
         order.setTotalAmount(req.getTotal());
@@ -49,13 +49,11 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void cancelOrder(String orderId) {
-        Order order= orderRepository.findById(orderId).get();
-        order.setOrderStatus("cancelled");
-        orderRepository.save(order);
+        orderRepository.deleteById(orderId);
     }
 
     @Override
     public List<Order> getUsersOrder(String id) {
-        return null;
+        return orderRepository.getOrdersByUserId(id);
     }
 }

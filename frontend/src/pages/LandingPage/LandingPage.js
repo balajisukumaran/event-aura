@@ -1,21 +1,37 @@
-import "./LandingPage.css"
+import "./LandingPage.css";
 import SearchBar from '../../components/SearchBar/SearchBar';
 import SortPicker from '../../components/SortPicker/SortPicker';
 import EventCard from '../../components/EventCard/EventCard';
-import React, { useState, useContext, useEffect } from 'react';
-import { EventContext } from '../../context/EventContext';
+import React, { useState, useEffect } from 'react';
 import ReactLoading from "react-loading";
 
 const Dashboard = () => {
-    const { events } = useContext(EventContext);
+    const [events, setEvents] = useState([]);
     const [filteredEvents, setFilteredEvents] = useState([]);
     const [searchTitle, setSearchTitle] = useState('');
     const [searchDate, setSearchDate] = useState(null);
     const [sortType, setSortType] = useState('Recent Date first');
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        setFilteredEvents(events);
-    }, [events]);
+        const fetchEvents = async () => {
+            try {
+                const response = await fetch('http://localhost:8080/api/events/');
+                console.log(response);
+                if (response.status === 200) {
+                    const data = await response.json();
+                    setEvents(data);
+                    setFilteredEvents(data);
+                }
+            } catch (error) {
+                console.error('Error fetching events:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchEvents();
+    }, []);
 
     const handleSearch = () => {
         const filtered = events.filter(event => {
@@ -48,6 +64,10 @@ const Dashboard = () => {
         setFilteredEvents(sortedEvents);
     };
 
+    if (loading) {
+        return <ReactLoading type="spin" color="#fff" />;
+    }
+
     return (
         <div>
             <SearchBar
@@ -63,11 +83,11 @@ const Dashboard = () => {
                 </div>
                 <div className='event-container'>
                     {
-                        filteredEvents ?
+                        filteredEvents.length > 0 ?
                             (
                                 filteredEvents.map(event => (<EventCard key={event.id} event={event} />))
                             )
-                            : <ReactLoading type="spin" color="#fff" />
+                            : <div>No events found</div>
                     }
 
                 </div>

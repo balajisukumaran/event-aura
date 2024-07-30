@@ -4,7 +4,7 @@ import './style.scss';
 
 const EventSlider = ({ events, className }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const slidesToShow = 3;
+  const slidesToShow = Math.min(3, events.length);
 
   const nextSlide = () => {
     setCurrentIndex((prevIndex) => (prevIndex + slidesToShow) % events.length);
@@ -25,15 +25,19 @@ const EventSlider = ({ events, className }) => {
 
   return (
     <div className={`slider-container ${className || ''}`}>
-      <button className="prev" onClick={prevSlide}>❮</button>
+      {(
+        <button className="prev" onClick={prevSlide}>❮</button>
+      )}
       <div className="slider-wrapper">
-        {getVisibleSlides().map((event, index) => (
+        {getVisibleSlides().map((event) => (
           <div key={event.id} className="slide">
             <EventCard event={event} />
           </div>
         ))}
       </div>
-      <button className="next" onClick={nextSlide}>❯</button>
+      {(
+        <button className="next" onClick={nextSlide}>❯</button>
+      )}
     </div>
   );
 };

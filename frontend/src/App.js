@@ -5,7 +5,6 @@ import NavBar from './components/Navbar/NavBar';
 import { EventProvider } from './context/EventContext';
 import MainRoute from './router/routes';
 
-
 function App() {
   return (
     <EventProvider>

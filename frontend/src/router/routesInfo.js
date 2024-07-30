@@ -2,6 +2,9 @@ import LandingPage from '../pages/LandingPage/LandingPage';
 import ContactUs from '../pages/ContactUs/ContactUs';
 import FAQ from '../pages/FAQ/FAQ';
 import Login from '../pages/Login/Login';
+import EventDetails from '../pages/EventDetails/EventDetails';
+import BookingSuccess from '../pages/BookingSuccess/BookingSuccess';
+import BookingFailure from "../pages/BookingFailure/BookingFailure";
 import ProfilePage from '../pages/MyProfile/ProfilePage';
 
 const routes = [
@@ -22,8 +25,23 @@ const routes = [
   },
   {
     id: 'login',
-    route: '.login',
+    route: '/login',
     component: <Login />,
+  },
+  {
+    id: 'event-detail-page',
+    route: '/events/:id',
+    component: <EventDetails />,
+  },
+  {
+    id: 'payment-success-page',
+    route: '/payment/success/:id',
+    component: <BookingSuccess />,
+  },
+  {
+    id: 'payment-failure-page',
+    route: '/payment/failure/:id',
+    component: <BookingFailure />,
   },
   {
     id: 'profile',

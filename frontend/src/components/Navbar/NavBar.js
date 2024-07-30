@@ -13,7 +13,7 @@ const NavBar = () => {
   };
 
   useEffect(() => {
-    const storedRole = "ADMIN"; //localStorage.getItem("role");
+    const storedRole = localStorage.getItem("role");
     if (!storedRole) {
       navigate("/login");
     } else {
@@ -29,7 +29,9 @@ const NavBar = () => {
         </Link>
       </div>
       <div className="navbar-links">
-        <p onClick={() => navigate("/event-history")}>Events</p>
+        {role !== "ADMIN" && (
+          <p onClick={() => navigate("/event-history")}>Events</p>
+        )}
         <p onClick={() => navigate("/faq")}>FAQs</p>
         <p onClick={() => navigate("/contact")}>Contact Us</p>
         {role === "ADMIN" && (
@@ -49,9 +51,11 @@ const NavBar = () => {
       </div>
       {isMenuOpen && (
         <div className="navbar-dropdown">
-          <Link to="/event-history" onClick={toggleMenu}>
-            Events
-          </Link>
+          {role !== "ADMIN" && (
+            <Link to="/event-history" onClick={toggleMenu}>
+              Events
+            </Link>
+          )}
           <Link to="/faq" onClick={toggleMenu}>
             FAQ
           </Link>

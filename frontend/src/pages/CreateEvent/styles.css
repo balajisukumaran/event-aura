@@ -13,4 +13,11 @@
     padding-left: 15px;
     padding-right: 15px;
   }
-  
+  input[type="text"]:focus {
+    border-color: #FF9A00; 
+    box-shadow: 0 0 5px #FF9A00; 
+  }
+  input[type="textarea"]:focus {
+    border-color: #FF9A00; 
+    box-shadow: 0 0 5px #FF9A00; 
+  }

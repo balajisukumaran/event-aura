@@ -16,14 +16,9 @@ public class AwsConfig {
     @Value("${access.key.secret}")
     private String accessKeySecret;
 
-    @Value("${access.session.token}")
-    private String sessionToken;
-
     @Value("${s3.region.name}")
     private String s3RegionName;
-
-
-
+    
     @Bean
     public AmazonS3 getAmazonS3Client() {
         final BasicAWSCredentials basicAWSCredentials = new BasicAWSCredentials(accessKeyId, accessKeySecret);
@@ -31,7 +26,7 @@ public class AwsConfig {
         return AmazonS3ClientBuilder
                 .standard()
                 .withCredentials(new AWSStaticCredentialsProvider(basicAWSCredentials))
-                .withRegion("us-east-1")
+                .withRegion(s3RegionName)
                 .build();
 
     }

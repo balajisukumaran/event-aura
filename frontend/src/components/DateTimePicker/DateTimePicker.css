@@ -1,0 +1,27 @@
+
+
+input[type="date"]:focus,
+input[type="time"]:focus {
+  border-color: #FF9A00; /* Orange border on focus */
+  box-shadow: 0 0 5px #FF9A00; /* Orange shadow on focus */
+}
+
+/* Apply styles to the buttons */
+.btn-primary {
+  background-color: #FF9A00; /* Orange background */
+  border-color: #FF9A00; /* Orange border */
+  color: #fff; /* White text */
+}
+
+.btn-outline-secondary {
+  border-color: #FF9A00; /* Orange border */
+  color: #FF9A00; /* Orange text */
+}
+
+.btn-outline-secondary:hover {
+  background-color: #FF9A00; /* Orange background on hover */
+  color: #fff; /* White text on hover */
+}
+
+  
+  

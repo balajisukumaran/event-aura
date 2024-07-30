@@ -40,7 +40,7 @@ function DropzoneComponent({ onFilesSelected }) {
         })
       );
 
-      setFiles(updatedFiles);
+      setFiles((prevFiles) => [...prevFiles, ...updatedFiles]);
     },
     [onFilesSelected]
   );
@@ -54,6 +54,7 @@ function DropzoneComponent({ onFilesSelected }) {
   } = useDropzone({
     onDrop,
     accept: "image/jpeg, image/png",
+    multiple: true,
   });
 
   const style = useMemo(
@@ -67,7 +68,7 @@ function DropzoneComponent({ onFilesSelected }) {
   );
 
   const thumbs = files.map((file) => (
-    <div className="row">
+    <div className="row" key={file.path}>
       <div className="col-md-10">
         {file.path} - {file.size} bytes{" "}
       </div>
@@ -92,7 +93,7 @@ function DropzoneComponent({ onFilesSelected }) {
     <section>
       <div {...getRootProps({ style })}>
         <input {...getInputProps()} />
-        <div>Drag and drop your images here.</div>
+        <div>Drag and drop your images here, or click to select files.</div>
       </div>
       <aside>{thumbs}</aside>
     </section>

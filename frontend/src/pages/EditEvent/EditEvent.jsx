@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./styles.css";
-
+import axios from "axios";
 import Stepper from "../../components/Stepper/Stepper";
 import  DropzoneComponent from "../../components/ImageUpload/DropzoneComponent";
 import DateTimePicker from "../../components/DateTimePicker/DateTimePicker";
@@ -13,7 +13,7 @@ export const EditEvent = () => {
   const { id } = useParams();
   const [eventName, setEventName] = useState("");
   const [eventDescription, setEventDescription] = useState("");
-  const [, setFiles] = useState([]);
+  const [files, setFiles] = useState([]);
   const [eventDate, setEventDate] = useState("");
   const [eventStartTime, setEventStartTime] = useState("");
   const [eventEndTime, setEventEndTime] = useState("");
@@ -124,7 +124,37 @@ function formatDate(date) {
   };
 
 
-  const handleSubmit = () => {
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("event", new Blob([JSON.stringify({
+      title: eventName,
+      description: eventDescription,
+      date: eventDate,
+      startTime: eventStartTime,
+      endTime: eventEndTime,
+      location: address,
+      price: ticketPrice,
+      // TODO : to be changed
+      organizerId: "66a7d5b555572a2845f307f4"
+  })], {
+      type: "application/json"
+  }));
+
+  files.forEach(file => {
+      formData.append("images", file);
+  });
+  try{
+    const response = await axios.put(`http://localhost:8080/api/events/${id}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data"
+      }
+    });
+    navigate('/events');
+    toast.success('Event created successfully!!');
+  }catch(error){
+console.log(error);
+  }
     toast.success('Event created successfully!!');
     navigate('/events')
   };

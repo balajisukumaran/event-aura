@@ -7,7 +7,6 @@ import DateTimePicker from "../../components/DateTimePicker/DateTimePicker";
 import LocationForm from "../../components/LocationForm/LocationForm";
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
-import api from "../../services";
 
 export const CreateEventPage = () => {
   const [currentStep, setCurrentStep] = useState(0);
@@ -20,6 +19,7 @@ export const CreateEventPage = () => {
   const [errors, setErrors] = useState({});
 
   const [selectedOption, setSelectedOption] = useState("Venue");
+  const [eventType, setEventType] = useState("Single");
   const [address, setAddress] = useState("");
   const [ticketPrice, setTicketPrice] = useState("");
 
@@ -90,11 +90,9 @@ export const CreateEventPage = () => {
     e.preventDefault();
     setCurrentStep((prevStep) => Math.max(prevStep - 1, 0));
   };
-
-  const handleSubmit = async() => {
-    debugger
-    console.log("in submit");
-    const formData = new FormData();
+  const formData = new FormData();
+  const handleSubmit = async(e) => {
+    e.preventDefault();
         formData.append("event", new Blob([JSON.stringify({
             title: eventName,
             description: eventDescription,
@@ -103,24 +101,32 @@ export const CreateEventPage = () => {
             endTime: eventEndTime,
             location: address,
             price: ticketPrice,
+            eventType: eventType,
+            locationType: selectedOption,
             // TODO : to be changed
             organizerId: "66a7d5b555572a2845f307f4"
         })], {
             type: "application/json"
         }));
-
-        files.forEach(file => {
+        if(files.length > 0){
+          files.forEach(file => {
             formData.append("images", file);
         });
-       const response = await axios.post(`http://localhost:8080/api/events`, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data"
-          }
-        });
-      if(response){
-        navigate('/events');
-        toast.success('Event created successfully!!');
-      }
+        }else{
+          formData.append("images", null);
+        }
+        
+        try{
+          const response = await axios.post(`http://localhost:8080/api/events`, formData, {
+            headers: {
+              "Content-Type": "multipart/form-data"
+            }
+          });
+          navigate('/events');
+          toast.success('Event created successfully!!');
+        }catch(error){
+console.log(error);
+        }
   };
 
   return (
@@ -212,6 +218,7 @@ export const CreateEventPage = () => {
                               <div>
                                 <DateTimePicker
                                   eventDate={eventDate}
+                                  eventType={eventType}
                                   eventStartTime={eventStartTime}
                                   eventEndTime={eventEndTime}
                                   handleDateChange={(e) =>{

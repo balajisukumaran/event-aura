@@ -16,12 +16,12 @@
   }
   
   .buttons button:not(:disabled) {
-    background-color: #176fcd;
+    background-color: #FF9A00;
     color: white;
   }
   
   .stepper__step {
-    border: 1px solid #176fcd !important;
+    border: 1px solid #FF9A00 !important;
     cursor: default !important;
   }
   

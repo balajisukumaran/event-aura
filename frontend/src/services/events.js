@@ -1,7 +1,5 @@
 import * as api from "./utils";
 
-
-
 /**
  * Get details of a event
  */

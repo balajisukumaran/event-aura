@@ -1,7 +1,9 @@
+/**
+ * Author : Nikita Davies
+ */
 import React, { useState, useEffect } from "react";
 import "./styles.css";
 import axios from "axios";
-import Stepper from "../../components/Stepper/Stepper";
 import  DropzoneComponent from "../../components/ImageUpload/DropzoneComponent";
 import DateTimePicker from "../../components/DateTimePicker/DateTimePicker";
 import LocationForm from "../../components/LocationForm/LocationForm";

@@ -36,7 +36,7 @@ const EventCard = ({ event }) => {
                         <img key={index} className='event-image' src={image} />
                     ))
                 ) : (
-                    <img className='event-image' src={DummyImage} alt={`Dummy Image`} />
+                    <img className='event-image' src={DummyImage} alt={`Dummy`} />
                 )}
 
             </Carousel>

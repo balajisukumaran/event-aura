@@ -1,3 +1,7 @@
+/**
+ * Authors : Nikita Davies, Sruthi Shaji
+ */
+
 package com.eventaura.backend.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;

@@ -1,6 +1,5 @@
 import './styles.css';
 import loginImg from './images/login-image.png';
-import googleIcon from './images/search.png';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";

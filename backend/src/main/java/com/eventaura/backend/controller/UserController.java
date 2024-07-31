@@ -5,6 +5,7 @@
 package com.eventaura.backend.controller;
 
 import com.eventaura.backend.entity.User;
+import com.eventaura.backend.request.UserRequest;
 import com.eventaura.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -36,8 +37,8 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public User updateUser(@PathVariable String id, @RequestBody User userDetails) {
-        return userService.updateUser(id, userDetails);
+    public User updateUser(@PathVariable String id, @RequestBody UserRequest userRequest) {
+        return userService.updateUser(id, userRequest);
     }
 
     @DeleteMapping("/{id}")

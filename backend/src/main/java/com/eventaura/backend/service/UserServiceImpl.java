@@ -3,8 +3,10 @@
  */
 package com.eventaura.backend.service;
 
+import com.eventaura.backend.entity.USER_ROLE;
 import com.eventaura.backend.entity.User;
 import com.eventaura.backend.repository.UserRepository;
+import com.eventaura.backend.request.UserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,16 +40,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateUser(String id, User userDetails) {
+    public User updateUser(String id, UserRequest userRequest) {
         User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
-        user.setFirstname(userDetails.getFirstname());
-        user.setLastname(userDetails.getLastname());
-        user.setEmail(userDetails.getEmail());
-        user.setPassword(userDetails.getPassword());
-        user.setPhone(userDetails.getPhone());
-        user.setStatus(userDetails.getStatus());
-        user.setImageurl(userDetails.getImageurl());
-        user.setRole(userDetails.getRole());
+        user.setFirstname(userRequest.getFirstname());
+        user.setLastname(userRequest.getLastname());
+        user.setEmail(userRequest.getEmail());
+        user.setPassword(userRequest.getPassword());
+        user.setPhone(userRequest.getPhone());
+        user.setStatus(userRequest.getStatus());
+        user.setImageurl(userRequest.getImageurl());
+        user.setRole(USER_ROLE.getInstance(userRequest.getRole()));
         return userRepository.save(user);
     }
 

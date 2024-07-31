@@ -30,7 +30,7 @@ const NavBar = () => {
     } else {
       setRole(storedRole);
     }
-  }, []);
+  }, [navigate]);
 
   return (
     <nav className="navbar">

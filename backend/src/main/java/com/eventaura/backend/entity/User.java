@@ -26,9 +26,10 @@ public class User implements UserDetails {
     private String email;
     private String phone;
     private String password;
+    private USER_ROLE role;
+    private int no_of_followers = 0;
     private String status;
     private String imageurl;
-    private USER_ROLE role;
 
     // Return the list of roles: user, admin
     @Override
@@ -131,7 +132,6 @@ public class User implements UserDetails {
         this.role = role;
     }
 
-    private int no_of_followers = 0;
 
 }
 

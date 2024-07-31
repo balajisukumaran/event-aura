@@ -25,7 +25,7 @@ const NavBar = () => {
                 <Link to="/" className="navbar-brand-link">Event Aura</Link>
             </div>
             <div className="navbar-links">
-                <p onClick={() => navigate("/login")}>Events</p>
+                <p onClick={() => navigate("/event-history")}>Events</p>
                 <p onClick={() => navigate("/faq")}>FAQs</p>
                 <p onClick={() => navigate("/contact")}>Contact Us</p>
 

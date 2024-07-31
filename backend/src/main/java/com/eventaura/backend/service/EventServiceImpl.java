@@ -29,6 +29,11 @@ public class EventServiceImpl implements EventService{
     }
 
     @Override
+    public List<Event> getEventsByOrganizerId(String organizerId) {
+        List<Event> events = eventRepository.getEventsByOrganizerId(organizerId);
+        return events;
+    }
+
     public Optional<Event> getEventById(String id) {
         return eventRepository.findById(id);
     }

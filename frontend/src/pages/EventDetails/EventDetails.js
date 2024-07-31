@@ -160,10 +160,9 @@ export default function EventDetails() {
               </div>}
             </div>
             <div className="right-box">
-              <p>{event?.desc}</p>
+              <p>{event?.description}</p>
               <h6><strong>Date</strong></h6>
               {event.date ? <p>{formatDate(event?.date)}</p> : null}
-              {/* <p>{formatDate(event?.date)}</p> */}
               <h6><strong>Time</strong></h6>
               <p>{`${event?.startTime} - ${event?.endTime}`}</p>
               <h6><strong>Location</strong></h6>

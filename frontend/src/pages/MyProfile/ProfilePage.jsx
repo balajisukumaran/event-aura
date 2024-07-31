@@ -37,7 +37,7 @@ const ProfilePage = () => {
     imageurl: "",
   });
   // TO DO: Change user id
-  const userId = localStorage.getItem("userId");
+  const id = localStorage.getItem("userId");
   const [editedProfile, setEditedProfile] = useState({ ...profile });
   const [errors, setErrors] = useState({});
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -50,7 +50,7 @@ const ProfilePage = () => {
     const fetchUserData = async () => {
       try {
         const response = await axios.get(
-          `https://event-aura-yt4akn7xpq-uc.a.run.app/api/users/${userId}`
+          `https://event-aura-yt4akn7xpq-uc.a.run.app/api/users/${id}`
         );
         const userData = response.data;
         setProfile(userData);
@@ -61,7 +61,7 @@ const ProfilePage = () => {
     };
 
     fetchUserData();
-  }, [userId]);
+  }, [id]);
 
   const handleOptionClick = (option) => setSelectedOption(option);
 
@@ -91,7 +91,7 @@ const ProfilePage = () => {
     if (Object.keys(validationErrors).length === 0) {
       try {
         await axios.put(
-          `https://event-aura-yt4akn7xpq-uc.a.run.app/api/users/${userId}`,
+          `https://event-aura-yt4akn7xpq-uc.a.run.app/api/users/${id}`,
           editedProfile
         );
         setProfile(editedProfile);
@@ -123,10 +123,13 @@ const ProfilePage = () => {
         );
         const uploadedImageUrl = uploadResponse.data.s3_url;
 
-        await axios.put(`https://event-aura-yt4akn7xpq-uc.a.run.app/api/users/${userId}`, {
-          ...profile,
-          imageurl: uploadedImageUrl,
-        });
+        await axios.put(
+          `https://event-aura-yt4akn7xpq-uc.a.run.app/api/users/${id}`,
+          {
+            ...profile,
+            imageurl: uploadedImageUrl,
+          }
+        );
         setErrors({});
         setSnackbarMessage("Profile image uploaded and saved successfully!");
         setSnackbarOpen(true);
@@ -154,16 +157,22 @@ const ProfilePage = () => {
   const handleConfirmAction = async () => {
     try {
       if (actionType === "disable") {
-        await axios.put(`https://event-aura-yt4akn7xpq-uc.a.run.app/api/users/${userId}/disable`);
+        await axios.put(
+          `https://event-aura-yt4akn7xpq-uc.a.run.app/api/users/${id}/disable`
+        );
         setSnackbarMessage("Account temporarily disabled.");
         setTimeout(() => {
-          navigate("/"); // Navigate after 20 seconds
+          localStorage.clear();
+          navigate("/login"); // Navigate after 20 seconds
         }, 5000);
       } else if (actionType === "delete") {
-        await axios.delete(`https://event-aura-yt4akn7xpq-uc.a.run.app/api/users/${userId}`);
+        await axios.delete(
+          `https://event-aura-yt4akn7xpq-uc.a.run.app/api/users/${id}`
+        );
         setSnackbarMessage("Account permanently deleted.");
         setTimeout(() => {
-          navigate("/"); // Navigate after 20 seconds
+          localStorage.clear();
+          navigate("/login"); // Navigate after 20 seconds
         }, 5000);
       }
       setSnackbarOpen(true);

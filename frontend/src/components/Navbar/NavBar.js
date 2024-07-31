@@ -7,7 +7,7 @@ import UserDropdown from '../UserDropdown/UserDropdown';
 
 const NavBar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [,setIsLoggedIn] = React.useState(false);
+    const [, setIsLoggedIn] = React.useState(false);
     const navigate = useNavigate();
     const token = localStorage?.getItem("token");
 
@@ -15,9 +15,14 @@ const NavBar = () => {
         setIsMenuOpen(!isMenuOpen);
     };
 
+    const handleLogout = () => {
+        localStorage.clear();
+        navigate("/login");
+    };
+
     useEffect(() => {
         setIsLoggedIn(localStorage.getItem("token") ? true : false);
-      }, [setIsLoggedIn]);
+    }, [setIsLoggedIn]);
 
     return (
         <nav className="navbar">
@@ -29,7 +34,17 @@ const NavBar = () => {
                 <p onClick={() => navigate("/faq")}>FAQs</p>
                 <p onClick={() => navigate("/contact")}>Contact Us</p>
 
-                {!token ?  (<p><button className='login-register-button' onClick={() => navigate("/login")}>Login</button> </p>) : <UserDropdown />}
+                {
+                    !token ?
+                        (
+                            <p>
+                                <button className='login-register-button' onClick={() => navigate("/login")}>
+                                    Login
+                                </button>
+                            </p>
+                        )
+                        : <UserDropdown handleLogout={handleLogout} />
+                }
             </div>
             <div className="navbar-menu-icon" onClick={toggleMenu}>
                 <MenuIcon fontSize="large" style={{ color: "#FF9A00" }} />
@@ -40,8 +55,8 @@ const NavBar = () => {
                         <Link to="/login" onClick={toggleMenu}>Events</Link>
                         <Link to="/faq" onClick={toggleMenu}>FAQ</Link>
                         <Link to="/contact" onClick={toggleMenu}>Contact</Link>
-                        {!token ?  (<Link to="/login" onClick={toggleMenu}>Login</Link>) : <UserDropdown />}
-                        
+                        {!token ? (<Link to="/login" onClick={toggleMenu}>Login</Link>) : <UserDropdown />}
+
                     </div>
                 )
             }

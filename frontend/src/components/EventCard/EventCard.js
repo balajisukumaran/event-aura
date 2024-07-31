@@ -1,7 +1,6 @@
 /**
  * Authors : Kabilesh Ravi Chandran, Sruthi Shaji
  */
-
 import React, { useState } from "react";
 import "./EventCard.css";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -83,7 +82,7 @@ const EventCard = ({ event }) => {
         </div>
       </div>
       {event?.organizerId !== localStorage.getItem("userId") &&
-      location.pathname === "/event-history" ? (
+        location.pathname === "/event-history" ? (
         <div className="event-cta">
           <button className="event-cta-btn" onClick={onClickCancel}>
             Cancel Booking

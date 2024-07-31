@@ -1,3 +1,7 @@
+/**
+ * Author: Sruthi Shaji
+ */
+
 package com.eventaura.backend.service;
 
 import com.eventaura.backend.entity.Review;

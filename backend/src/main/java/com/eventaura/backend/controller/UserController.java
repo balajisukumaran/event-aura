@@ -1,3 +1,7 @@
+/**
+ * Authors: Merin Mary Saju
+ */
+
 package com.eventaura.backend.controller;
 
 import com.eventaura.backend.entity.User;

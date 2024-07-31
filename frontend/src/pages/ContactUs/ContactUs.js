@@ -1,3 +1,6 @@
+/**
+ * Author : Sruthi Shaji
+ */
 import "../../App.css";
 import "./ContactUs.css";
 import LocalPostOfficeIcon from '@mui/icons-material/LocalPostOffice';

@@ -1,3 +1,6 @@
+/**
+ * Author : Sruthi Shaji
+ */
 import "./LandingPage.css";
 import SearchBar from '../../components/SearchBar/SearchBar';
 import SortPicker from '../../components/SortPicker/SortPicker';

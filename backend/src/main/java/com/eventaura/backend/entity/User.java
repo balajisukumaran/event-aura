@@ -1,3 +1,6 @@
+/**
+ * Authors: Merin Mary Saju
+ */
 package com.eventaura.backend.entity;
 
 import lombok.AllArgsConstructor;

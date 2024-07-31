@@ -1,3 +1,6 @@
+/**
+ * Author : Sruthi Shaji
+ */
 import React, { useEffect } from 'react';
 import './BookingSuccess.css';
 import { useNavigate, useParams } from 'react-router-dom';

@@ -1,3 +1,6 @@
+/**
+ * Author : Sruthi Shaji
+ */
 import React, { useState } from 'react';
 import './SortPicker.css';
 import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';

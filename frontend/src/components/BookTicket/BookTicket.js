@@ -1,3 +1,6 @@
+/**
+ * Author : Sruthi Shaji
+ */
 import { useState } from 'react';
 import ReactLoading from "react-loading";
 import Divider from '@mui/material/Divider';

@@ -1,0 +1,36 @@
+.event-history {
+  padding: 20px;
+
+  .event-history-button {
+    background-color: #ff9a00;
+    color: white;
+    &:hover {
+      background-color: #ff8500;
+    }
+  }
+
+  .event-history-tabs {
+    margin-bottom: 20px;
+    .event-history-tabs-item {
+      font-weight: bold;
+      color: #ff9a00;
+      &:selected {
+        color: #ff8500;
+      }
+    }
+  }
+
+  .event-history-slider {
+    margin-top: 20px;
+  }
+}
+
+.sidebar {
+  padding: 20px;
+  .sidebar-list-item {
+    &:hover {
+      background-color: #ff9a00;
+      color: white;
+    }
+  }
+}

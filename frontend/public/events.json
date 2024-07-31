@@ -1,0 +1,82 @@
+{
+  "events": [
+    {
+      "id": "event1",
+      "title": "Event 1",
+      "description": "Description for Event 1",
+      "location": "Venue 1",
+      "date": "2024-06-15",
+      "startTime": "10:00 AM",
+      "endTime": "12:00 PM",
+      "price": 50,
+      "images": [
+        "https://eventaura.s3.amazonaws.com/event-images/Tech%20Summit%202024/banner.jpg"
+      ]
+    },
+    {
+      "id": "event2",
+      "title": "Event 2",
+      "description": "Description for Event 2",
+      "location": "Venue 2",
+      "date": "2024-06-16",
+      "startTime": "11:00 AM",
+      "endTime": "01:00 PM",
+      "price": 60,
+      "images": [
+        "https://eventaura.s3.amazonaws.com/event-images/Tech%20Summit%202024/banner.jpg"
+      ]
+    },
+    {
+      "id": "event3",
+      "title": "Event 3",
+      "description": "Description for Event 3",
+      "location": "Venue 3",
+      "date": "2024-06-17",
+      "startTime": "12:00 PM",
+      "endTime": "02:00 PM",
+      "price": 70,
+      "images": [
+        "https://eventaura.s3.amazonaws.com/event-images/Tech%20Summit%202024/banner.jpg"
+      ]
+    },
+    {
+      "id": "event4",
+      "title": "Event 4",
+      "description": "Description for Event 4",
+      "location": "Venue 4",
+      "date": "2024-06-18",
+      "startTime": "01:00 PM",
+      "endTime": "03:00 PM",
+      "price": 80,
+      "images": [
+        "https://eventaura.s3.amazonaws.com/event-images/Tech%20Summit%202024/banner.jpg"
+      ]
+    },
+    {
+      "id": "event5",
+      "title": "Event 5",
+      "description": "Description for Event 5",
+      "location": "Venue 5",
+      "date": "2024-06-19",
+      "startTime": "02:00 PM",
+      "endTime": "04:00 PM",
+      "price": 90,
+      "images": [
+        "https://eventaura.s3.amazonaws.com/event-images/Tech%20Summit%202024/banner.jpg"
+      ]
+    },
+    {
+      "id": "event6",
+      "title": "Event 6",
+      "description": "Description for Event 6",
+      "location": "Venue 6",
+      "date": "2024-06-20",
+      "startTime": "03:00 PM",
+      "endTime": "05:00 PM",
+      "price": 100,
+      "images": [
+        "https://eventaura.s3.amazonaws.com/event-images/Tech%20Summit%202024/banner.jpg"
+      ]
+    }
+  ]
+}

@@ -1,3 +1,6 @@
+/**
+ * Author: Merin Mary Saju
+ */
 package com.eventaura.backend.repository;
 
 import com.eventaura.backend.entity.User;

@@ -1,8 +1,9 @@
+/**
+ * Author: Sruthi Shaji
+ */
 package com.eventaura.backend.controller;
 
 
-import com.eventaura.backend.entity.Review;
-import com.eventaura.backend.entity.User;
 import com.eventaura.backend.request.ReviewRequest;
 import com.eventaura.backend.response.ReviewResponse;
 import com.eventaura.backend.service.ReviewService;

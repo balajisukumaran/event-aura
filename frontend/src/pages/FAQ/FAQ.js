@@ -1,3 +1,6 @@
+/**
+ * Author : Sruthi Shaji
+ */
 import "../../App.css";
 import QuestionBox from "../../components/QuestionBox/QuestionBox";
 import "./FAQ.css";

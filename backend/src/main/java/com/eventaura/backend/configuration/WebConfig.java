@@ -1,3 +1,6 @@
+/**
+ * Author : Sruthi Shaji
+ */
 package com.eventaura.backend.configuration;
 
 import org.springframework.context.annotation.Configuration;

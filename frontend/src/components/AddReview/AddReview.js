@@ -1,3 +1,6 @@
+/**
+ * Author : Sruthi Shaji
+ */
 import Rating from '@mui/material/Rating';
 import { useState } from 'react';
 import "./AddReview.css";

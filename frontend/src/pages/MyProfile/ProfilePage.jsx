@@ -1,3 +1,6 @@
+/**
+ * Author: Merin Mary Saju
+ */
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -34,7 +37,7 @@ const ProfilePage = () => {
     imageurl: "",
   });
   // TO DO: Change user id
-  const userId = "66a72c971c8184337945e28b";
+  const userId = localStorage.getItem("userId");
   const [editedProfile, setEditedProfile] = useState({ ...profile });
   const [errors, setErrors] = useState({});
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -47,7 +50,7 @@ const ProfilePage = () => {
     const fetchUserData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/api/users/${userId}`
+          `https://event-aura-yt4akn7xpq-uc.a.run.app/api/users/${userId}`
         );
         const userData = response.data;
         setProfile(userData);
@@ -88,7 +91,7 @@ const ProfilePage = () => {
     if (Object.keys(validationErrors).length === 0) {
       try {
         await axios.put(
-          `http://localhost:8080/api/users/${userId}`,
+          `https://event-aura-yt4akn7xpq-uc.a.run.app/api/users/${userId}`,
           editedProfile
         );
         setProfile(editedProfile);
@@ -120,7 +123,7 @@ const ProfilePage = () => {
         );
         const uploadedImageUrl = uploadResponse.data.s3_url;
 
-        await axios.put(`http://localhost:8080/api/users/${userId}`, {
+        await axios.put(`https://event-aura-yt4akn7xpq-uc.a.run.app/api/users/${userId}`, {
           ...profile,
           imageurl: uploadedImageUrl,
         });
@@ -151,13 +154,13 @@ const ProfilePage = () => {
   const handleConfirmAction = async () => {
     try {
       if (actionType === "disable") {
-        await axios.put(`http://localhost:8080/api/users/${userId}/disable`);
+        await axios.put(`https://event-aura-yt4akn7xpq-uc.a.run.app/api/users/${userId}/disable`);
         setSnackbarMessage("Account temporarily disabled.");
         setTimeout(() => {
           navigate("/"); // Navigate after 20 seconds
         }, 5000);
       } else if (actionType === "delete") {
-        await axios.delete(`http://localhost:8080/api/users/${userId}`);
+        await axios.delete(`https://event-aura-yt4akn7xpq-uc.a.run.app/api/users/${userId}`);
         setSnackbarMessage("Account permanently deleted.");
         setTimeout(() => {
           navigate("/"); // Navigate after 20 seconds

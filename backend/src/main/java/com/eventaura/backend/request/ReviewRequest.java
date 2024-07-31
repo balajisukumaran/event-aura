@@ -1,3 +1,6 @@
+/**
+ * Author: Sruthi Shaji
+ */
 package com.eventaura.backend.request;
 
 import lombok.Data;

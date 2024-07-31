@@ -1,3 +1,6 @@
+/**
+ * Author : Sruthi Shaji
+ */
 import Rating from '@mui/material/Rating';
 import Divider from '@mui/material/Divider';
 import "./ReviewCard.css";

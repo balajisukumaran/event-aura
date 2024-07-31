@@ -1,5 +1,5 @@
 /**
- * Authors : Kabilesh Ravi Chandran
+ * Authors : Kabilesh Ravi Chandran, Sruthi Shaji
  */
 package com.eventaura.backend.repository;
 

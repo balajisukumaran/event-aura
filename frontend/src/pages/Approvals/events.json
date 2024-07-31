@@ -1,0 +1,52 @@
+{
+  "events": [
+    {
+      "id": "event1",
+      "name": "Event 1",
+      "description": "Description for Event 1",
+      "venue": "Venue 1",
+      "dateTime": "2024-06-15 10:00 AM",
+      "image": "/images/event1.jpg"
+    },
+    {
+      "id": "event2",
+      "name": "Event 2",
+      "description": "Description for Event 2",
+      "venue": "Venue 2",
+      "dateTime": "2024-06-16 11:00 AM",
+      "image": "/images/event2.jpg"
+    },
+    {
+      "id": "event3",
+      "name": "Event 3",
+      "description": "Description for Event 3",
+      "venue": "Venue 3",
+      "dateTime": "2024-06-17 12:00 PM",
+      "image": "/images/event3.jpg"
+    },
+    {
+      "id": "event4",
+      "name": "Event 4",
+      "description": "Description for Event 4",
+      "venue": "Venue 4",
+      "dateTime": "2024-06-17 12:00 PM",
+      "image": "/images/event4.jpg"
+    },
+    {
+      "id": "event5",
+      "name": "Event 5",
+      "description": "Description for Event 5",
+      "venue": "Venue 5",
+      "dateTime": "2024-06-17 12:00 PM",
+      "image": "/images/event5.jpg"
+    },
+    {
+      "id": "event6",
+      "name": "Event 6",
+      "description": "Description for Event 6",
+      "venue": "Venue 6",
+      "dateTime": "2024-06-17 12:00 PM",
+      "image": "/images/event6.jpg"
+    }
+  ]
+}

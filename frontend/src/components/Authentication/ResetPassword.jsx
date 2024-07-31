@@ -36,7 +36,7 @@ function ResetPassword(){
                 email: inputEmail,
                 resetToken: token
             }
-            const resetResponse = await axios.post('http://localhost:8080/resetPassword', resetRequestBody);
+            const resetResponse = await axios.post('https://event-aura-yt4akn7xpq-uc.a.run.app/resetPassword', resetRequestBody);
             setIsValidEmail(resetResponse.data);
 
         } catch (error){
@@ -79,7 +79,7 @@ function ResetPassword(){
                 email: inputEmail,
                 password: inputPassword
             };
-            await axios.post('http://localhost:8080/updatePassword', resetPasswordBody);
+            await axios.post('https://event-aura-yt4akn7xpq-uc.a.run.app/updatePassword', resetPasswordBody);
             alert('Password has been reset successfully');
             navigate("/login");
         } catch (error) {

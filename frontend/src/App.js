@@ -1,20 +1,26 @@
-import './App.css';
-import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
-import NavBar from './components/Navbar/NavBar';
-import { EventProvider } from './context/EventContext';
-import MainRoute from './router/routes';
-import { ToastContainer } from 'react-toastify';
+import "./App.css";
+import React, { useState } from "react";
+import { BrowserRouter as Router } from "react-router-dom";
+import NavBar from "./components/Navbar/NavBar";
+import { EventProvider } from "./context/EventContext";
+import MainRoute from "./router/routes";
+import { ToastContainer } from "react-toastify";
 
 function App() {
+  const [navKey, setNavKey] = useState(0);
+
+  const refreshNavBar = () => {
+    setNavKey(new Date().getTime());
+  };
+
   return (
     <EventProvider>
       <Router>
-        <NavBar />
+        <NavBar key={navKey} />
         <ToastContainer />
         <div className="App">
           <div className="dashboard">
-            <MainRoute />
+            <MainRoute refreshNavBar={refreshNavBar} />
           </div>
         </div>
       </Router>

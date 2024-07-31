@@ -1,8 +1,7 @@
 import "./EventDetails.css";
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import React, { useContext, useState, useEffect } from 'react';
-import { EventContext } from '../../context/EventContext';
+import React, { useState, useEffect } from 'react';
 import { format, parse } from 'date-fns';
 import ReviewCard from "../../components/ReviewCard/ReviewCard";
 import ReactLoading from "react-loading";
@@ -19,10 +18,8 @@ export default function EventDetails() {
     const [organizer, setOrganizer] = useState(null);
     const [reviews, setReviews] = useState([]);
     const [showAllReviews, setShowAllReviews] = useState(false); // New state variable
-
-    const { events } = useContext(EventContext);
+    const [event, setEvent] = useState({});
     const { id } = useParams();
-    const event = events.find(event => event.id === id);
 
     const fetchReviews = async (eventId) => {
         try {
@@ -48,11 +45,20 @@ export default function EventDetails() {
             }
         };
 
-        if (event) {
-            fetchOrganizerDetails(event.organizerId);
-            fetchReviews(event.id);
-        }
-    }, [event]);
+        const fetchEventDetails = async (event_id) => {
+            axios.get(`http://localhost:8080/api/events/${event_id}`).then((response) => {
+                if (response.status === 200) {
+                    setEvent(response.data);
+                    fetchOrganizerDetails(response.data.organizerId);
+                    fetchReviews(id);
+                }
+            }).catch((error) => {
+                console.error("There was an error fetching the event details!", error);
+            });
+        };
+
+        fetchEventDetails(id);
+    }, [id]);
 
     function formatDate(date) {
         const parsedDate = parse(date, 'yyyy-MM-dd', new Date());
@@ -67,7 +73,7 @@ export default function EventDetails() {
 
     async function handleReview(rating, description) {
         const review_request = {
-            user_id: event.user_id,
+            user_id: localStorage.getItem("userId"),
             event_id: event.id,
             description: description,
             rating: rating
@@ -135,14 +141,14 @@ export default function EventDetails() {
                                     <div>
                                         <img
                                             className="organizer-image"
-                                            src={organizer.imageurl}
+                                            src={organizer?.imageurl}
                                             alt="organizer visual"
                                         />
                                     </div>
                                     <div className="organizer-description">
                                         <h6 style={{ marginBottom: "20%" }}>Organized by</h6>
-                                        <h5>{organizer.firstname + " " + organizer.lastname}</h5>
-                                        <p>{organizer.no_of_followers} Followers</p>
+                                        <h5>{organizer?.firstname + " " + organizer?.lastname}</h5>
+                                        <p>{organizer?.no_of_followers} Followers</p>
                                     </div>
                                 </div>
                                 <div>
@@ -151,15 +157,16 @@ export default function EventDetails() {
                             </div>}
                         </div>
                         <div className="right-box">
-                            <p>{event.desc}</p>
+                            <p>{event?.desc}</p>
                             <h6><strong>Date</strong></h6>
-                            <p>{formatDate(event.date)}</p>
+                            {event.date ? <p>{formatDate(event?.date)}</p> : null}
+                            {/* <p>{formatDate(event?.date)}</p> */}
                             <h6><strong>Time</strong></h6>
-                            <p>{`${event.startTime} - ${event.endTime}`}</p>
+                            <p>{`${event?.startTime} - ${event?.endTime}`}</p>
                             <h6><strong>Location</strong></h6>
-                            <p>{event.location}</p>
+                            <p>{event?.location}</p>
                             <h6><strong>Ticket Price</strong></h6>
-                            <p>${event.price} CAD</p>
+                            <p>${event?.price} CAD</p>
                             <button className="event-book-button" onClick={handleOpenBooking}>Book Now</button>
                             <div className="review-list-box">
                                 <div className="review-list-header">

@@ -25,9 +25,6 @@ public class ReviewController {
     public ResponseEntity<String> createReview(@RequestBody ReviewRequest req){
         try
         {
-            User user = new User();
-            user.setId("66a72c971c8184337945e28b");
-            req.setUser_id(user.getId());
             reviewService.createReview(req);
             return new ResponseEntity("Review added.", HttpStatus.OK);
         }

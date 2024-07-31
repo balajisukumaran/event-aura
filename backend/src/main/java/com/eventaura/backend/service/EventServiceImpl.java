@@ -10,6 +10,7 @@ import com.eventaura.backend.utils.Awsutils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class EventServiceImpl implements EventService{
@@ -22,7 +23,10 @@ public class EventServiceImpl implements EventService{
     @Override
     public List<Event> getEvents() {
         List<Event> events = eventRepository.findAll();
-        return events;
+        List<Event> nonRejectedEvents = events.stream()
+                .filter(event -> event.getApproved() == null || event.getApproved())
+                .collect(Collectors.toList());
+        return nonRejectedEvents;
     }
 
     @Override

@@ -46,7 +46,7 @@ const routes = [
     component: <Signup />,
   },
   {
-    id: "signup",
+    id: "signup-admin",
     route: "/signup/admin",
     component: <Signup role={"ADMIN"} />,
   },
@@ -65,16 +65,6 @@ const routes = [
     id: "editEvent",
     route: "/edit-event/:id",
     component: <EditEvent />,
-  },
-  {
-    id: "signup",
-    route: "/signup",
-    component: <Signup />,
-  },
-  {
-    id: "resetPassword",
-    route: "/resetPassword",
-    component: <ResetPassword />,
   },
   {
     id: "event-detail-page",

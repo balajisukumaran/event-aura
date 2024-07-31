@@ -21,7 +21,7 @@ const EventDetails = ({ event, onNavigate, onEventUpdate }) => {
   const handleConfirm = async (eventId, comments) => {
     const apiEndpoint = `/events/${eventId}/approve-reject`;
     try {
-      const response = await put(apiEndpoint, {
+      await put(apiEndpoint, {
         isApproved: action === "Approve",
         comments,
       });

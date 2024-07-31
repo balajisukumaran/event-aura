@@ -1,6 +1,5 @@
 import "./styles.css";
 import loginImg from "./images/login-image.png";
-import googleIcon from "./images/search.png";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -17,10 +16,6 @@ function Login({ refreshNavBar }) {
   const handleFormSubmit = async (event) => {
     // to prevent from screen getting refreshed
     event.preventDefault();
-
-    const handleFormSubmit = async (event) => {
-        // to prevent from screen getting refreshed
-        event.preventDefault();
 
         try{
             // call Login api
@@ -51,7 +46,6 @@ function Login({ refreshNavBar }) {
             } else {
                 alert('An error occurred. Please try again.');
             }
-        }
     }
   };
 

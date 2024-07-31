@@ -34,7 +34,7 @@ const ProfilePage = () => {
     imageurl: "",
   });
   // TO DO: Change user id
-  const userId = "66a72c971c8184337945e28b";
+  const userId = localStorage.getItem("userId");
   const [editedProfile, setEditedProfile] = useState({ ...profile });
   const [errors, setErrors] = useState({});
   const [passwordVisible, setPasswordVisible] = useState(false);

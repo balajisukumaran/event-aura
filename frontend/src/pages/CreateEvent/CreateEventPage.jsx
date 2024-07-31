@@ -110,8 +110,7 @@ export const CreateEventPage = () => {
             price: ticketPrice,
             eventType: eventType,
             locationType: selectedOption,
-            // TODO : to be changed
-            organizerId: "66a7d5b555572a2845f307f4",
+            organizerId: localStorage.getItem("userId"),
           }),
         ],
         {

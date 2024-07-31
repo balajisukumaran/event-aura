@@ -7,7 +7,7 @@ const EventProvider = ({ children }) => {
     useEffect(() => {
         const fetchEvents = async () => {
             try {
-                const response = await fetch('http://localhost:8080/api/events/');
+                const response = await fetch('https://event-aura-yt4akn7xpq-uc.a.run.app/api/events/');
                 console.log(response);
                 if (response.status === 200) {
                     const data = await response.json();

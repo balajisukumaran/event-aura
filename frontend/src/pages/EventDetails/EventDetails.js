@@ -23,7 +23,7 @@ export default function EventDetails() {
 
   const fetchReviews = async (eventId) => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/reviews/all?event=${eventId}`);
+      const response = await axios.get(`https://event-aura-yt4akn7xpq-uc.a.run.app/api/reviews/all?event=${eventId}`);
       if (response.status === 200) {
         setReviews(response.data);
       }
@@ -36,7 +36,7 @@ export default function EventDetails() {
   useEffect(() => {
     const fetchOrganizerDetails = async (organizerId) => {
       try {
-        const response = await axios.get(`http://localhost:8080/api/users/${organizerId}`);
+        const response = await axios.get(`https://event-aura-yt4akn7xpq-uc.a.run.app/api/users/${organizerId}`);
         if (response.status === 200) {
           setOrganizer(response.data);
         }
@@ -46,7 +46,7 @@ export default function EventDetails() {
     };
 
     const fetchEventDetails = async (event_id) => {
-      axios.get(`http://localhost:8080/api/events/${event_id}`).then((response) => {
+      axios.get(`https://event-aura-yt4akn7xpq-uc.a.run.app/api/events/${event_id}`).then((response) => {
         if (response.status === 200) {
           setEvent(response.data);
           fetchOrganizerDetails(response.data.organizerId);
@@ -80,7 +80,7 @@ export default function EventDetails() {
     };
 
     try {
-      const response = await axios.post('http://localhost:8080/api/reviews/add', review_request);
+      const response = await axios.post('https://event-aura-yt4akn7xpq-uc.a.run.app/api/reviews/add', review_request);
       console.log("Review added", response.data);
     } catch (error) {
       console.error("There was an error adding the review!", error);
@@ -97,7 +97,7 @@ export default function EventDetails() {
       total: total
     };
 
-    axios.post("http://localhost:8080/api/order/", order_request)
+    axios.post("https://event-aura-yt4akn7xpq-uc.a.run.app/api/order/", order_request)
       .then((response) => {
         if (response.status === 200) {
           const data = response.data;

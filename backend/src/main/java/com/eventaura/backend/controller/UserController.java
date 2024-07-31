@@ -45,4 +45,9 @@ public class UserController {
     public User disableUser(@PathVariable String id) {
         return userService.disableUser(id);
     }
+
+    @PutMapping("/{id}/activate")
+    public User activateUser(@PathVariable String id) {
+        return userService.activateUser(id);
+    }
 }

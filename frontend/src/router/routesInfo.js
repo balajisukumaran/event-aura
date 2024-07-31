@@ -1,6 +1,7 @@
 import LandingPage from '../pages/LandingPage/LandingPage';
 import ContactUs from '../pages/ContactUs/ContactUs';
 import FAQ from '../pages/FAQ/FAQ';
+import EventHistory from '../pages/EventHistory';
 import Login from "../components/Authentication/Login";
 import Signup from '../components/Authentication/Signup';
 import ResetPassword from '../components/Authentication/ResetPassword';
@@ -34,6 +35,11 @@ const routes = [
     component: <Login />,
   },
   {
+    id: 'event-history',
+    route: '/event-history',
+    component: <EventHistory />,
+  },
+  {
     id: 'signup',
     route: '/signup',
     component: <Signup />,
@@ -57,6 +63,16 @@ const routes = [
     id: 'editEvent',
     route: '/edit-event/:id',
     component: <EditEvent />
+  },
+  {
+    id: 'signup',
+    route: '/signup',
+    component: <Signup />,
+  },
+  {
+    id: 'resetPassword',
+    route: '/resetPassword',
+    component: <ResetPassword />,
   },
   {
     id: 'event-detail-page',

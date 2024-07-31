@@ -1,10 +1,11 @@
 /**
- * Authors : Nikita Davies, Sruthi Shaji
+ * Authors : Nikita Davies, Sruthi Shaji, Kabilesh Ravi Chandran
  */
 
 package com.eventaura.backend.controller;
 
 import com.eventaura.backend.entity.Event;
+import com.eventaura.backend.repository.EventRepository;
 import com.eventaura.backend.response.EventResponse;
 import com.eventaura.backend.service.EventService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -20,12 +21,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/api/events")
 public class EventController {
 
     @Autowired
     private EventService eventService;
+    private EventRepository eventRepository;
     @GetMapping(path = "/", produces = "application/json")
     public ResponseEntity<Object> getEvents() {
         try{
@@ -37,6 +40,16 @@ public class EventController {
         }
     }
 
+     @GetMapping(path = "/user", produces = "application/json")
+     public ResponseEntity<Object> getEventsByUserId(@RequestParam String userId) {
+         try{
+             List<Event> events = eventService.getEventsByOrganizerId(userId);
+             return new ResponseEntity(events, HttpStatus.OK);
+         }
+         catch (Exception ex){
+             return new ResponseEntity("Error while fetching events.", HttpStatus.BAD_REQUEST);
+         }
+     }
     @GetMapping("/{id}")
     public ResponseEntity<Event> getEventById(@PathVariable String id) {
         Optional<Event> event = eventService.getEventById(id);

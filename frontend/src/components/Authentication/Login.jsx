@@ -28,10 +28,11 @@ function Login(){
             const loginResponse = await axios.post('http://localhost:8080/login', loginRequestBody);
             console.log(loginResponse);
             // Save data to local storage
-            const { token, email, role } = loginResponse.data;
+            const { token, email, role, id } = loginResponse.data;
             localStorage.setItem('token', token);
             localStorage.setItem('email', email);
             localStorage.setItem('role', role);
+            localStorage.setItem('userId', id);
             navigate("/");
 
         } catch (error) {

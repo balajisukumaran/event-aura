@@ -13,6 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface EventService {
     List<Event> getEvents();
+
+    List<Event> getEventsByOrganizerId(String organizerId);
     Optional<Event> getEventById(String id);
     Event createEvent(Event event, List<MultipartFile> images);
     void deleteEvent(String id);

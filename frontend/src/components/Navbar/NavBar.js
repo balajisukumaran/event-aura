@@ -1,25 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./NavBar.css";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
-  const [role, setRole] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-
-  useEffect(() => {
-    const storedRole = localStorage.getItem("role");
-    if (!storedRole) {
-      navigate("/login");
-    } else {
-      setRole(storedRole);
-    }
-  }, []);
 
   return (
     <nav className="navbar">
@@ -29,14 +20,10 @@ const NavBar = () => {
         </Link>
       </div>
       <div className="navbar-links">
-        {role !== "ADMIN" && (
-          <p onClick={() => navigate("/event-history")}>Events</p>
-        )}
+        <p onClick={() => navigate("/event-history")}>Events</p>
         <p onClick={() => navigate("/faq")}>FAQs</p>
         <p onClick={() => navigate("/contact")}>Contact Us</p>
-        {role === "ADMIN" && (
-          <p onClick={() => navigate("/approvals")}>Approvals</p>
-        )}
+
         <p>
           <button
             className="login-register-button"
@@ -51,22 +38,15 @@ const NavBar = () => {
       </div>
       {isMenuOpen && (
         <div className="navbar-dropdown">
-          {role !== "ADMIN" && (
-            <Link to="/event-history" onClick={toggleMenu}>
-              Events
-            </Link>
-          )}
+          <Link to="/login" onClick={toggleMenu}>
+            Events
+          </Link>
           <Link to="/faq" onClick={toggleMenu}>
             FAQ
           </Link>
           <Link to="/contact" onClick={toggleMenu}>
             Contact
           </Link>
-          {role === "ADMIN" && (
-            <Link to="/approvals" onClick={toggleMenu}>
-              Approvals
-            </Link>
-          )}
           <Link to="/login" onClick={toggleMenu}>
             Login
           </Link>

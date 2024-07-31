@@ -1,3 +1,7 @@
+/**
+ * Author : Nikita Davies
+ */
+
 package com.eventaura.backend.service;
 
 import com.eventaura.backend.entity.Event;

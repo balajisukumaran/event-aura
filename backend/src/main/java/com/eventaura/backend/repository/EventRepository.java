@@ -1,3 +1,6 @@
+/**
+ * Authors : Nikita Davies, Sruthi Shaji, Kabilesh Ravi Chandran
+ */
 package com.eventaura.backend.repository;
 
 import com.eventaura.backend.entity.Event;

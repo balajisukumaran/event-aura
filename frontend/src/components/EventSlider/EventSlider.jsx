@@ -1,3 +1,8 @@
+/**
+ * Authors : Kabilesh Ravi Chandran
+ */
+
+
 import React, { useState } from 'react';
 import EventCard from '../EventCard/EventCard';
 import './style.scss';

@@ -1,3 +1,7 @@
+/**
+ * Authors : Nikita Davies, Sruthi Shaji, Kabilesh Ravi Chandran
+ */
+
 package com.eventaura.backend.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -5,8 +9,6 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.sql.Date;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 

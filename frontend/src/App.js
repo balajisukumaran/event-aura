@@ -4,6 +4,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import NavBar from "./components/Navbar/NavBar";
 import { EventProvider } from "./context/EventContext";
 import MainRoute from "./router/routes";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   const [navKey, setNavKey] = useState(0);
@@ -16,6 +17,7 @@ function App() {
     <EventProvider>
       <Router>
         <NavBar key={navKey} />
+        <ToastContainer />
         <div className="App">
           <div className="dashboard">
             <MainRoute refreshNavBar={refreshNavBar} />

@@ -1,3 +1,7 @@
+/**
+ * Authors : Kabilesh Ravi Chandran, Sruthi Shaji
+ */
+
 import React, { useState } from "react";
 import "./EventCard.css";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -14,6 +18,7 @@ const EventCard = ({ event }) => {
   const handleCancelBookingClick = (e) => {
     e.stopPropagation();
     event.onCancelBooking();
+    setOpenModal(false);
   };
 
   const onClickCancel = (e) => {
@@ -22,7 +27,14 @@ const EventCard = ({ event }) => {
   };
 
   return (
-    <div className="event-card" onClick={() => navigate("/events/" + event.id)}>
+    <div
+      className="event-card"
+      onClick={
+        event?.onCardClick
+          ? () => event.onCardClick()
+          : () => navigate("/events/" + event.id)
+      }
+    >
       <Carousel
         autoPlay={true}
         infiniteLoop={true}
@@ -33,10 +45,15 @@ const EventCard = ({ event }) => {
       >
         {event.images && event.images.length > 0 ? (
           event.images.map((image, index) => (
-            <img key={index} className="event-image" src={image} />
+            <img
+              key={index}
+              className="event-image"
+              src={image}
+              alt={`event ${index + 1}`}
+            />
           ))
         ) : (
-          <img className="event-image" src={DummyImage} alt={`Dummy Image`} />
+          <img className="event-image" src={DummyImage} alt={`Dummy`} />
         )}
       </Carousel>
       <div className="event-details">
@@ -49,22 +66,20 @@ const EventCard = ({ event }) => {
         </div>
       </div>
       <div className="event-info">
-        <div className="event-desc">
-          {event.description}
-          <div className="event-approval-status">
-            {event.approved ? (
-              <div className="approved">
-                <img
-                  src={ApprovedIcon}
-                  alt="Approved"
-                  style={{ width: "20px", marginLeft: "10px" }}
-                />
-                <span>Approved</span>
-              </div>
-            ) : (
-              <div className="not-approved"></div>
-            )}
-          </div>
+        <div className="event-desc">{event.description}</div>
+        <div className="event-approval-status">
+          {event.approved ? (
+            <div className="approved">
+              <img
+                src={ApprovedIcon}
+                alt="Approved"
+                style={{ width: "20px", marginLeft: "10px" }}
+              />
+              <span>Approved</span>
+            </div>
+          ) : (
+            <div className="not-approved"></div>
+          )}
         </div>
       </div>
       {event?.organizerId !== localStorage.getItem("userId") &&
@@ -80,7 +95,10 @@ const EventCard = ({ event }) => {
       <CancelBookingModal
         open={openModal}
         handleConfirm={handleCancelBookingClick}
-        handleClose={() => setOpenModal(false)}
+        handleClose={(e) => {
+          e.stopPropagation();
+          setOpenModal(false);
+        }}
       />
     </div>
   );

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // Base URL for API requests obtained from environment variable
-const API_BASE_URL = 'http://localhost:8080/api';
+const API_BASE_URL = 'https://event-aura-yt4akn7xpq-uc.a.run.app/api';
 
 
 // Create an instance of Axios with base URL and default headers
@@ -17,7 +17,7 @@ const api = axios.create({
 api.interceptors.request.use(
   (config) => {
     const token = localStorage?.getItem("token");
-    if (token && token != "undefined") {
+    if (token && token !== "undefined") {
       config.headers["Authorization"] = `Bearer ${token}`;
     }
     return config;

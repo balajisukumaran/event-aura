@@ -4,6 +4,9 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import React, { useContext, useState, useEffect } from "react";
 import { EventContext } from "../../context/EventContext";
 import { format, parse } from "date-fns";
+import React, { useContext, useState, useEffect } from "react";
+import { EventContext } from "../../context/EventContext";
+import { format, parse } from "date-fns";
 import ReviewCard from "../../components/ReviewCard/ReviewCard";
 import ReactLoading from "react-loading";
 import { DummyImage } from "../../assets/";
@@ -149,11 +152,11 @@ export default function EventDetails() {
                 {event.images && event.images.length > 0 ? (
                   event.images.map((image, index) => (
                     <div key={index}>
-                      <img src={image} alt={`Event Image ${index + 1}`} />
+                      <img src={image} alt={`event visual ${index + 1}`} />
                     </div>
                   ))
                 ) : (
-                  <img src={DummyImage} alt={`Dummy Image`} />
+                  <img src={DummyImage} alt={`dummy visual`} />
                 )}
               </Carousel>
               {organizer && (
@@ -163,7 +166,7 @@ export default function EventDetails() {
                       <img
                         className="organizer-image"
                         src={organizer.imageurl}
-                        alt="Organizer Image"
+                        alt="organizer visual"
                       />
                     </div>
                     <div className="organizer-description">

@@ -25,7 +25,7 @@ function Login(){
                 email: inputUsername,
                 password: inputPassword,
             }
-            const loginResponse = await axios.post('http://localhost:8080/login', loginRequestBody);
+            const loginResponse = await axios.post('https://event-aura-yt4akn7xpq-uc.a.run.app/login', loginRequestBody);
             console.log(loginResponse);
             // Save data to local storage
             const { token, email, role, id } = loginResponse.data;
@@ -96,13 +96,13 @@ function Login(){
                                     <input className='login-btn' type="submit" value="LOGIN" />
                                 </div>
                             </form>
-                            <div className="divider">
-                                <span className="divider-text">or</span>
-                            </div>
-                            <button className="google-login-btn" onClick={handleGoogleLoginBtnClick}>
-                                <img src={googleIcon} alt="Google icon" className="google-icon" />
-                                <span>Login with Google</span>
-                            </button>
+                            {/*<div className="divider">*/}
+                            {/*    <span className="divider-text">or</span>*/}
+                            {/*</div>*/}
+                            {/*<button className="google-login-btn" onClick={handleGoogleLoginBtnClick}>*/}
+                            {/*    <img src={googleIcon} alt="Google icon" className="google-icon" />*/}
+                            {/*    <span>Login with Google</span>*/}
+                            {/*</button>*/}
                             <div className="create-account">
                                 <p>Dont have an account? Click <Link to="/signup" className="nav-link"> <span>here</span> </Link> to SIGN UP! </p>
                                 

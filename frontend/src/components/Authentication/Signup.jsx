@@ -98,11 +98,11 @@ function Signup(props){
         }
     }
 
-    const handleGoogleLoginBtnClick = (event) => {
-        event.preventDefault();
-        alert("User can login with their google account. Click okay to simulate google login ane be directed to user profile.")
-        navigate("/dashboard")
-    };
+    // const handleGoogleLoginBtnClick = (event) => {
+    //     event.preventDefault();
+    //     alert("User can login with their google account. Click okay to simulate google login ane be directed to user profile.")
+    //     navigate("/dashboard")
+    // };
 
     return(
         <div>

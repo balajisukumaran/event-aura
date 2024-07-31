@@ -14,7 +14,7 @@ export default function BookingSuccess() {
     useEffect(() => {
         const confirmOrder = async () => {
             try {
-                const response = await axios.put(`http://localhost:8080/api/order/confirm/${id}`);
+                const response = await axios.put(`https://event-aura-yt4akn7xpq-uc.a.run.app/api/order/confirm/${id}`);
                 console.log(response.data);
             } catch (error) {
                 console.error('Error confirming order:', error);

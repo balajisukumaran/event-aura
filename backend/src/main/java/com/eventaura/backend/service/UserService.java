@@ -12,4 +12,6 @@ public interface UserService {
     void deleteUser(String id);
     User updateUser(String id, User userDetails);
     User disableUser(String id);
+
+    User activateUser(String id);
 }

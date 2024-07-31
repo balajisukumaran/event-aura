@@ -1,7 +1,8 @@
 /**
  * Author : Sruthi Shaji, Nikita Davies
  */
-import React, { useState, useEffect } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 import "./NavBar.css";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -23,14 +24,18 @@ const NavBar = () => {
     navigate("/login");
   };
 
-  useEffect(() => {
+  const getRole = () => {
     const storedRole = localStorage.getItem("role");
     if (!storedRole) {
       navigate("/login");
     } else {
       setRole(storedRole);
     }
-  }, [navigate]);
+  };
+
+  useEffect(() => {
+    getRole();
+  }, []);
 
   return (
     <nav className="navbar">

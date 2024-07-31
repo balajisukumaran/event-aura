@@ -6,7 +6,7 @@ import axios from "axios";
 const userId = localStorage.getItem("userId");
 
 const getAllEvents = async() => {
-  let res = await axios.get(`http://localhost:8080/api/events/user`, {
+  let res = await axios.get(`https://event-aura-yt4akn7xpq-uc.a.run.app/api/events/user`, {
     params: {
       userId
     }
@@ -15,7 +15,7 @@ const getAllEvents = async() => {
 };
 
 const getAllOrders = async() => {
-  let res = await axios.get(`http://localhost:8080/api/order/user`, {
+  let res = await axios.get(`https://event-aura-yt4akn7xpq-uc.a.run.app/api/order/user`, {
     params: {
       userId
     }
@@ -24,7 +24,7 @@ const getAllOrders = async() => {
 };
 
 const cancelOrder = async(orderId) => {
-  let res = await axios.put(`http://localhost:8080/api/order/cancel/${orderId}`, {
+  let res = await axios.put(`https://event-aura-yt4akn7xpq-uc.a.run.app/api/order/cancel/${orderId}`, {
   });
   return res.data;
 }

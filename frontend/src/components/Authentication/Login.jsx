@@ -18,46 +18,41 @@ function Login({ refreshNavBar }) {
     // to prevent from screen getting refreshed
     event.preventDefault();
 
-    try {
-      // call Login api
-      const loginRequestBody = {
-        email: inputUsername,
-        password: inputPassword,
-      };
-      const loginResponse = await axios.post(
-        "http://localhost:8080/login",
-        loginRequestBody
-      );
-      console.log(loginResponse);
-      // Save data to local storage
-      const { token, email, role, id } = loginResponse.data;
-      localStorage.setItem("token", token);
-      localStorage.setItem("email", email);
-      localStorage.setItem("role", role);
-      localStorage.setItem("userId", id);
-      refreshNavBar(); // Call the function to refresh the NavBar
-      navigate("/");
-    } catch (error) {
-      const errorMessage = error.response.data.toLowerCase();
-      console.error("Error during login:", errorMessage);
-      if (errorMessage === "user is not registered") {
-        setInvalidUsernameError("User does not exist, please signup!");
-        setInvalidPasswordError("");
-      } else if (errorMessage === "incorrect password") {
-        setInvalidUsernameError("");
-        setInvalidPasswordError("Password is incorrect");
-      } else {
-        alert("An error occurred. Please try again.");
-      }
-    }
-  };
+    const handleFormSubmit = async (event) => {
+        // to prevent from screen getting refreshed
+        event.preventDefault();
 
-  const handleGoogleLoginBtnClick = (event) => {
-    event.preventDefault();
-    alert(
-      "User can login with their google account. Click okay to simulate google login ane be directed to user profile."
-    );
-    navigate("/dashboard");
+        try{
+            // call Login api
+            const loginRequestBody =  {
+                email: inputUsername,
+                password: inputPassword,
+            }
+            const loginResponse = await axios.post('https://event-aura-yt4akn7xpq-uc.a.run.app/login', loginRequestBody);
+            console.log(loginResponse);
+            // Save data to local storage
+            const { token, email, role, id } = loginResponse.data;
+            localStorage.setItem('token', token);
+            localStorage.setItem('email', email);
+            localStorage.setItem('role', role);
+            localStorage.setItem('userId', id);
+            refreshNavBar(); // Call the function to refresh the NavBar
+            navigate("/");
+
+        } catch (error) {
+            const errorMessage = error.response.data.toLowerCase();
+            console.error('Error during login:', errorMessage);
+            if(errorMessage === "user is not registered"){
+                setInvalidUsernameError("User does not exist, please signup!");
+                setInvalidPasswordError("");
+            } else if (errorMessage === "incorrect password"){
+                setInvalidUsernameError("");
+                setInvalidPasswordError("Password is incorrect")
+            } else {
+                alert('An error occurred. Please try again.');
+            }
+        }
+    }
   };
 
   return (
@@ -115,7 +110,7 @@ function Login({ refreshNavBar }) {
                   <input className="login-btn" type="submit" value="LOGIN" />
                 </div>
               </form>
-              <div className="divider">
+              {/* <div className="divider">
                 <span className="divider-text">or</span>
               </div>
               <button
@@ -128,7 +123,7 @@ function Login({ refreshNavBar }) {
                   className="google-icon"
                 />
                 <span>Login with Google</span>
-              </button>
+              </button> */}
               <div className="create-account">
                 <p>
                   Dont have an account? Click{" "}

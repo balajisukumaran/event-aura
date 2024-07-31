@@ -76,7 +76,7 @@ function Signup(props){
                 role: inputRole
             }
 
-            const signupResponse = await axios.post('http://localhost:8080/signup', signupRequestBody);
+            const signupResponse = await axios.post('https://event-aura-yt4akn7xpq-uc.a.run.app/signup', signupRequestBody);
             // Save data to local storage
             console.log(signupResponse.data);
             const { token, email, role, id } = signupResponse.data;
@@ -98,11 +98,11 @@ function Signup(props){
         }
     }
 
-    const handleGoogleLoginBtnClick = (event) => {
-        event.preventDefault();
-        alert("User can login with their google account. Click okay to simulate google login ane be directed to user profile.")
-        navigate("/dashboard")
-    };
+    // const handleGoogleLoginBtnClick = (event) => {
+    //     event.preventDefault();
+    //     alert("User can login with their google account. Click okay to simulate google login ane be directed to user profile.")
+    //     navigate("/dashboard")
+    // };
 
     return(
         <div>
@@ -188,16 +188,15 @@ function Signup(props){
                                     <input className='login-btn' type="submit" value="SIGN UP" />
                                 </div>
                             </form>
-                            <div className="divider">
-                                <span className="divider-text">or</span>
-                            </div>
-                            <button className="google-login-btn" onClick={handleGoogleLoginBtnClick}>
-                                <img src={googleIcon} alt="Google icon" className="google-icon" />
-                                Signup with Google
-                            </button>
+                            {/*<div className="divider">*/}
+                            {/*    <span className="divider-text">or</span>*/}
+                            {/*</div>*/}
+                            {/*<button className="google-login-btn" onClick={handleGoogleLoginBtnClick}>*/}
+                            {/*    <img src={googleIcon} alt="Google icon" className="google-icon" />*/}
+                            {/*    Signup with Google*/}
+                            {/*</button>*/}
                             <div className="create-account">
                                 <p>Already have an account? Click <Link to="/login" className="nav-link"> <span>here</span> </Link> to LOGIN! </p>
-                                
                             </div>
                         </div>
                     </div>

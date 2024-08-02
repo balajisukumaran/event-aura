@@ -1,5 +1,6 @@
 package com.eventaura.backend.service;
 
+import com.eventaura.backend.entity.USER_ROLE;
 import com.eventaura.backend.entity.User;
 import com.eventaura.backend.repository.UserRepository;
 import com.eventaura.backend.request.LoginRequest;
@@ -13,6 +14,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
@@ -22,7 +25,7 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationResponse signup(SignupRequest signupRequest){
+    public AuthenticationResponse signup(SignupRequest signupRequest) {
         var user = User.builder()
                 .firstname(signupRequest.getFirstname())
                 .lastname(signupRequest.getLastname())
@@ -33,6 +36,13 @@ public class AuthenticationService {
                 .status("active")
                 .imageurl("")
                 .build();
+
+        // Initialize followers list if role is ORGANIZER
+        if (user.getRole() == USER_ROLE.ORGANIZER) {
+            user.setNo_of_followers(0);
+            user.setFollowers(new ArrayList<>());
+        }
+
         userRepository.save(user);
 
         var jwtToken = jwtService.generateToken(user);
@@ -42,8 +52,8 @@ public class AuthenticationService {
                 .role(user.getRole())
                 .id(user.getId())
                 .build();
-
     }
+
 
     public AuthenticationResponse login(LoginRequest loginRequest){
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(

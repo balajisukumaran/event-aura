@@ -35,7 +35,7 @@ function ResetPassword() {
         resetToken: token,
       };
       const resetResponse = await axios.post(
-        "http://localhost:8080/resetPassword",
+        "https://event-aura-yt4akn7xpq-uc.a.run.app/resetPassword",
         resetRequestBody
       );
       setIsValidEmail(resetResponse.data);
@@ -80,7 +80,7 @@ function ResetPassword() {
         password: inputPassword,
       };
       await axios.post(
-        "http://localhost:8080/updatePassword",
+        "https://event-aura-yt4akn7xpq-uc.a.run.app/updatePassword",
         resetPasswordBody
       );
       alert("Password has been reset successfully");

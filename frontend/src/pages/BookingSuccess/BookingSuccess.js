@@ -18,7 +18,7 @@ export default function BookingSuccess() {
     const confirmOrder = async () => {
       try {
         const response = await axios.put(
-          `http://localhost:8080/api/order/confirm/${id}`
+          `https://event-aura-yt4akn7xpq-uc.a.run.app/api/order/confirm/${id}`
         );
         console.log(response.data);
       } catch (error) {

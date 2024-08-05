@@ -53,7 +53,7 @@ const NavBar = () => {
   const fetchPendingTickets = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8080/api/ticket/pending"
+        "https://event-aura-yt4akn7xpq-uc.a.run.app/api/ticket/pending"
       );
       setPendingTickets(response.data);
     } catch (error) {
@@ -64,9 +64,12 @@ const NavBar = () => {
   // Assign ticket to the current admin
   const assignTicketToMe = async (ticketId) => {
     try {
-      await axios.post(`http://localhost:8080/api/ticket/${ticketId}/assign`, {
-        userId,
-      });
+      await axios.post(
+        `https://event-aura-yt4akn7xpq-uc.a.run.app/api/ticket/${ticketId}/assign`,
+        {
+          userId,
+        }
+      );
       fetchPendingTickets(); // Refresh the list after assigning
     } catch (error) {
       console.error("Error assigning ticket", error);

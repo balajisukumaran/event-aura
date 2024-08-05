@@ -24,7 +24,7 @@ function Login({ refreshNavBar }) {
         password: inputPassword,
       };
       const loginResponse = await axios.post(
-        "http://localhost:8080/login",
+        "https://event-aura-yt4akn7xpq-uc.a.run.app/login",
         loginRequestBody
       );
       console.log(loginResponse);

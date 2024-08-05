@@ -127,11 +127,15 @@ export const CreateEventPage = () => {
     }
 
     try {
-      await axios.post(`http://localhost:8080/api/events`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      await axios.post(
+        `https://event-aura-yt4akn7xpq-uc.a.run.app/api/events`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       navigate("/events");
       toast.success("Event created successfully!!");
     } catch (error) {

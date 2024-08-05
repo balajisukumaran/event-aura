@@ -76,7 +76,7 @@ function Signup(props) {
       };
 
       const signupResponse = await axios.post(
-        "http://localhost:8080/signup",
+        "https://event-aura-yt4akn7xpq-uc.a.run.app/signup",
         signupRequestBody
       );
       // Save data to local storage

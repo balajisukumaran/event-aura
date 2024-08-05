@@ -46,7 +46,7 @@ const SupportPage = () => {
   const fetchTickets = async (urlSegment) => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/ticket/${urlSegment}`
+        `https://event-aura-yt4akn7xpq-uc.a.run.app/api/ticket/${urlSegment}`
       );
       setTickets(response.data);
     } catch (error) {
@@ -57,7 +57,7 @@ const SupportPage = () => {
   const fetchMessagesForTicket = async (ticketId) => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/ticket/${ticketId}/messages`
+        `https://event-aura-yt4akn7xpq-uc.a.run.app/api/ticket/${ticketId}/messages`
       );
       setMessages(response.data);
     } catch (error) {
@@ -74,7 +74,7 @@ const SupportPage = () => {
       stompClientRef.current.deactivate();
     }
 
-    const socket = new SockJS("http://localhost:8080/ws");
+    const socket = new SockJS("https://event-aura-yt4akn7xpq-uc.a.run.app/ws");
     const client = new Client({
       webSocketFactory: () => socket,
       debug: (str) => {
@@ -142,7 +142,7 @@ const SupportPage = () => {
   const resolveTicket = async () => {
     try {
       await axios.post(
-        `http://localhost:8080/api/ticket/${selectedTicket.id}/close`
+        `https://event-aura-yt4akn7xpq-uc.a.run.app/api/ticket/${selectedTicket.id}/close`
       );
       setSelectedTicket(null); // Deselect the ticket
       fetchTickets(

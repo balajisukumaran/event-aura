@@ -143,11 +143,15 @@ export const EditEvent = () => {
       formData.append("images", file);
     });
     try {
-      await axios.put(`http://localhost:8080/api/events/${id}`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      await axios.put(
+        `https://event-aura-yt4akn7xpq-uc.a.run.app/api/events/${id}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       navigate("/events");
       toast.success("Event edited successfully!!");
     } catch (error) {

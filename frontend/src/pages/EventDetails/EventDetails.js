@@ -143,6 +143,7 @@ export default function EventDetails() {
                 <div className="organizer-details">
                   <div>
                     <img
+                      style={{ margin: "2%" }}
                       className="organizer-image"
                       src={organizer?.imageurl}
                       alt="organizer visual"
@@ -155,7 +156,7 @@ export default function EventDetails() {
                   </div>
                 </div>
                 <div>
-                  <button className="event-book-button">Follow</button>
+                  <button className="event-detail-button">Follow</button>
                 </div>
               </div>}
             </div>
@@ -169,11 +170,11 @@ export default function EventDetails() {
               <p>{event?.location}</p>
               <h6><strong>Ticket Price</strong></h6>
               <p>${event?.price} CAD</p>
-              <button className="event-book-button" onClick={handleOpenBooking}>Book Now</button>
+              <button className="event-detail-button" onClick={handleOpenBooking}>Book Now</button>
               <div className="review-list-box">
                 <div className="review-list-header">
                   <h5>Reviews</h5>
-                  <button className="event-book-button" onClick={handleOpenReview}>Add a Review</button>
+                  <button className="event-detail-button" onClick={handleOpenReview}>Add a Review</button>
                 </div>
                 {reviews.length > 0 && <ReviewCard review={reviews[0]} />}
                 {showAllReviews && reviews.slice(1).map((review, index) => (

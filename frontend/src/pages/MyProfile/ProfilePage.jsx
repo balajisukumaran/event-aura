@@ -50,7 +50,7 @@ const ProfilePage = () => {
     const fetchUserData = async () => {
       try {
         const response = await axios.get(
-          `https://event-aura-yt4akn7xpq-uc.a.run.app/api/users/${id}`
+          `http://localhost:8080/api/users/${id}`
         );
         const userData = response.data;
         setProfile(userData);
@@ -90,10 +90,7 @@ const ProfilePage = () => {
     const validationErrors = validateFields();
     if (Object.keys(validationErrors).length === 0) {
       try {
-        await axios.put(
-          `https://event-aura-yt4akn7xpq-uc.a.run.app/api/users/${id}`,
-          editedProfile
-        );
+        await axios.put(`http://localhost:8080/api/users/${id}`, editedProfile);
         setProfile(editedProfile);
         setErrors({});
         setSnackbarMessage("Profile saved successfully!");
@@ -123,13 +120,10 @@ const ProfilePage = () => {
         );
         const uploadedImageUrl = uploadResponse.data.s3_url;
 
-        await axios.put(
-          `https://event-aura-yt4akn7xpq-uc.a.run.app/api/users/${id}`,
-          {
-            ...profile,
-            imageurl: uploadedImageUrl,
-          }
-        );
+        await axios.put(`http://localhost:8080/api/users/${id}`, {
+          ...profile,
+          imageurl: uploadedImageUrl,
+        });
         setErrors({});
         setSnackbarMessage("Profile image uploaded and saved successfully!");
         setSnackbarOpen(true);
@@ -157,18 +151,14 @@ const ProfilePage = () => {
   const handleConfirmAction = async () => {
     try {
       if (actionType === "disable") {
-        await axios.put(
-          `https://event-aura-yt4akn7xpq-uc.a.run.app/api/users/${id}/disable`
-        );
+        await axios.put(`http://localhost:8080/api/users/${id}/disable`);
         setSnackbarMessage("Account temporarily disabled.");
         setTimeout(() => {
           localStorage.clear();
           navigate("/login"); // Navigate after 20 seconds
         }, 5000);
       } else if (actionType === "delete") {
-        await axios.delete(
-          `https://event-aura-yt4akn7xpq-uc.a.run.app/api/users/${id}`
-        );
+        await axios.delete(`http://localhost:8080/api/users/${id}`);
         setSnackbarMessage("Account permanently deleted.");
         setTimeout(() => {
           localStorage.clear();

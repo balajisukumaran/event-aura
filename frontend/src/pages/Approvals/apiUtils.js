@@ -1,14 +1,12 @@
 import axios from "axios";
 
-const getAllEvents = async(organizerId) => {
-  let res = await axios.get(`https://event-aura-yt4akn7xpq-uc.a.run.app/api/events/user`, {
+const getAllEvents = async (organizerId) => {
+  let res = await axios.get(`http://localhost:8080/api/events/user`, {
     params: {
-      userId: organizerId
-    }
+      userId: organizerId,
+    },
   });
   console.log(res);
 };
 
-export {
-  getAllEvents,
-};
+export { getAllEvents };

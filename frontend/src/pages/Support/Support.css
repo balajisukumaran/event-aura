@@ -1,0 +1,174 @@
+.support-page {
+  display: flex;
+  height: calc(100vh - 130px);
+  background-color: #ffffff;
+  border-radius: 15px;
+}
+
+.sidebar {
+  width: 300px;
+  border-radius: 15px;
+  background-color: #f1f1f1;
+  padding: 20px;
+  overflow-y: auto;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  color: #333; /* Set text color for better readability */
+}
+
+.sidebar h2 {
+  margin-bottom: 20px;
+  color: #333; /* Set text color for better readability */
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  transition: background-color 0.3s;
+  border-radius: 10px; /* Added border radius */
+}
+
+.sidebar ul li:hover {
+  background-color: #ddd;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  color: #333; /* Updated text color for better readability */
+}
+
+.chat-window {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  color: #333; /* Updated text color for better readability */
+}
+
+.chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.resolve-button {
+  padding: 5px 10px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.resolve-button:hover {
+  background-color: #218838;
+}
+
+.chat-window h3 {
+  color: #333; /* Updated main heading color */
+}
+
+.messages {
+  overflow-y: auto;
+  position: relative;
+  height: calc(100vh - 28vh);
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  border-radius: 10px; /* Added border radius */
+  background-color: #f9f9f9; /* Updated background color for better contrast */
+}
+
+.my-message,
+.other-message {
+  padding: 10px;
+  border-radius: 15px; /* Increased border radius */
+  margin-bottom: 10px;
+  font-weight: 500; /* Make font somewhat bold */
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; /* Messaging font */
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2); /* Added 3D effect */
+  position: relative; /* Needed for timestamp positioning */
+}
+
+.my-message {
+  text-align: right;
+  background-color: #d1e7ff; /* Lighter color for my messages */
+  color: #333; /* Set text color for better readability */
+  margin-left: auto; /* Align to the right */
+  max-width: 70%; /* Limit message width */
+}
+
+.my-message::after {
+  content: "";
+  position: absolute;
+  bottom: 10px;
+  right: -10px;
+  width: 0;
+  height: 0;
+  border-left: 10px solid #d1e7ff;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+}
+
+.other-message {
+  text-align: left;
+  background-color: #e2ffc7; /* Lighter color for other messages */
+  color: #333; /* Set text color for better readability */
+  margin-right: auto; /* Align to the left */
+  max-width: 70%; /* Limit message width */
+}
+
+.other-message::after {
+  content: "";
+  position: absolute;
+  bottom: 10px;
+  left: -10px;
+  width: 0;
+  height: 0;
+  border-right: 10px solid #e2ffc7;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+}
+
+.timestamp {
+  display: block;
+  font-size: 0.8em; /* Smaller font size */
+  color: #999; /* Lighter color for timestamp */
+  position: absolute;
+  bottom: 5px;
+  right: 10px; /* Adjust positioning */
+}
+
+.message-input {
+  display: flex;
+}
+
+.message-input input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px 0 0 5px;
+}
+
+.message-input button {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 0 5px 5px 0;
+  background-color: #0288d1;
+  color: white;
+  cursor: pointer;
+}
+
+.message-input button:hover {
+  background-color: #0277bd;
+}

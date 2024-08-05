@@ -78,30 +78,30 @@ export const EditEvent = () => {
   const validate = () => {
     const today = new Date().toISOString().split("T")[0];
     const errors = {};
-    
-        if (!eventName) {
-          errors.eventName = "Event Name is required";
-        }
-        if (!eventDescription) {
-          errors.eventDescription = "Event Description is required";
-        }
-      
-        if (!eventDate) {
-          errors.eventDate = "Event Date is required";
-        }
-        if (eventDate <= today) {
-          errors.eventDate = "Event Date must be in the future";
-        }
-        if (!eventStartTime) {
-          errors.eventStartTime = "Event Start Time is required";
-        }
-        if (!eventEndTime) {
-          errors.eventEndTime = "Event End Time is required";
-        }
-      
-        if (!address && selectedOption === "Venue") {
-          errors.address = "Event Location is required";
-        }
+
+    if (!eventName) {
+      errors.eventName = "Event Name is required";
+    }
+    if (!eventDescription) {
+      errors.eventDescription = "Event Description is required";
+    }
+
+    if (!eventDate) {
+      errors.eventDate = "Event Date is required";
+    }
+    if (eventDate <= today) {
+      errors.eventDate = "Event Date must be in the future";
+    }
+    if (!eventStartTime) {
+      errors.eventStartTime = "Event Start Time is required";
+    }
+    if (!eventEndTime) {
+      errors.eventEndTime = "Event End Time is required";
+    }
+
+    if (!address && selectedOption === "Venue") {
+      errors.address = "Event Location is required";
+    }
     return errors;
   };
 
@@ -143,7 +143,7 @@ export const EditEvent = () => {
       formData.append("images", file);
     });
     try {
-      await axios.put(`https://event-aura-yt4akn7xpq-uc.a.run.app/api/events/${id}`, formData, {
+      await axios.put(`http://localhost:8080/api/events/${id}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

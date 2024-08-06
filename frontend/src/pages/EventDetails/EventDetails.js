@@ -93,6 +93,8 @@ export default function EventDetails() {
   }
 
   function handleBooking(numTickets, total) {
+    const token = localStorage.getItem("token");
+
     const order_request = {
       user_id: localStorage.getItem("userId"),
       event,
@@ -100,7 +102,11 @@ export default function EventDetails() {
       total: total
     };
 
-    axios.post("https://event-aura-yt4akn7xpq-uc.a.run.app/api/order/", order_request)
+    axios.post("https://event-aura-yt4akn7xpq-uc.a.run.app/api/order/", order_request, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
       .then((response) => {
         if (response.status === 200) {
           const data = response.data;
@@ -112,7 +118,7 @@ export default function EventDetails() {
       }).catch((error) => {
         //provide a toast message.
         console.log(error);
-      })
+      });
     handleCloseBooking();
   }
 

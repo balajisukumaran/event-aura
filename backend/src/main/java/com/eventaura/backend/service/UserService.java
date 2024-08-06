@@ -12,6 +12,7 @@ import java.util.Optional;
 public interface UserService {
     List<User> getAllUsers();
     Optional<User> getUserById(String id);
+    User getUserByEmail(String email);
     User createUser(User user);
     void deleteUser(String id);
     User updateUser(String id, UserRequest userRequest);

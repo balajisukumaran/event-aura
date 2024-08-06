@@ -1,4 +1,4 @@
-.sidebar {
+.sidebar-approval {
   max-height: 90vh; /* Adjust this value based on your layout */
   overflow-y: auto;
   padding-right: 10px; /* To avoid hiding content under scrollbar */
@@ -7,6 +7,6 @@
   margin-top: 10px;
 }
 
-.sidebar h5 {
+.sidebar-approval h5 {
   margin-left: 10px;
 }

@@ -2,6 +2,8 @@
  * Author : Kabilesh Ravi Chandran
  */
 
+/* eslint-disable react-hooks/exhaustive-deps */
+
 import React, { useContext, useEffect, useState } from 'react';
 import {
   Timestamp,

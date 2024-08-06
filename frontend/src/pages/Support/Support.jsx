@@ -1,6 +1,9 @@
 /**
  * Author : Balaji Sukumaran
  */
+
+/* eslint-disable react-hooks/exhaustive-deps */
+
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import SockJS from "sockjs-client";

@@ -3,10 +3,10 @@ import loginImg from "./images/login-image.png";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import axios from 'axios';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { doc, setDoc } from 'firebase/firestore';
-import { auth, db } from '../../firebase';
+import axios from "axios";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import { auth, db } from "../../firebase";
 import { fetchUserData } from "./apiUtils";
 
 function Signup(props) {
@@ -96,12 +96,12 @@ function Signup(props) {
         createUserWithEmailAndPassword(auth, email, inputPassword)
           .then(async (resItem) => {
             try {
-              await setDoc(doc(db, 'users', resItem.user.uid), {
+              await setDoc(doc(db, "users", resItem.user.uid), {
                 uid: resItem.user.uid,
                 displayName: inputFirstName,
                 email: email,
               });
-              await setDoc(doc(db, 'userChats', resItem.user.uid), {});
+              await setDoc(doc(db, "userChats", resItem.user.uid), {});
             } catch (err) {
               console.log(err);
             }

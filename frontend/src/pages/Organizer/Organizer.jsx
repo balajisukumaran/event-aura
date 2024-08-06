@@ -11,8 +11,10 @@ const Organizer = () => {
     const [isFollowing, setIsFollowing] = useState(false);
     const [events, setEvents] = useState([]);
     const [, setLoading] = useState(true);
+    const [followerCount, setTotalFollowerCount] = useState();
 
     const filteredArray = events?.filter(item => item.organizerId === id);
+    const userId = localStorage.getItem("userId");
 
 
     useEffect(() => {
@@ -30,13 +32,28 @@ const Organizer = () => {
               setLoading(false);
           }
       };
+
+      const fetchFollowers = async () => {
+        try {
+            const response = await axios.get(`http://localhost:8080/api/followingCount?userId=${userId}` );
+           
+            if (response.status === 200) {
+             setTotalFollowerCount(response.data.totalFollowersCount);
+            }
+        } catch (error) {
+            console.error('Error fetching events:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
       fetchEvents();
-  }, []);
+      fetchFollowers();
+  }, [userId]);
 
     useEffect(() => {
         const fetchStatus = async () => {
             try {
-                const response = await axios.post(`http://localhost:8080/api/isfollowing`, { id: localStorage.getItem("userId"), organizerId: "66ac17806eae0514764532ae" });
+                const response = await axios.post(`http://localhost:8080/api/isfollowing`, { id: userId, organizerId: id });
                 if (response && response.data.success) {
                     setIsFollowing(response.data.message === "true");
                 }
@@ -45,17 +62,17 @@ const Organizer = () => {
             }
         };
         fetchStatus();
-    }, [id]);
+    }, [id, userId]);
 
     const getOrganizerFollowStatus = async () => {
         try {
-            const response = await axios.post(`http://localhost:8080/api/isfollowing`, { id: localStorage.getItem("userId"), organizerId: "66ac17806eae0514764532ae" });
+            const response = await axios.post(`http://localhost:8080/api/isfollowing`, { id: userId, organizerId: id });
             if (response && response.data) {
                 if (response.data.message === "true") {
-                    await axios.post(`http://localhost:8080/api/unfollow`, { id: localStorage.getItem("userId"), organizerId: "66ac17806eae0514764532ae" });
+                    await axios.post(`http://localhost:8080/api/unfollow`, { id: userId, organizerId: id });
                     setIsFollowing(false);
                 } else {
-                    await axios.post(`http://localhost:8080/api/follow`, { id: localStorage.getItem("userId"), organizerId: "66ac17806eae0514764532ae" });
+                    await axios.post(`http://localhost:8080/api/follow`, { id: userId, organizerId: id });
                     setIsFollowing(true);
                 }
             }
@@ -87,10 +104,10 @@ const Organizer = () => {
         <>
             <div className="text-center mb-5">
                 <div className="mb-3">
-                    <img src={organizer?.imageurl} alt="Profile" className="rounded-circle" />
+                    <img src={organizer?.imageurl} alt="Profile" className="rounded-circle" width={130} height={130} />
                 </div>
                 <h2>{organizer?.firstname} {organizer?.lastname}</h2>
-                <p>{organizer?.no_of_followers} Followers | 50 Following</p>
+                <p>{organizer?.no_of_followers} Followers | {followerCount} Following</p>
                 <div>
                     <div className="rating">
                         {[1, 2, 3, 4, 5].map((star) => (

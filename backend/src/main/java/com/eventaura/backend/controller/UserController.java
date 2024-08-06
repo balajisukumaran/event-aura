@@ -8,6 +8,8 @@ import com.eventaura.backend.entity.User;
 import com.eventaura.backend.request.UserRequest;
 import com.eventaura.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -54,5 +56,15 @@ public class UserController {
     @PutMapping("/{id}/activate")
     public User activateUser(@PathVariable String id) {
         return userService.activateUser(id);
+    }
+
+    @GetMapping("/email/{email}")
+    public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
+        User user = userService.getUserByEmail(email);
+        if (user != null) {
+            return ResponseEntity.ok(user);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
     }
 }

@@ -1,3 +1,7 @@
+/**
+ * Author : Kabilesh Ravi Chandran
+ */
+
 import { Navigate, Route, Routes } from "react-router-dom";
 import React from "react";
 import routes from "./routesInfo";

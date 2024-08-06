@@ -5,6 +5,8 @@ import NavBar from "./components/Navbar/NavBar";
 import { EventProvider } from "./context/EventContext";
 import MainRoute from "./router/routes";
 import { ToastContainer } from "react-toastify";
+import { AuthorizationContextProvider } from "./context/AuthorizationContext";
+import { ChatContextProvider } from "./context/chatContext";
 
 function App() {
   const [navKey, setNavKey] = useState(0);
@@ -14,17 +16,21 @@ function App() {
   };
 
   return (
-    <EventProvider>
-      <Router>
-        <NavBar key={navKey} />
-        <ToastContainer />
-        <div className="App">
-          <div className="dashboard">
-            <MainRoute refreshNavBar={refreshNavBar} />
-          </div>
-        </div>
-      </Router>
-    </EventProvider>
+    <AuthorizationContextProvider>
+      <ChatContextProvider>
+        <EventProvider>
+          <Router>
+            <NavBar key={navKey} />
+            <ToastContainer />
+            <div className="App">
+              <div className="dashboard">
+                <MainRoute refreshNavBar={refreshNavBar} />
+              </div>
+            </div>
+          </Router>
+        </EventProvider>
+      </ChatContextProvider>
+    </AuthorizationContextProvider>
   );
 }
 

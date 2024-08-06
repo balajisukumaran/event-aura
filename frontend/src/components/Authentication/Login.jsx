@@ -20,37 +20,40 @@ function Login({ refreshNavBar }) {
     // to prevent from screen getting refreshed
     event.preventDefault();
 
-        try{
-            // call Login api
-            const loginRequestBody =  {
-                email: inputUsername,
-                password: inputPassword,
-            }
-            const loginResponse = await axios.post('https://event-aura-yt4akn7xpq-uc.a.run.app/login', loginRequestBody);
-            // Save data to local storage
-            const { token, email, role, id } = loginResponse.data;
-            localStorage.setItem('token', token);
-            localStorage.setItem('email', email);
-            localStorage.setItem('role', role);
-            localStorage.setItem('userId', id);
-            const userData = await fetchUserData(id);
-            localStorage.setItem("userData", JSON.stringify(userData))
-            await signInWithEmailAndPassword(auth, inputUsername, inputPassword);
-            refreshNavBar(); // Call the function to refresh the NavBar
-            navigate("/");
-
-        } catch (error) {
-            const errorMessage = error.response.data.toLowerCase();
-            console.error('Error during login:', errorMessage);
-            if(errorMessage === "user is not registered"){
-                setInvalidUsernameError("User does not exist, please signup!");
-                setInvalidPasswordError("");
-            } else if (errorMessage === "incorrect password"){
-                setInvalidUsernameError("");
-                setInvalidPasswordError("Password is incorrect")
-            } else {
-                alert('An error occurred. Please try again.');
-            }
+    try {
+      // call Login api
+      const loginRequestBody = {
+        email: inputUsername,
+        password: inputPassword,
+      };
+      const loginResponse = await axios.post(
+        "https://event-aura-yt4akn7xpq-uc.a.run.app/login",
+        loginRequestBody
+      );
+      console.log(loginResponse);
+      // Save data to local storage
+      const { token, email, role, id } = loginResponse.data;
+      localStorage.setItem("token", token);
+      localStorage.setItem("email", email);
+      localStorage.setItem("role", role);
+      localStorage.setItem("userId", id);
+      const userData = await fetchUserData(id);
+      localStorage.setItem("userData", JSON.stringify(userData))
+      await signInWithEmailAndPassword(auth, inputUsername, inputPassword);
+      refreshNavBar(); // Call the function to refresh the NavBar
+      navigate("/");
+    } catch (error) {
+      const errorMessage = error.response.data.toLowerCase();
+      console.error("Error during login:", errorMessage);
+      if (errorMessage === "user is not registered") {
+        setInvalidUsernameError("User does not exist, please signup!");
+        setInvalidPasswordError("");
+      } else if (errorMessage === "incorrect password") {
+        setInvalidUsernameError("");
+        setInvalidPasswordError("Password is incorrect");
+      } else {
+        alert("An error occurred. Please try again.");
+      }
     }
   };
 

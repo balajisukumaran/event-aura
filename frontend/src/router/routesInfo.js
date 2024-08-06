@@ -7,6 +7,7 @@ import ContactUs from "../pages/ContactUs/ContactUs";
 import FAQ from "../pages/FAQ/FAQ";
 import EventHistory from "../pages/EventHistory";
 import Approvals from "../pages/Approvals";
+import Support from "../pages/Support/Support";
 import { CreateEventPage } from "../pages/CreateEvent/CreateEventPage";
 import { EditEvent } from "../pages/EditEvent/EditEvent";
 import Login from "../components/Authentication/Login";
@@ -67,6 +68,7 @@ const routes = [
     component: <CreateEventPage />,
   },
   { id: "approvals", route: "/approvals", component: <Approvals /> },
+  { id: "support", route: "/support", component: <Support /> },
   {
     id: "editEvent",
     route: "/edit-event/:id",

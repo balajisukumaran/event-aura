@@ -2,28 +2,44 @@
  * Author : Sruthi Shaji, Nikita Davies
  */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./NavBar.css";
 import MenuIcon from "@mui/icons-material/Menu";
+import NotificationsIcon from "@mui/icons-material/Notifications";
 import { useNavigate } from "react-router-dom";
 import UserDropdown from "../UserDropdown/UserDropdown";
+import axios from "axios";
+import {
+  IconButton,
+  Tooltip,
+  List,
+  ListItem,
+  ListItemText,
+  Button,
+} from "@mui/material";
 
 const NavBar = () => {
   const [role, setRole] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [pendingTickets, setPendingTickets] = useState([]);
+  const [tooltipOpen, setTooltipOpen] = useState(false);
   const navigate = useNavigate();
   const token = localStorage?.getItem("token");
+  const userId = localStorage?.getItem("userId");
 
+  // Toggle menu visibility
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  // Handle user logout
   const handleLogout = () => {
     localStorage.clear();
     navigate("/login");
   };
 
+  // Get user role from local storage
   const getRole = () => {
     const storedRole = localStorage.getItem("role");
     if (!storedRole) {
@@ -33,9 +49,40 @@ const NavBar = () => {
     }
   };
 
+  // Fetch pending tickets from the backend
+  const fetchPendingTickets = async () => {
+    try {
+      const response = await axios.get(
+        "https://event-aura-yt4akn7xpq-uc.a.run.app/api/ticket/pending"
+      );
+      setPendingTickets(response.data);
+    } catch (error) {
+      console.error("Error fetching pending tickets", error);
+    }
+  };
+
+  // Assign ticket to the current admin
+  const assignTicketToMe = async (ticketId) => {
+    try {
+      await axios.post(
+        `https://event-aura-yt4akn7xpq-uc.a.run.app/api/ticket/${ticketId}/assign`,
+        {
+          userId,
+        }
+      );
+      fetchPendingTickets(); // Refresh the list after assigning
+    } catch (error) {
+      console.error("Error assigning ticket", error);
+    }
+  };
+
+  // Fetch role and pending tickets on component mount
   useEffect(() => {
     getRole();
-  }, []);
+    if (role === "ADMIN") {
+      fetchPendingTickets();
+    }
+  }, [role]);
 
   return (
     <nav className="navbar">
@@ -45,6 +92,49 @@ const NavBar = () => {
         </Link>
       </div>
       <div className="navbar-links">
+        {role === "ADMIN" && pendingTickets.length > 0 && (
+          <Tooltip
+            open={tooltipOpen}
+            onClose={() => setTooltipOpen(false)}
+            onOpen={() => setTooltipOpen(true)}
+            title={
+              <List>
+                {pendingTickets.map((ticket) => (
+                  <ListItem
+                    key={ticket.id}
+                    style={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    <ListItemText primary={ticket.name} />
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      size="small"
+                      fontSize="100px"
+                      onClick={() => assignTicketToMe(ticket.id)}
+                    >
+                      Assign to Me
+                    </Button>
+                  </ListItem>
+                ))}
+              </List>
+            }
+            interactive
+            classes={{ width: "custom-tooltip" }}
+          >
+            <IconButton
+              color="inherit"
+              style={{ color: "bisque", marginBottom: "15px" }}
+            >
+              <NotificationsIcon />
+              {pendingTickets.length > 0 && (
+                <span className="notification-badge">
+                  {pendingTickets.length}
+                </span>
+              )}
+            </IconButton>
+          </Tooltip>
+        )}
+        <p onClick={() => navigate("/support")}>Support</p>
         {role !== "ADMIN" && (
           <p onClick={() => navigate("/event-history")}>Events</p>
         )}
@@ -53,7 +143,6 @@ const NavBar = () => {
         {role === "ADMIN" && (
           <p onClick={() => navigate("/approvals")}>Approvals</p>
         )}
-
         {!token ? (
           <p>
             <button
@@ -88,7 +177,6 @@ const NavBar = () => {
               Approvals
             </Link>
           )}
-
           {!token ? (
             <Link to="/login" onClick={toggleMenu}>
               Login

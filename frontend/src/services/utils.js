@@ -1,8 +1,7 @@
 import axios from "axios";
 
 // Base URL for API requests obtained from environment variable
-const API_BASE_URL = 'https://event-aura-yt4akn7xpq-uc.a.run.app/api';
-
+const API_BASE_URL = "https://event-aura-yt4akn7xpq-uc.a.run.app/api";
 
 // Create an instance of Axios with base URL and default headers
 const api = axios.create({
@@ -11,7 +10,6 @@ const api = axios.create({
     "Content-Type": "application/json",
   },
 });
-
 
 // Interceptor to add Authorization header with token from localStorage to each request
 api.interceptors.request.use(
@@ -26,7 +24,6 @@ api.interceptors.request.use(
     return Promise.reject(error);
   }
 );
-
 
 // handle successful response
 const handleResponse = (response) => {

@@ -4,6 +4,9 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
 import axios from 'axios';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { doc, setDoc } from 'firebase/firestore';
+import { auth, db } from '../../firebase';
 
 function Signup(props){
     const [isAdmin, setIsAdmin] = useState(false);
@@ -77,12 +80,31 @@ function Signup(props){
 
             const signupResponse = await axios.post('https://event-aura-yt4akn7xpq-uc.a.run.app/signup', signupRequestBody);
             // Save data to local storage
-            console.log(signupResponse.data);
             const { token, email, role, id } = signupResponse.data;
             localStorage.setItem('token', token);
             localStorage.setItem('email', email);
             localStorage.setItem('role', role);
             localStorage.setItem('userId', id);
+            try {
+                createUserWithEmailAndPassword(auth, email, inputPassword)
+                  .then(async (resItem) => {
+                    try {
+                      await setDoc(doc(db, 'users', resItem.user.uid), {
+                        uid: resItem.user.uid,
+                        displayName: inputFirstName,
+                        email: email,
+                      });
+                      await setDoc(doc(db, 'userChats', resItem.user.uid), {});
+                    } catch (err) {
+                      console.log(err);
+                    }
+                  })
+                  .catch((error) => {
+                    console.log(error);
+                  });
+              } catch (err) {
+                console.log(err);
+              }
             navigate("/");
 
         } catch (error){

@@ -7,7 +7,7 @@ const AuthorizationContext = createContext();
 
 const AuthorizationContextProvider = ({ children, }) => {
   const [user, setUser,] = useState({});
-
+console.log(user)
   useEffect(() => {
     const reset = onAuthStateChanged(auth, (user) => {
       setUser(user);

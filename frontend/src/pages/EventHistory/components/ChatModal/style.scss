@@ -1,0 +1,66 @@
+@use '../ChatInterace/style.scss' as ChatModal;
+
+.chat-modal {
+  &-header {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #FF9A00;
+
+    &-title {
+      color: white;
+      font-weight: bold;
+      font-size: 28px;
+    }
+  }
+  &-description {
+    flex: 1;
+    overflow: auto;
+    padding-bottom: 12px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  &-description::-webkit-scrollbar {
+    display: none;
+  }
+  &-sender {
+    display: flex;
+    align-items: center;
+
+    &-input {
+      flex: 1;
+      background-color: white;
+      border-radius: 4px;
+      input {
+        outline: none;
+        border: none;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .chat-modal {
+    &-header {
+      gap: 15px;
+      padding-bottom: 15px;
+
+      &-title {
+        font-size: 20px;
+      }
+    }
+    &-description {
+      padding-bottom: 8px;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+    &-sender {
+      &-input {
+        input {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}

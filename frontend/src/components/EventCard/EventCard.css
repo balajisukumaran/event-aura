@@ -78,9 +78,10 @@
 
 .event-cta {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     margin-bottom: 10px;
     margin-right: 10px;
+    margin-left: 10px;
 }
 
 .event-cta-btn {

@@ -1,7 +1,3 @@
-/**
- * Authors : Kabilesh Ravi Chandran
- */
-
 import React, { useEffect, useState } from "react";
 import EventSlider from "../../components/EventSlider";
 import { Tab, Tabs } from "@mui/material";

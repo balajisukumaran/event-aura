@@ -19,6 +19,9 @@ const UserDropdown = ({ handleLogout }) => {
             <Link to="/profile" className="dropdown-item">
               Profile
             </Link>
+            <Link to="/new-messages" className="dropdown-item">
+              My Messages
+            </Link>
             <a className="dropdown-item" onClick={handleLogout} href="/">
               Logout
             </a>

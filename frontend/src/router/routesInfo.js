@@ -13,6 +13,8 @@ import BookingSuccess from "../pages/BookingSuccess/BookingSuccess";
 import BookingFailure from "../pages/BookingFailure/BookingFailure";
 import ViewEventDetails from "../pages/ViewEventDetails/ViewEventDetails";
 import ProfilePage from "../pages/MyProfile/ProfilePage";
+import ChatModal from "../pages/EventHistory/components/ChatModal/ChatModal";
+import NewMessages from "../pages/NewMessages";
 
 const routes = [
   {
@@ -91,6 +93,16 @@ const routes = [
     route: "/profile",
     component: <ProfilePage />,
   },
+  {
+    id: 'chat',
+    route: "/chat/:id",
+    component: <ChatModal />
+  },
+  {
+    id: 'new-messages',
+    route: '/new-messages',
+    component: <NewMessages />
+  }
 ];
 
 export default routes;

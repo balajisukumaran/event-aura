@@ -1,3 +1,7 @@
+/**
+ * Author : Kabilesh Ravi Chandran
+ */
+
 const modalStyle = {
   position: 'absolute',
   top: '50%',

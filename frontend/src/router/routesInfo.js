@@ -1,3 +1,7 @@
+/**
+ * Author : Kabilesh Ravi Chandran
+ */
+
 import LandingPage from "../pages/LandingPage/LandingPage";
 import ContactUs from "../pages/ContactUs/ContactUs";
 import FAQ from "../pages/FAQ/FAQ";

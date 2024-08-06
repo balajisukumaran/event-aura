@@ -75,7 +75,7 @@ function Signup(props){
                 role: inputRole
             }
 
-            const signupResponse = await axios.post('http://localhost:8080/signup', signupRequestBody);
+            const signupResponse = await axios.post('https://event-aura-yt4akn7xpq-uc.a.run.app/signup', signupRequestBody);
             // Save data to local storage
             console.log(signupResponse.data);
             const { token, email, role, id } = signupResponse.data;

@@ -35,7 +35,7 @@ const Organizer = () => {
 
       const fetchFollowers = async () => {
         try {
-            const response = await axios.get(`http://localhost:8080/api/followingCount?userId=${userId}` );
+            const response = await axios.get(`https://event-aura-yt4akn7xpq-uc.a.run.app/api/followingCount?userId=${userId}` );
            
             if (response.status === 200) {
              setTotalFollowerCount(response.data.totalFollowersCount);
@@ -53,7 +53,7 @@ const Organizer = () => {
     useEffect(() => {
         const fetchStatus = async () => {
             try {
-                const response = await axios.post(`http://localhost:8080/api/isfollowing`, { id: userId, organizerId: id });
+                const response = await axios.post(`https://event-aura-yt4akn7xpq-uc.a.run.app/api/isfollowing`, { id: userId, organizerId: id });
                 if (response && response.data.success) {
                     setIsFollowing(response.data.message === "true");
                 }
@@ -66,13 +66,13 @@ const Organizer = () => {
 
     const getOrganizerFollowStatus = async () => {
         try {
-            const response = await axios.post(`http://localhost:8080/api/isfollowing`, { id: userId, organizerId: id });
+            const response = await axios.post(`https://event-aura-yt4akn7xpq-uc.a.run.app/api/isfollowing`, { id: userId, organizerId: id });
             if (response && response.data) {
                 if (response.data.message === "true") {
-                    await axios.post(`http://localhost:8080/api/unfollow`, { id: userId, organizerId: id });
+                    await axios.post(`https://event-aura-yt4akn7xpq-uc.a.run.app/api/unfollow`, { id: userId, organizerId: id });
                     setIsFollowing(false);
                 } else {
-                    await axios.post(`http://localhost:8080/api/follow`, { id: userId, organizerId: id });
+                    await axios.post(`https://event-aura-yt4akn7xpq-uc.a.run.app/api/follow`, { id: userId, organizerId: id });
                     setIsFollowing(true);
                 }
             }

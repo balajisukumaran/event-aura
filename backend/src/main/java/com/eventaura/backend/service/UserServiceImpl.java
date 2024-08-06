@@ -42,16 +42,32 @@ public class UserServiceImpl implements UserService {
     @Override
     public User updateUser(String id, UserRequest userRequest) {
         User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
-        user.setFirstname(userRequest.getFirstname());
-        user.setLastname(userRequest.getLastname());
-        user.setEmail(userRequest.getEmail());
-        user.setPassword(userRequest.getPassword());
-        user.setPhone(userRequest.getPhone());
-        user.setStatus(userRequest.getStatus());
-        user.setImageurl(userRequest.getImageurl());
-        user.setRole(USER_ROLE.getInstance(userRequest.getRole()));
+
+        if (userRequest.getFirstname() != null) {
+            user.setFirstname(userRequest.getFirstname());
+        }
+        if (userRequest.getLastname() != null) {
+            user.setLastname(userRequest.getLastname());
+        }
+        if (userRequest.getEmail() != null) {
+            user.setEmail(userRequest.getEmail());
+        }
+        if (userRequest.getPhone() != null) {
+            user.setPhone(userRequest.getPhone());
+        }
+        if (userRequest.getStatus() != null) {
+            user.setStatus(userRequest.getStatus());
+        }
+        if (userRequest.getImageurl() != null) {
+            user.setImageurl(userRequest.getImageurl());
+        }
+        if (userRequest.getRole() != null) {
+            user.setRole(USER_ROLE.getInstance(userRequest.getRole()));
+        }
+
         return userRepository.save(user);
     }
+
 
     @Override
     public User disableUser(String id) {

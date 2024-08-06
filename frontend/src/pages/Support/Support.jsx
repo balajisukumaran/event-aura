@@ -173,9 +173,11 @@ const SupportPage = () => {
           <div className="chat-window">
             <div className="chat-header">
               <h3>{selectedTicket.name}</h3>
-              <button className="resolve-button" onClick={resolveTicket}>
-                Resolve
-              </button>
+              {role === "ADMIN" && (
+                <button className="resolve-button" onClick={resolveTicket}>
+                  Resolve
+                </button>
+              )}
             </div>
             <div className="messages">
               {messages.map((msg, index) => (

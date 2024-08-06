@@ -13,12 +13,14 @@ import BookingSuccess from "../pages/BookingSuccess/BookingSuccess";
 import BookingFailure from "../pages/BookingFailure/BookingFailure";
 import ViewEventDetails from "../pages/ViewEventDetails/ViewEventDetails";
 import ProfilePage from "../pages/MyProfile/ProfilePage";
+import Organizer from "../pages/Organizer/Organizer";
 
 const routes = [
   {
     id: "landing-page",
     route: "/",
     component: <LandingPage />,
+    roles: ["admin, user"]
   },
   {
     id: "contact",
@@ -90,6 +92,11 @@ const routes = [
     id: "profile",
     route: "/profile",
     component: <ProfilePage />,
+  },
+  {
+    id: "organizer",
+    route: "/organizer/:id",
+    component: <Organizer />,
   },
 ];
 

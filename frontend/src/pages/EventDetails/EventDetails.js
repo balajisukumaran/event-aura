@@ -13,7 +13,7 @@ import { Modal, Box } from '@mui/material';
 import AddReview from "../../components/AddReview/AddReview";
 import BookTicket from "../../components/BookTicket/BookTicket";
 import axios from "axios";
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 
 export default function EventDetails() {
   const [openReviewModal, setOpenReviewModal] = useState(false);
@@ -23,6 +23,8 @@ export default function EventDetails() {
   const [showAllReviews, setShowAllReviews] = useState(false); // New state variable
   const [event, setEvent] = useState({});
   const { id } = useParams();
+
+  const navigate = useNavigate();
 
   const fetchReviews = async (eventId) => {
     try {
@@ -116,6 +118,10 @@ export default function EventDetails() {
     handleCloseBooking();
   }
 
+  const onFollowClick = () =>{
+    navigate(`/organizer/${organizer?.id}`)
+  }
+
   return (
     <div>
       {event ? (
@@ -155,7 +161,7 @@ export default function EventDetails() {
                   </div>
                 </div>
                 <div>
-                  <button className="event-book-button">Follow</button>
+                  <button className="event-book-button" onClick={onFollowClick}>Follow</button>
                 </div>
               </div>}
             </div>

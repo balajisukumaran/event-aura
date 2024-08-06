@@ -25,7 +25,7 @@ public class FollowOrganizerController {
         return new FollowResponse("Followed successfully".equals(result), result);
     }
 
-    @GetMapping("/isfollowing")
+    @PostMapping("/isfollowing")
     public FollowResponse isFollowing(@RequestBody FollowRequest followRequest) {
         boolean isFollowing = followService.isFollowing(followRequest.getId(), followRequest.getOrganizerId());
         return new FollowResponse(isFollowing, isFollowing ? "true" : "false");

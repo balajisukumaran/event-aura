@@ -22,7 +22,7 @@ export const CreateEventPage = () => {
   const [errors, setErrors] = useState({});
 
   const [selectedOption, setSelectedOption] = useState("Venue");
-  const [eventType,] = useState("Single");
+  const [eventType] = useState("Single");
   const [address, setAddress] = useState("");
   const [ticketPrice, setTicketPrice] = useState("");
 
@@ -132,6 +132,7 @@ export const CreateEventPage = () => {
           "Content-Type": "multipart/form-data",
         },
       });
+      await axios.post(`https://event-aura-yt4akn7xpq-uc.a.run.app/api/notifications`, { organizerId: localStorage.getItem("userId"), eventTitle: eventName, eventDescription: eventDescription });
       navigate("/events");
       toast.success("Event created successfully!!");
     } catch (error) {

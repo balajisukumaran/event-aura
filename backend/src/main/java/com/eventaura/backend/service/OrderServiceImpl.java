@@ -25,7 +25,7 @@ public class OrderServiceImpl implements OrderService {
     public Order createOrder(OrderRequest req, User user) {
         Order order = new Order();
         order.setEvent(req.getEvent());
-        order.setUserId(req.getUser_id());
+        order.setUserId(user.getId());
         order.setNumTickets(req.getNo_of_tickets());
         order.setTotalAmount(req.getTotal());
 

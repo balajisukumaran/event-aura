@@ -9,7 +9,6 @@ public class UserRequest {
     String lastname;
     String email;
     String phone;
-    String password;
     String status;
     String imageurl;
     String role;

@@ -1,40 +1,45 @@
 /**
  * Author : Sruthi Shaji
  */
-import React, { useEffect } from 'react';
-import './BookingFailure.css';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useEffect } from "react";
+import "./BookingFailure.css";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 export default function BookingFailure() {
-    const navigate = useNavigate();
-    const { id } = useParams();
+  const navigate = useNavigate();
+  const { id } = useParams();
 
-    const handleGoHome = () => {
-        navigate("/");
+  const handleGoHome = () => {
+    navigate("/");
+  };
+
+  useEffect(() => {
+    const declineOrder = async () => {
+      try {
+        const response = await axios.put(
+          `https://event-aura-yt4akn7xpq-uc.a.run.app/api/order/decline/${id}`
+        );
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error confirming order:", error);
+      }
     };
 
-    useEffect(() => {
-        const declineOrder = async () => {
-            try {
-                const response = await axios.put(`https://event-aura-yt4akn7xpq-uc.a.run.app/api/order/decline/${id}`);
-                console.log(response.data);
-            } catch (error) {
-                console.error('Error confirming order:', error);
-            }
-        };
+    declineOrder();
+  }, [id]);
 
-        declineOrder();
-    }, [id]);
-
-    return <div>
-        <div className="failure-message">
-            <div className="crossmark">&#10007;</div>
-            <h1>Order Failed</h1>
-            <p>Your order was not successful.</p>
-            <p>Please try again later.</p>
-            <button className="home-button" onClick={handleGoHome}>GO TO HOME</button>
-        </div>
-    </div>;
-
+  return (
+    <div>
+      <div className="failure-message">
+        <div className="crossmark">&#10007;</div>
+        <h1>Order Failed</h1>
+        <p>Your order was not successful.</p>
+        <p>Please try again later.</p>
+        <button className="home-button" onClick={handleGoHome}>
+          GO TO HOME
+        </button>
+      </div>
+    </div>
+  );
 }

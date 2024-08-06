@@ -7,6 +7,7 @@ import axios from 'axios';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '../../firebase';
+import { fetchUserData } from "./apiUtils";
 
 function Signup(props) {
   const [isAdmin, setIsAdmin] = useState(false);

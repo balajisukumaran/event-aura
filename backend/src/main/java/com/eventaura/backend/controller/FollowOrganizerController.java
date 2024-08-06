@@ -2,11 +2,13 @@ package com.eventaura.backend.controller;
 
 import com.eventaura.backend.request.EventRequest;
 import com.eventaura.backend.request.FollowRequest;
+import com.eventaura.backend.response.CountResponse;
 import com.eventaura.backend.response.FollowResponse;
 import com.eventaura.backend.service.EmailServiceForNotification;
 import com.eventaura.backend.service.FollowService;
 import com.eventaura.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -41,5 +43,17 @@ public class FollowOrganizerController {
     public String createEvent(@RequestBody EventRequest eventRequest) {
         emailService.sendNotification(eventRequest.getOrganizerId(),eventRequest.getEventTitle(),eventRequest.getEventDescription());
         return "Event created and notifications sent";
+    }
+
+    @GetMapping("/followingCount")
+    public ResponseEntity<CountResponse> followCount(@RequestParam String userId) {
+        // Get the total follower count for the given userId
+        long followerCount = followService.getFollowerCount(userId);
+
+        // Return total follower count
+        CountResponse countResponse = new CountResponse(followerCount);
+
+        // Return JSON response
+        return ResponseEntity.ok(countResponse);
     }
 }

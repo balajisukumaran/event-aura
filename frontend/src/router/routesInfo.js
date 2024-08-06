@@ -1,8 +1,13 @@
+/**
+ * Author : Kabilesh Ravi Chandran
+ */
+
 import LandingPage from "../pages/LandingPage/LandingPage";
 import ContactUs from "../pages/ContactUs/ContactUs";
 import FAQ from "../pages/FAQ/FAQ";
 import EventHistory from "../pages/EventHistory";
 import Approvals from "../pages/Approvals";
+import Support from "../pages/Support/Support";
 import { CreateEventPage } from "../pages/CreateEvent/CreateEventPage";
 import { EditEvent } from "../pages/EditEvent/EditEvent";
 import Login from "../components/Authentication/Login";
@@ -14,6 +19,8 @@ import BookingFailure from "../pages/BookingFailure/BookingFailure";
 import ViewEventDetails from "../pages/ViewEventDetails/ViewEventDetails";
 import ProfilePage from "../pages/MyProfile/ProfilePage";
 import Organizer from "../pages/Organizer/Organizer";
+import ChatModal from "../pages/EventHistory/components/ChatModal/ChatModal";
+import NewMessages from "../pages/NewMessages";
 
 const routes = [
   {
@@ -63,6 +70,7 @@ const routes = [
     component: <CreateEventPage />,
   },
   { id: "approvals", route: "/approvals", component: <Approvals /> },
+  { id: "support", route: "/support", component: <Support /> },
   {
     id: "editEvent",
     route: "/edit-event/:id",
@@ -98,6 +106,16 @@ const routes = [
     route: "/organizer/:id",
     component: <Organizer />,
   },
+  {
+    id: 'chat',
+    route: "/chat/:id",
+    component: <ChatModal />
+  },
+  {
+    id: 'new-messages',
+    route: '/new-messages',
+    component: <NewMessages />
+  }
 ];
 
 export default routes;

@@ -1,5 +1,5 @@
 /**
- * Authors : Kabilesh Ravi Chandran
+ * Author : Kabilesh Ravi Chandran
  */
 
 .slider-container {
@@ -7,17 +7,32 @@
   width: 80%;
   margin: auto;
   overflow: hidden;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 }
 
 .slider-wrapper {
   display: flex;
   transition: transform 0.5s ease-in-out;
-  margin-left: 50px;
 }
 
 .slide {
   box-sizing: border-box;
   padding: 0 10px;
+
+  @media (min-width: 769px) {
+    min-width: calc(100% / 3);
+  }
+
+  @media (max-width: 768px) {
+    min-width: calc(100% / 2);
+  }
+
+  @media (max-width: 480px) {
+    min-width: 100%;
+  }
 }
 
 .prev,

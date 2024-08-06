@@ -7,8 +7,11 @@ import com.eventaura.backend.entity.Order;
 import com.eventaura.backend.entity.User;
 import com.eventaura.backend.request.OrderRequest;
 import com.eventaura.backend.response.PaymentResponse;
+import com.eventaura.backend.service.AuthenticationService;
 import com.eventaura.backend.service.OrderService;
 import com.eventaura.backend.service.PaymentService;
+import com.eventaura.backend.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,14 +29,29 @@ public class OrderController {
     @Autowired
     private PaymentService paymentService;
 
+    @Autowired
+    private AuthenticationService authenticationService;
+
+    @Autowired
+    private UserService userService;
+
     @PostMapping("/")
-    public ResponseEntity<PaymentResponse> createOrder(@RequestBody OrderRequest req) {
+    public ResponseEntity<Object> createOrder(@RequestBody OrderRequest req, HttpServletRequest request) {
         try
         {
-            User user = new User();
-            Order order = orderService.createOrder(req, user);
-            PaymentResponse response = paymentService.createPaymentLink(order);
-            return new ResponseEntity(response, HttpStatus.OK);
+            String authHeader = request.getHeader("Authorization");
+            if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+                return new ResponseEntity<>("Unauthorized Access", HttpStatus.UNAUTHORIZED);
+            }
+            String token = authHeader.substring(7);
+            String user_email = authenticationService.getUserEmailByToken(token);
+            User user = userService.getUserByEmail(user_email);
+            if(user != null) {
+                Order order = orderService.createOrder(req, user);
+                PaymentResponse response = paymentService.createPaymentLink(order);
+                return new ResponseEntity(response, HttpStatus.OK);
+            }
+            return new ResponseEntity("User not found.", HttpStatus.BAD_REQUEST);
         }
         catch (Exception ex) {
             return new ResponseEntity("Error while order creation.", HttpStatus.BAD_REQUEST);

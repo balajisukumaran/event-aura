@@ -1,5 +1,5 @@
 /**
- * Authors : Kabilesh Ravi Chandran
+ * Author : Kabilesh Ravi Chandran
  */
 
 import React, { useEffect, useState } from "react";

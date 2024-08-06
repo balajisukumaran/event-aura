@@ -25,6 +25,11 @@ const EventCard = ({ event }) => {
     setOpenModal(true);
   };
 
+  const onClickSupport = (e) => {
+    e.stopPropagation();
+    navigate(`/chat/${event?.organizerId}`)
+  }
+
   return (
     <div
       className="event-card"
@@ -67,7 +72,8 @@ const EventCard = ({ event }) => {
       <div className="event-info">
         <div className="event-desc">{event.description}</div>
         <div className="event-approval-status">
-          {event.approved ? (
+          {event.approved && !(event?.organizerId !== localStorage.getItem("userId") &&
+        location.pathname === "/event-history") ? (
             <div className="approved">
               <img
                 src={ApprovedIcon}
@@ -84,6 +90,9 @@ const EventCard = ({ event }) => {
       {event?.organizerId !== localStorage.getItem("userId") &&
         location.pathname === "/event-history" ? (
         <div className="event-cta">
+          <button className="event-cta-btn" onClick={onClickSupport}>
+            Support
+          </button>
           <button className="event-cta-btn" onClick={onClickCancel}>
             Cancel Booking
           </button>

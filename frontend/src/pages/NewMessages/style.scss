@@ -1,0 +1,89 @@
+/**
+ * Author : Kabilesh Ravi Chandran
+ */
+
+.my-messages {
+  display: flex;
+  height: calc(100vh - 95px);
+  font-weight: 500;
+
+  .left-container {
+    background-color: #bcad96;
+    width: 200px;
+    transition: width 0.3s ease;
+
+    &-user {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: white;
+      padding: 20px 40px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #fff;
+      }
+
+      &.selected {
+        background-color: white;
+        color: orange;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .right-container {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .chat-modal-header {
+      display: flex;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .chat-modal-sender {
+      margin-bottom: 20px;
+      padding-left: 20px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .my-messages {
+    position: relative;
+
+    .left-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 50px;
+      height: 100%;
+      transition: width 0.3s ease;
+      z-index: 10;
+
+      &:hover {
+        width: 200px;
+      }
+
+      &-user {
+        padding: 10px 5px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        transition: padding 0.3s ease;
+      }
+    }
+
+    .right-container {
+      flex: 1;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      transition: width 0.3s ease;
+      margin-left: 40px;
+    }
+  }
+}

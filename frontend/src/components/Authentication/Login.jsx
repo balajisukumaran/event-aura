@@ -4,6 +4,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../firebase';
+import { fetchUserData } from "./apiUtils";
 
 function Login({ refreshNavBar }) {
   const [inputUsername, setInputUsername] = useState("");
@@ -34,6 +37,9 @@ function Login({ refreshNavBar }) {
       localStorage.setItem("email", email);
       localStorage.setItem("role", role);
       localStorage.setItem("userId", id);
+      const userData = await fetchUserData(id);
+      localStorage.setItem("userData", JSON.stringify(userData))
+      await signInWithEmailAndPassword(auth, inputUsername, inputPassword);
       refreshNavBar(); // Call the function to refresh the NavBar
       navigate("/");
     } catch (error) {

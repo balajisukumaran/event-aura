@@ -6,6 +6,7 @@ import com.eventaura.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -77,4 +78,19 @@ public class FollowServiceImpl implements FollowService {
 
         return "Unfollowed successfully";
     }
+
+    public long getFollowerCount(String userId) {
+        // Fetch all users
+        List<User> allUsers = userRepository.findAll();
+
+        // Filter users who are organizers and have the given userId in their followers list
+        long followerCount = allUsers.stream()
+                .filter(user -> USER_ROLE.ORGANIZER.equals(user.getRole()) &&
+                        user.getFollowers() != null &&
+                        user.getFollowers().contains(userId))
+                .count();
+
+        return followerCount;
+    }
 }
+

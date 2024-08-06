@@ -25,8 +25,8 @@ public class PaymentServiceImpl implements PaymentService{
         SessionCreateParams params = SessionCreateParams.builder()
                 .addPaymentMethodType(SessionCreateParams.PaymentMethodType.CARD)
                 .setMode(SessionCreateParams.Mode.PAYMENT)
-                .setSuccessUrl("http://localhost:3000/payment/success/"+ order.getId())
-                .setCancelUrl("http://localhost:3000/payment/failure/"+ order.getId())
+                .setSuccessUrl("https://event-aura.netlify.app/payment/success/"+ order.getId())
+                .setCancelUrl("https://event-aura.netlify.app/payment/failure/"+ order.getId())
                 .addLineItem(SessionCreateParams.LineItem.builder().setQuantity(1L)
                         .setPriceData(
                                 SessionCreateParams.LineItem.PriceData.builder()

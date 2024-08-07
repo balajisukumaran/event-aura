@@ -80,22 +80,24 @@ console.log(user);
 
   return (
     <>
-    <div className='my-messages'>
-      <div className='left-container'>
-        {
-          Object.entries(chats)?.map((chatItem) => (
-            <div
-              className={`left-container-user ${selectedReceiver?.[0] === chatItem?.[0] ? 'selected' : ''}`}
-              key={chatItem?.[0]}
-              onClick={() => setSelectedReceiver(chatItem)}
-            >
-              <Avatar style={{ backgroundColor: '#FF9A00' }}>{getFirstLetter(chatItem?.[1]?.userInfo?.displayName)}</Avatar>
-              <div>{chatItem?.[1]?.userInfo?.displayName}</div>
-            </div>
-          ))
-        }
-      </div>
-      <div className='right-container'>
+    {
+      Object.keys(chats).length ? (
+        <div className='my-messages'>
+          <div className='left-container'>
+            {
+              Object.entries(chats)?.map((chatItem) => (
+                <div
+                  className={`left-container-user ${selectedReceiver?.[0] === chatItem?.[0] ? 'selected' : ''}`}
+                  key={chatItem?.[0]}
+                  onClick={() => setSelectedReceiver(chatItem)}
+                >
+                  <Avatar style={{ backgroundColor: '#FF9A00' }}>{getFirstLetter(chatItem?.[1]?.userInfo?.displayName)}</Avatar>
+                  <div>{chatItem?.[1]?.userInfo?.displayName}</div>
+                </div>
+              ))
+            }
+          </div>
+          <div className='right-container'>
         <div className='chat-modal-header'>
           <Avatar style={{ backgroundColor: '#FF9A00' }}>{getFirstLetter(selectedReceiver?.[1]?.userInfo?.displayName)}</Avatar>
           <Typography
@@ -126,8 +128,10 @@ console.log(user);
           />
           <Button onClick={onSendMsg}><i style={{ fontSize: '40px', color: '#FF9A00' }} className="fa-solid fa-paper-plane"></i></Button>
         </div>
+          </div>
         </div>
-    </div>
+      ) : <div>No Message received</div>
+    }
     </>
   );
 };

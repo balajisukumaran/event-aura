@@ -25,6 +25,7 @@ export const CreateEventPage = () => {
   const [eventType] = useState("Single");
   const [address, setAddress] = useState("");
   const [ticketPrice, setTicketPrice] = useState("");
+  const [loading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -126,6 +127,7 @@ export const CreateEventPage = () => {
       formData.append("images", null);
     }
 
+    setIsLoading(true);
     try {
       await axios.post(`https://event-aura-yt4akn7xpq-uc.a.run.app/api/events`, formData, {
         headers: {
@@ -133,9 +135,11 @@ export const CreateEventPage = () => {
         },
       });
       await axios.post(`https://event-aura-yt4akn7xpq-uc.a.run.app/api/notifications`, { organizerId: localStorage.getItem("userId"), eventTitle: eventName, eventDescription: eventDescription });
+      setIsLoading(false);
       navigate("/events");
       toast.success("Event created successfully!!");
     } catch (error) {
+      setIsLoading(false);
       toast.error("An error occurred!!");
       console.log(error);
     }
@@ -271,7 +275,10 @@ export const CreateEventPage = () => {
                     onClick={currentStep === 2 ? handleSubmit : handleNext}
                     style={{ backgroundColor: "#FF9A00" }}
                   >
-                    {currentStep === 2 ? "Submit" : "Next"}
+                    {loading ? (
+        <div className="loader" style={{ marginRight: '10px' }}></div>
+      ) : currentStep === 2 ? "Submit" : "Next"}
+      
                   </button>
                   <button onClick={handleBack} disabled={currentStep === 0}>
                     Back

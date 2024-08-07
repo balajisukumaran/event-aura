@@ -1,6 +1,3 @@
-/**
- * Authors : Kabilesh Ravi Chandran, Sruthi Shaji
- */
 import React, { useState } from "react";
 import "./EventCard.css";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -8,11 +5,13 @@ import { Carousel } from "react-responsive-carousel";
 import { DummyImage } from "../../assets/";
 import CancelBookingModal from "../CancelBookingModal";
 import ApprovedIcon from "../../assets/icons8-approval-30.png";
+import RaiseConcernModal from "../RaiseConcernModal/RaiseConcernModal";
 
 const EventCard = ({ event }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [openModal, setOpenModal] = useState(false);
+  const [openConcernModal, setOpenConcernModal] = useState(false);
 
   const handleCancelBookingClick = (e) => {
     e.stopPropagation();
@@ -27,8 +26,44 @@ const EventCard = ({ event }) => {
 
   const onClickSupport = (e) => {
     e.stopPropagation();
-    navigate(`/chat/${event?.organizerId}`)
-  }
+    navigate(`/chat/${event?.organizerId}`);
+  };
+
+  const onClickHelp = (e) => {
+    e.stopPropagation();
+    setOpenConcernModal(true);
+  };
+
+  const handleConcernSubmit = async (concern) => {
+    const userId = localStorage.getItem("userId"); // Retrieve userId from local storage
+
+    try {
+      const response = await fetch(
+        "https://event-aura-yt4akn7xpq-uc.a.run.app/api/ticket/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: concern,
+            orderId: event.orderId,
+            customerId: userId,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to submit concern");
+      }
+
+      console.log("Concern submitted successfully");
+    } catch (error) {
+      console.error("Error submitting concern:", error);
+    }
+
+    setOpenConcernModal(false);
+  };
 
   return (
     <div
@@ -72,8 +107,11 @@ const EventCard = ({ event }) => {
       <div className="event-info">
         <div className="event-desc">{event.description}</div>
         <div className="event-approval-status">
-          {event.approved && !(event?.organizerId !== localStorage.getItem("userId") &&
-        location.pathname === "/event-history") ? (
+          {event.approved &&
+          !(
+            event?.organizerId !== localStorage.getItem("userId") &&
+            location.pathname === "/event-history"
+          ) ? (
             <div className="approved">
               <img
                 src={ApprovedIcon}
@@ -88,10 +126,13 @@ const EventCard = ({ event }) => {
         </div>
       </div>
       {event?.organizerId !== localStorage.getItem("userId") &&
-        location.pathname === "/event-history" ? (
+      location.pathname === "/event-history" ? (
         <div className="event-cta">
           <button className="event-cta-btn" onClick={onClickSupport}>
             Support
+          </button>
+          <button className="event-cta-btn" onClick={onClickHelp}>
+            Help
           </button>
           <button className="event-cta-btn" onClick={onClickCancel}>
             Cancel Booking
@@ -107,6 +148,14 @@ const EventCard = ({ event }) => {
           e.stopPropagation();
           setOpenModal(false);
         }}
+      />
+      <RaiseConcernModal
+        open={openConcernModal}
+        handleClose={(e) => {
+          e.stopPropagation();
+          setOpenConcernModal(false);
+        }}
+        handleSubmit={handleConcernSubmit}
       />
     </div>
   );

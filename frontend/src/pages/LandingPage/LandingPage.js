@@ -5,7 +5,7 @@ import "./LandingPage.css";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import SortPicker from "../../components/SortPicker/SortPicker";
 import EventCard from "../../components/EventCard/EventCard";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import ReactLoading from "react-loading";
 
 const Dashboard = () => {
@@ -38,7 +38,8 @@ const Dashboard = () => {
     fetchEvents();
   }, []);
 
-  const handleSearch = () => {
+
+  const handleSearch = useCallback(() => {
     const filtered = events.filter((event) => {
       const matchesTitle = event.title
         .toLowerCase()
@@ -49,7 +50,12 @@ const Dashboard = () => {
       return matchesTitle && matchesDate;
     });
     setFilteredEvents(filtered);
-  };
+  }, [events, searchTitle, searchDate]);
+
+
+  useEffect(() => {   
+    handleSearch();
+  }, [handleSearch]);
 
   const handleSortChange = (sortOption) => {
     setSortType(sortOption);

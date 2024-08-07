@@ -17,6 +17,7 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -72,8 +73,14 @@ public class SupportTicketController {
 
     @GetMapping("/created/{customerId}")
     public ResponseEntity<List<Ticket>> getTicketsCreatedByCustomer(@PathVariable String customerId) {
-        List<Ticket> tickets = ticketService.findAllByCustomerIdAndStatus(customerId, TICKET_STATUS.IN_PROGRESS);
-        return ResponseEntity.ok(tickets);
+        List<Ticket> ticketsInProgress = ticketService.findAllByCustomerIdAndStatus(customerId, TICKET_STATUS.IN_PROGRESS);
+        List<Ticket> ticketsPending = ticketService.findAllByCustomerIdAndStatus(customerId, TICKET_STATUS.PENDING);
+
+        // Combine the two lists
+        List<Ticket> combinedTickets = new ArrayList<>(ticketsInProgress);
+        combinedTickets.addAll(ticketsPending);
+
+        return ResponseEntity.ok(combinedTickets);
     }
 
     @PostMapping("/{ticketId}/close")

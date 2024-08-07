@@ -134,7 +134,7 @@ const NavBar = () => {
             </IconButton>
           </Tooltip>
         )}
-        <p onClick={() => navigate("/support")}>Support</p>
+        <p onClick={() => navigate("/support")}>Help</p>
         {role !== "ADMIN" && (
           <p onClick={() => navigate("/event-history")}>Events</p>
         )}

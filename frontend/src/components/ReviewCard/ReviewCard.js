@@ -8,7 +8,8 @@ import { format, parse } from 'date-fns';
 
 
 const formatDate = (dateString) => {
-    const date = parse(dateString, 'dd-MM-yyyy', new Date());
+    const dateFormat = 'dd-MM-yyyy hh:mm:ss a';
+    const date = parse(dateString, dateFormat, new Date());
     const getDaySuffix = (day) => {
         if (day > 3 && day < 21) return 'th';
         switch (day % 10) {

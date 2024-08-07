@@ -4,10 +4,11 @@ import "./Sidebar.css"; // Import the CSS file
 
 const Sidebar = ({ events, onSelectEvent }) => {
   return (
-    <div className="sidebar">
+    <div className="sidebar-approval">
       <Typography variant="h5" className="mt-3 ml-2 text-light">
         Pending Approvals
       </Typography>
+      <br />
       <List className="sidebar-list">
         {events.map((event) => (
           <ListItem

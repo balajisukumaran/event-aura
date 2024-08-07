@@ -13,7 +13,7 @@ import { Modal, Box } from "@mui/material";
 import AddReview from "../../components/AddReview/AddReview";
 import BookTicket from "../../components/BookTicket/BookTicket";
 import axios from "axios";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from 'react-router-dom';
 
 export default function EventDetails() {
   const [openReviewModal, setOpenReviewModal] = useState(false);
@@ -23,6 +23,8 @@ export default function EventDetails() {
   const [showAllReviews, setShowAllReviews] = useState(false); // New state variable
   const [event, setEvent] = useState({});
   const { id } = useParams();
+
+  const navigate = useNavigate();
 
   const fetchReviews = async (eventId) => {
     try {
@@ -109,6 +111,8 @@ export default function EventDetails() {
   }
 
   function handleBooking(numTickets, total) {
+    const token = localStorage.getItem("token");
+
     const order_request = {
       user_id: localStorage.getItem("userId"),
       event,
@@ -120,7 +124,11 @@ export default function EventDetails() {
       .post(
         "https://event-aura-yt4akn7xpq-uc.a.run.app/api/order/",
         order_request
-      )
+        , {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
       .then((response) => {
         if (response.status === 200) {
           const data = response.data;
@@ -135,6 +143,10 @@ export default function EventDetails() {
         console.log(error);
       });
     handleCloseBooking();
+  }
+
+  const onFollowClick = () =>{
+    navigate(`/organizer/${organizer?.id}`)
   }
 
   return (
@@ -166,6 +178,7 @@ export default function EventDetails() {
                   <div className="organizer-details">
                     <div>
                       <img
+                        style={{ margin: "2%" }}
                         className="organizer-image"
                         src={organizer?.imageurl}
                         alt="organizer visual"
@@ -180,7 +193,7 @@ export default function EventDetails() {
                     </div>
                   </div>
                   <div>
-                    <button className="event-book-button">Follow</button>
+                    <button className="event-detail-button" onClick={onFollowClick}>Follow</button>
                   </div>
                 </div>
               )}
@@ -203,14 +216,14 @@ export default function EventDetails() {
                 <strong>Ticket Price</strong>
               </h6>
               <p>${event?.price} CAD</p>
-              <button className="event-book-button" onClick={handleOpenBooking}>
+              <button className="event-detail-button" onClick={handleOpenBooking}>
                 Book Now
               </button>
               <div className="review-list-box">
                 <div className="review-list-header">
                   <h5>Reviews</h5>
                   <button
-                    className="event-book-button"
+                    className="event-detail-button"
                     onClick={handleOpenReview}
                   >
                     Add a Review

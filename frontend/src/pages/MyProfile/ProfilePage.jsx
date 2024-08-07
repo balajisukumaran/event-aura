@@ -14,14 +14,13 @@ import {
   Grid,
   TextField,
   Button,
-  IconButton,
   Snackbar,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
 } from "@mui/material";
-import { Visibility, VisibilityOff, CameraAlt } from "@mui/icons-material";
+import { CameraAlt } from "@mui/icons-material";
 import "./ProfilePage.css";
 
 const ProfilePage = () => {
@@ -31,7 +30,6 @@ const ProfilePage = () => {
     firstname: "",
     lastname: "",
     email: "",
-    password: "",
     phone: "",
     status: "active",
     imageurl: "",
@@ -40,7 +38,6 @@ const ProfilePage = () => {
   const id = localStorage.getItem("userId");
   const [editedProfile, setEditedProfile] = useState({ ...profile });
   const [errors, setErrors] = useState({});
-  const [passwordVisible, setPasswordVisible] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -81,8 +78,6 @@ const ProfilePage = () => {
     if (!editedProfile.email || !/\S+@\S+\.\S+/.test(editedProfile.email))
       newErrors.email = "Valid Email is required";
     if (!editedProfile.phone) newErrors.phone = "Phone Number is required";
-    if (!editedProfile.password || editedProfile.password === "********")
-      newErrors.password = "Password is required";
     return newErrors;
   };
 
@@ -139,10 +134,6 @@ const ProfilePage = () => {
       }
     };
     reader.readAsDataURL(file); // Correctly read file as Data URL
-  };
-
-  const togglePasswordVisibility = () => {
-    setPasswordVisible((prevVisible) => !prevVisible);
   };
 
   const handleDialogOpen = (action) => {
@@ -303,38 +294,6 @@ const ProfilePage = () => {
                       margin="normal"
                       error={!!errors.phone}
                       helperText={errors.phone}
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <TextField
-                      label="Password"
-                      name="password"
-                      type={passwordVisible ? "text" : "password"}
-                      value={editedProfile.password}
-                      onChange={handleInputChange}
-                      fullWidth
-                      margin="normal"
-                      error={!!errors.password}
-                      helperText={errors.password}
-                      InputProps={{
-                        endAdornment: (
-                          <IconButton
-                            edge="end"
-                            onClick={togglePasswordVisibility}
-                            aria-label={
-                              passwordVisible
-                                ? "Hide password"
-                                : "Show password"
-                            }
-                          >
-                            {passwordVisible ? (
-                              <Visibility />
-                            ) : (
-                              <VisibilityOff />
-                            )}
-                          </IconButton>
-                        ),
-                      }}
                     />
                   </Grid>
                   <Grid item xs={12} className="profile-actions">

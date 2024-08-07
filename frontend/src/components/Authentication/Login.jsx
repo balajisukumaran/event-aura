@@ -4,8 +4,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../firebase';
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase";
 import { fetchUserData } from "./apiUtils";
 
 function Login({ refreshNavBar }) {
@@ -16,11 +16,36 @@ function Login({ refreshNavBar }) {
 
   const navigate = useNavigate();
 
+  const enableUserStatus = async (event) => {
+    try {
+      const response = await axios.get(`https://event-aura-yt4akn7xpq-uc.a.run.app/api/users/email/${inputUsername}`);
+      const { id: userId, status: userStatus } = response.data;
+  
+      if (userStatus.toLowerCase() !== 'active') {
+        const activate = window.confirm(`User status is ${userStatus}. Do you want to activate the user?`);
+        if (activate) {
+          const activateResponse = await axios.put(`https://event-aura-yt4akn7xpq-uc.a.run.app/api/users/${userId}/activate`);
+          console.log(activateResponse.data);
+        }
+      }
+    } catch (error) {
+      if (error.response) {
+        console.error("Error during activation:", error.response);
+      } else {
+        console.error("Error during activation:", error.message);
+      }
+    }
+  };  
+
   const handleFormSubmit = async (event) => {
     // to prevent from screen getting refreshed
     event.preventDefault();
 
     try {
+
+      // call api to check and enable status if disabled
+      enableUserStatus();
+
       // call Login api
       const loginRequestBody = {
         email: inputUsername,
@@ -38,7 +63,7 @@ function Login({ refreshNavBar }) {
       localStorage.setItem("role", role);
       localStorage.setItem("userId", id);
       const userData = await fetchUserData(id);
-      localStorage.setItem("userData", JSON.stringify(userData))
+      localStorage.setItem("userData", JSON.stringify(userData));
       await signInWithEmailAndPassword(auth, inputUsername, inputPassword);
       refreshNavBar(); // Call the function to refresh the NavBar
       navigate("/");

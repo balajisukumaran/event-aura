@@ -3,14 +3,13 @@
  */
 
 import axios from "axios";
-const userId = localStorage.getItem("userId");
 
 const getAllEvents = async () => {
   let res = await axios.get(
     `https://event-aura-yt4akn7xpq-uc.a.run.app/api/events/user`,
     {
       params: {
-        userId,
+        userId: localStorage.getItem("userId"),
       },
     }
   );
@@ -22,7 +21,7 @@ const getAllOrders = async () => {
     `https://event-aura-yt4akn7xpq-uc.a.run.app/api/order/user`,
     {
       params: {
-        userId,
+        userId: localStorage.getItem("userId"),
       },
     }
   );

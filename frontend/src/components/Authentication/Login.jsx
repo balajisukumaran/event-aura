@@ -16,11 +16,36 @@ function Login({ refreshNavBar }) {
 
   const navigate = useNavigate();
 
+  const enableUserStatus = async (event) => {
+    try {
+      const response = await axios.get(`https://event-aura-yt4akn7xpq-uc.a.run.app/api/users/email/${inputUsername}`);
+      const { id: userId, status: userStatus } = response.data;
+  
+      if (userStatus.toLowerCase() !== 'active') {
+        const activate = window.confirm(`User status is ${userStatus}. Do you want to activate the user?`);
+        if (activate) {
+          const activateResponse = await axios.put(`https://event-aura-yt4akn7xpq-uc.a.run.app/api/users/${userId}/activate`);
+          console.log(activateResponse.data);
+        }
+      }
+    } catch (error) {
+      if (error.response) {
+        console.error("Error during activation:", error.response);
+      } else {
+        console.error("Error during activation:", error.message);
+      }
+    }
+  };  
+
   const handleFormSubmit = async (event) => {
     // to prevent from screen getting refreshed
     event.preventDefault();
 
     try {
+
+      // call api to check and enable status if disabled
+      enableUserStatus();
+
       // call Login api
       const loginRequestBody = {
         email: inputUsername,

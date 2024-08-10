@@ -32,6 +32,7 @@ We created a new private repository on github for our web application deployment
 - [Spring Boot](https://spring.io/) - Spring was used as the web framework for the backend
 - [MongoDB](https://www.mongodb.com/) - MongoDB was used as the database for the backend
 - [JWT](https://jwt.io/) - JWT was used for authentication purposes
+- [Stripe](https://stripe.com/en-ca) - Stripe was used for payment gateway integration purposes
 
 ## Sources Used
 

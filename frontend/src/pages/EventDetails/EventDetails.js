@@ -84,8 +84,11 @@ export default function EventDetails() {
     return format(parsedDate, "MMMM d, yyyy");
   }
 
+
+  const token = localStorage?.getItem("token");
+
   const handleOpenReview = () => setOpenReviewModal(true);
-  const handleOpenBooking = () => setOpenBookModal(true);
+  const handleOpenBooking = () => { if(!token) {navigate("/login")} setOpenBookModal(true)};
   const handleCloseReview = () => setOpenReviewModal(false);
   const handleCloseBooking = () => setOpenBookModal(false);
 

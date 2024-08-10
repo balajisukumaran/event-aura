@@ -23,9 +23,104 @@ We created a new private repository on github for our web application deployment
 - [React](https://legacy.reactjs.org/docs/getting-started.html/) - The web framework used
 - [npm](https://docs.npmjs.com//) - Dependency Management
 - [Material](https://mui.com/material-ui/getting-started/) - Used for application CSS
-- [Bootstrap](https://getbootstrap.com/docs/5.3/getting-started/introduction/) - Used for responsive styling.
+- [Bootstrap](https://getbootstrap.com/docs/5.3/getting-started/introduction/) - Used for responsive styling
+- [Axios](https://axios-http.com/) - Axios was used for making API calls
+- [Node](https://nodejs.org/docs/latest/api/) -  The javascript runtime environment used
+- [Netlify](https://www.netlify.com) - The deployment tool used for the frontend
+- [Google Cloud Run](https://cloud.google.com/run/) - The deployment tool used for the backend
+- [Java](https://www.java.com/en/) - Java was used for developing the backend of the application
+- [Spring Boot](https://spring.io/) - Spring was used as the web framework for the backend
+- [MongoDB](https://www.mongodb.com/) - MongoDB was used as the database for the backend
+- [JWT](https://jwt.io/) - JWT was used for authentication purposes
 
 ## Sources Used
+
+### Signup.jsx
+
+*Lines 31 - 34*
+```
+const validatePhoneNumber = () => {
+    const phoneNumberPattern = /^\d{10}$/;
+    return phoneNumberPattern.test(inputPhoneNumber);
+};
+```
+The code uses the JavaScript Regular Expression found in [GeeksForGeeks](https://www.geeksforgeeks.org/how-to-validate-mobile-number-length-in-reactjs/) to be able to ensure that the user enters a valid 10-digit phone number in the contact field.
+
+```
+// Regular expression to match exactly 10 digits
+const regex = /^\d{10}$/;
+```
+
+### SecurityConfig.java
+
+*Lines 25 - 38*
+```
+httpSecurity
+        .csrf()
+        .disable()
+        .authorizeHttpRequests()
+        .requestMatchers("/**")
+        .permitAll()
+        .anyRequest()
+        .authenticated()
+        .and()
+        .sessionManagement()
+        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        .and()
+        .authenticationProvider(authenticationProvider)
+        .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+```
+
+This code uses the httpSecurity class and its builder methods explained in the [Spring Security documentation](https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/config/annotation/web/builders/HttpSecurity.html).
+
+```
+ @Configuration
+ @EnableWebSecurity
+ public class FormLoginSecurityConfig {
+
+        @Bean
+        public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+                http.authorizeHttpRequests().requestMatchers("/**").hasRole("USER").and().formLogin();
+                return http.build();
+        }
+
+        @Bean
+        public UserDetailsService userDetailsService() {
+                UserDetails user = User.withDefaultPasswordEncoder()
+                        .username("user")
+                        .password("password")
+                        .roles("USER")
+                        .build();
+                return new InMemoryUserDetailsManager(user);
+        }
+ }
+```
+
+### JwtService.java
+
+*Lines 34 - 40*
+```
+return Jwts.builder()
+    .setClaims(extraClaims)
+    .setSubject(userDetails.getUsername())
+    .setIssuedAt(new Date(System.currentTimeMillis()))
+    .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24)) //token is valid for 24 hours + 1000 ms
+    .signWith(getSigningKey(), SignatureAlgorithm.HS256)
+    .compact();
+```
+This code follows the [Medium](https://medium.com/@tericcabrel/implement-jwt-authentication-in-a-spring-boot-3-application-5839e4fd8fac) post on implementing JWT authentication in a Spring Boot 3 application. This article was used to help generate the JWT token that is used for authentication.
+
+```
+return Jwts
+    .builder()
+    .setClaims(extraClaims)
+    .setSubject(userDetails.getUsername())
+    .setIssuedAt(new Date(System.currentTimeMillis()))
+    .setExpiration(new Date(System.currentTimeMillis() + expiration))
+    .signWith(getSignInKey(), SignatureAlgorithm.HS256)
+    .compact();
+}
+```
 
 ### LandingPage.js
 

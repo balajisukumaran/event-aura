@@ -33,6 +33,23 @@ We created a new private repository on github for our web application deployment
 - [MongoDB](https://www.mongodb.com/) - MongoDB was used as the database for the backend
 - [JWT](https://jwt.io/) - JWT was used for authentication purposes
 
+
+## Code Integration Instructions
+
+### Backend
+
+- Clone the repository using the following command: `git clone https://git.cs.dal.ca/sshaji/csci-5709-grp-3.git`
+- Navigate to the backend folder using the following command: `cd backend/`
+- Run the server using the following command: `java -jar /csci-5709-grp-3/backend/target/backend-0.0.1-SNAPSHOT.jar`
+
+### Frontend
+
+- Clone the repository using the following command: `git clone https://git.cs.dal.ca/sshaji/csci-5709-grp-3.git`
+- Navigate to the frontend folder using the following command: `cd frontend/`
+- Install the dependencies using the following command: `npm install`
+- Run the server using the following command: `npm run start`
+
+
 ## Sources Used
 
 ### Signup.jsx
@@ -689,6 +706,298 @@ const SearchBar = () => {
 export default SearchBar;
 
 ```
+### Stepper.jsx
+
+*Lines 8-22*
+
+```
+ <Stepper activeStep={currentStep} 
+      stepClassName={'stepper__step'}
+       styleConfig={{
+              activeBgColor: '#176fcd',
+              activeTextColor: '#fff',
+              inactiveBgColor: '#fff',
+              inactiveTextColor: '#2b7cff',
+              completedBgColor: '#fff',
+              completedTextColor: '#2b7cff',
+              size: '2em'
+            }}>
+        {steps.map((step, index) => (
+          <Step key={index} label={step.label} />
+        ))}
+      </Stepper>
+
+```
+The code above was created by adapting the code in [react-form-stepper - Official NPM Documentation](https://www.npmjs.com/package/react-form-stepper) as shown below: 
+
+```
+<Stepper activeStep={1}>
+  <Step label="Children Step 1" />
+  <Step label="Children Step 2" />
+  <Step label="Children Step 3" />
+</Stepper>
+
+// CustomStepper.js
+const CustomStepper = () => {
+  return <Stepper steps={[{ label: 'Step 1' }, { label: 'Step 2' }]} activeStep={1} />;
+};
+
+export default CustomStepper;
+
+```
+- The code in [react-form-stepper - Official NPM Documentation](https://www.npmjs.com/package/react-form-stepper) was taken as reference and we learned how the original component can be used and we modified the original code to suit our requirements and added additionally styles to adapt it according to our need.
+
+### Dropzone.jsx
+
+*Lines 30 - 99*
+
+```
+function DropzoneComponent({ onFilesSelected }) {
+  const [files, setFiles] = useState([]);
+
+  const onDrop = useCallback(
+    (acceptedFiles) => {
+      console.log(acceptedFiles, "acceptedfiles");
+      onFilesSelected(acceptedFiles);
+      const updatedFiles = acceptedFiles.map((file) =>
+        Object.assign(file, {
+          preview: URL.createObjectURL(file),
+        })
+      );
+
+      setFiles(updatedFiles);
+    },
+    [onFilesSelected]
+  );
+
+  const {
+    getRootProps,
+    getInputProps,
+    isDragActive,
+    isDragAccept,
+    isDragReject,
+  } = useDropzone({
+    onDrop,
+    accept: "image/jpeg, image/png",
+  });
+
+  const style = useMemo(
+    () => ({
+      ...baseStyle,
+      ...(isDragActive ? activeStyle : {}),
+      ...(isDragAccept ? acceptStyle : {}),
+      ...(isDragReject ? rejectStyle : {}),
+    }),
+    [isDragActive, isDragReject, isDragAccept]
+  );
+
+  const thumbs = files.map((file) => (
+    <div className="row">
+      <div className="col-md-10">
+        {file.path} - {file.size} bytes{" "}
+      </div>
+      <div className="col-md-2">
+        <button
+          className="btn btn-sm btn-danger mt-1"
+          type="button"
+          onClick={(e) => {
+            e.preventDefault();
+            const newFiles = [...files];
+            newFiles.splice(newFiles.indexOf(file), 1);
+            setFiles(newFiles);
+          }}
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+  ));
+
+  return (
+    <section>
+      <div {...getRootProps({ style })}>
+        <input {...getInputProps()} />
+        <div>Drag and drop your images here.</div>
+      </div>
+      <aside>{thumbs}</aside>
+    </section>
+  );
+
+```
+The code above was created by adapting the code in [React Dropzone](https://react-dropzone.js.org/) as shown below: 
+
+```
+import React, {useCallback} from 'react'
+import {useDropzone} from 'react-dropzone'
+
+function MyDropzone() {
+  const onDrop = useCallback(acceptedFiles => {
+    // Do something with the files
+  }, [])
+  const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
+
+  return (
+    <div {...getRootProps()}>
+      <input {...getInputProps()} />
+      {
+        isDragActive ?
+          <p>Drop the files here ...</p> :
+          <p>Drag 'n' drop some files here, or click to select files</p>
+      }
+    </div>
+  )
+}
+
+import React, {useCallback} from 'react'
+import {useDropzone} from 'react-dropzone'
+
+function MyDropzone() {
+  const onDrop = useCallback((acceptedFiles) => {
+    acceptedFiles.forEach((file) => {
+      const reader = new FileReader()
+
+      reader.onabort = () => console.log('file reading was aborted')
+      reader.onerror = () => console.log('file reading has failed')
+      reader.onload = () => {
+      // Do whatever you want with the file contents
+        const binaryStr = reader.result
+        console.log(binaryStr)
+      }
+      reader.readAsArrayBuffer(file)
+    })
+    
+  }, [])
+  const {getRootProps, getInputProps} = useDropzone({onDrop})
+
+  return (
+    <div {...getRootProps()}>
+      <input {...getInputProps()} />
+      <p>Drag 'n' drop some files here, or click to select files</p>
+    </div>
+  )
+}
+
+```
+- The code in [React Dropzone](https://react-dropzone.js.org/) was used because we felt that taking the code from the official documentation of react dropzone will be the best way to learn and understand the various aspects like implmentation and styling.
+- [React Dropzone](https://react-dropzone.js.org/) Example helped us realise how dropzone component can be used, how functions can be invoked on the onDrop of the component.
+
+### AwsConfig.java
+
+*Lines 4-36*
+
+```
+package com.eventaura.backend.configuration;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.beans.factory.annotation.Value;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+
+@Configuration
+public class AwsConfig {
+    @Value("${access.key.id}")
+    private String accessKeyId;
+
+    @Value("${access.key.secret}")
+    private String accessKeySecret;
+
+    @Value("${s3.region.name}")
+    private String s3RegionName;
+
+    @Bean
+    public AmazonS3 getAmazonS3Client() {
+        final BasicAWSCredentials basicAWSCredentials = new BasicAWSCredentials(accessKeyId, accessKeySecret);
+
+        return AmazonS3ClientBuilder
+                .standard()
+                .withCredentials(new AWSStaticCredentialsProvider(basicAWSCredentials))
+                .withRegion(s3RegionName)
+                .build();
+
+    }
+}
+
+ 
+
+```
+The code above was created by adapting the code in [How to upload files to Amazon S3 in Spring Boot](https://dev.to/paulodhiambo/how-to-upload-files-to-amazon-s3-in-spring-boot-2p40) as shown below: 
+
+```
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+@Configuration
+public class AmazonConfig {
+    @Bean
+    public AmazonS3 s3() {
+        AWSCredentials awsCredentials =
+                new BasicAWSCredentials("accessKey", "secretKey");
+        return AmazonS3ClientBuilder
+                .standard()
+                .withRegion("ap-south-1")
+                .withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
+                .build();
+    }
+}
+
+```
+- The code in [How to upload files to Amazon S3 in Spring Boot](https://dev.to/paulodhiambo/how-to-upload-files-to-amazon-s3-in-spring-boot-2p40) was used because we felt that taking the article clearly explained the configuration steps needed to configure aws in apring boot for image upload to S3 
+- [How to upload files to Amazon S3 in Spring Boot](https://dev.to/paulodhiambo/how-to-upload-files-to-amazon-s3-in-spring-boot-2p40) Helped us identify the steps needed to configure aws and we modified the code as per our requirements by adding necessary environment variables to achieve our task.
+
+
+### AwsUtils.java
+
+*Lines 55-73*
+
+```
+ @Async
+    public String uploadFileToS3(final MultipartFile multipartFile, String type, String type_id) {
+        try {
+            final File file = convertMultiPartFileToFile(multipartFile);
+            String fileName = file.getName();
+            if (type == "EVENT_IMAGES") {
+                fileName = "event-images/" + type_id + "/" + file.getName();
+            }
+            final PutObjectRequest s3ObjectRequest = new PutObjectRequest(s3BucketName, fileName, file);
+            amazonS3.putObject(s3ObjectRequest);
+            Files.delete(file.toPath());
+            return fileName;
+        } catch (AmazonServiceException e) {
+            System.out.println("Error {} occurred while uploading file" + e.getLocalizedMessage());
+        } catch (IOException ex) {
+            System.out.println("Error {} occurred while deleting temporary file" + ex.getLocalizedMessage());
+        }
+        return null;
+    }
+```
+The code above was created by adapting the code in [How to upload files to Amazon S3 in Spring Boot](https://dev.to/paulodhiambo/how-to-upload-files-to-amazon-s3-in-spring-boot-2p40) as shown below: 
+
+```
+public String uploadFile(MultipartFile multipartFile) {
+    String fileUrl = "";
+    try {
+        File file = convertMultiPartToFile(multipartFile);
+        String fileName = generateFileName(multipartFile);
+        fileUrl = endpointUrl + "/" + bucketName + "/" + fileName;
+        uploadFileTos3bucket(fileName, file);
+        file.delete();
+    } catch (Exception e) {
+       e.printStackTrace();
+    }
+    return fileUrl;
+}
+
+```
+- The code in [How to upload files to Amazon S3 in Spring Boot](https://dev.to/paulodhiambo/how-to-upload-files-to-amazon-s3-in-spring-boot-2p40) was used because we felt that this article clearly explained the steps needed to push an image to S3 in spring boot for image upload to S3 
+- [How to upload files to Amazon S3 in Spring Boot](https://dev.to/paulodhiambo/how-to-upload-files-to-amazon-s3-in-spring-boot-2p40) Helped our identify the steps needed to upload an image and we modified the code as per our requirements by adding necessary changes to file path etc to achieve my task.
+
 
 ## Acknowledgments
 

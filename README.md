@@ -649,7 +649,7 @@ _Lines 162 - 178_
 
 ```
 
-I have implemented Carousel using [npm-react-Carousel](https://www.npmjs.com/package/react-responsive-carousel)
+We have implemented Carousel using [npm-react-Carousel](https://www.npmjs.com/package/react-responsive-carousel)
 
 ### PaymentServiceImpl
 

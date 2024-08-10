@@ -595,6 +595,91 @@ export default SearchBar;
 
 ```
 
+### EventCard.js
+
+_Lines 77 - 97_
+
+```
+<Carousel
+  autoPlay={true}
+  infiniteLoop={true}
+  showThumbs={false}
+  showArrows={false}
+  showStatus={false}
+  showIndicators={false}
+>
+  {event.images && event.images.length > 0 ? (
+    event.images.map((image, index) => (
+      <img
+        key={index}
+        className="event-image"
+        src={image}
+        alt={`event ${index + 1}`}
+      />
+    ))
+  ) : (
+    <img className="event-image" src={DummyImage} alt={`Dummy`} />
+  )}
+</Carousel>
+```
+
+
+### EventDetails.js
+
+_Lines 162 - 178_
+
+```
+<Carousel
+  showArrows={false}
+  autoPlay={false}
+  infiniteLoop={false}
+  showStatus={false}
+  showIndicators={false}
+>
+  {event.images && event.images.length > 0 ? (
+    event.images.map((image, index) => (
+      <div key={index}>
+        <img src={image} alt={`event visual ${index + 1}`} />
+      </div>
+    ))
+  ) : (
+    <img src={DummyImage} alt={`dummy visual`} />
+  )}
+</Carousel>
+
+```
+
+I have implemented Carousel using [npm-react-Carousel](https://www.npmjs.com/package/react-responsive-carousel)
+
+### PaymentServiceImpl
+
+_Lines 24 -45_
+
+```
+SessionCreateParams params = SessionCreateParams.builder()
+  .addPaymentMethodType(SessionCreateParams.PaymentMethodType.CARD)
+  .setMode(SessionCreateParams.Mode.PAYMENT)
+  .setSuccessUrl("https://event-aura.netlify.app/payment/success/"+ order.getId())
+  .setCancelUrl("https://event-aura.netlify.app/payment/failure/"+ order.getId())
+  .addLineItem(SessionCreateParams.LineItem.builder().setQuantity(1L)
+    .setPriceData(
+      SessionCreateParams.LineItem.PriceData.builder()
+        .setCurrency("cad")
+        .setUnitAmount((long) (order.getTotalAmount()* 100))
+        .setProductData(
+          SessionCreateParams.LineItem.PriceData.ProductData.builder()
+            .setName("EventAura")
+            .build()
+        ).build()
+    ).build()
+        ).build();
+
+Session session = Session.create(params);
+PaymentResponse paymentResponse = new PaymentResponse();
+paymentResponse.setPayment_url(session.getUrl());
+```
+
+We implemented this using stripe. The code was adapted from [Integrating Stripe Payment Gateway with Spring Boot](https://delta-dev-software.fr/integrating-stripe-payment-gateway-with-spring-boot) and modified according to our requirements.
 ## Acknowledgments
 
 - We are thankful to our professor, Gabriella Mosquera for providing us this learning opportunity.

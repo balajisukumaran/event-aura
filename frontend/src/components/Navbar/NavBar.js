@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import "./NavBar.css";
 import MenuIcon from "@mui/icons-material/Menu";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import UserDropdown from "../UserDropdown/UserDropdown";
 import axios from "axios";
 import {
@@ -28,6 +28,11 @@ const NavBar = () => {
   const token = localStorage?.getItem("token");
   const userId = localStorage?.getItem("userId");
 
+  const location = useLocation();
+  const adminPath = '/signup/admin';
+
+  const isAdminPath = location.pathname.includes(adminPath);
+
   // Toggle menu visibility
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -42,8 +47,8 @@ const NavBar = () => {
   // Get user role from local storage
   const getRole = () => {
     const storedRole = localStorage.getItem("role");
-    if (!storedRole) {
-      navigate("/login");
+    if (!storedRole && !isAdminPath) {
+      navigate("/");
     } else {
       setRole(storedRole);
     }
@@ -92,7 +97,7 @@ const NavBar = () => {
         </Link>
       </div>
       <div className="navbar-links">
-        {role === "ADMIN" && pendingTickets.length > 0 && (
+        {role === "ADMIN" && pendingTickets.length > 0 && token && (
           <Tooltip
             open={tooltipOpen}
             onClose={() => setTooltipOpen(false)}
@@ -134,8 +139,10 @@ const NavBar = () => {
             </IconButton>
           </Tooltip>
         )}
-        <p onClick={() => navigate("/support")}>Help</p>
-        {role !== "ADMIN" && (
+         {token && (
+          <p onClick={() => navigate("/support")}>Help</p>
+        )}
+        {role !== "ADMIN" &&  token &&(
           <p onClick={() => navigate("/event-history")}>Events</p>
         )}
         <p onClick={() => navigate("/faq")}>FAQs</p>

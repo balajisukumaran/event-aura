@@ -999,6 +999,26 @@ public String uploadFile(MultipartFile multipartFile) {
 - The code in [How to upload files to Amazon S3 in Spring Boot](https://dev.to/paulodhiambo/how-to-upload-files-to-amazon-s3-in-spring-boot-2p40) was used because we felt that this article clearly explained the steps needed to push an image to S3 in spring boot for image upload to S3 
 - [How to upload files to Amazon S3 in Spring Boot](https://dev.to/paulodhiambo/how-to-upload-files-to-amazon-s3-in-spring-boot-2p40) Helped our identify the steps needed to upload an image and we modified the code as per our requirements by adding necessary changes to file path etc to achieve my task.
 
+## EmailServiceForNotification.java
+
+*Lines 39-50*
+
+```
+private void sendEmail(String organizerName, String eventTitle, String eventDescription, List<String> followerEmails) {
+        for (String email : followerEmails) {
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setTo(email);
+            message.setSubject("New Event Created by " + organizerName);
+            message.setText("Hello,\n\n" +
+                    organizerName + " has created a new event titled '" + eventTitle + "'.\n\n" +
+                    "Event Description: " + eventDescription + "\n\n" +
+                    "Best regards,\nEvent Aura Team");
+
+            emailSender.send(message);
+        }
+```
+We used SMTP protocol to send Email to Multiple Recipients.Adapted from [How to send emails to multiple recipients from Spring Boot?](https://mailtrap.io/blog/spring-send-email/#How-to-send-emails-to-multiple-recipients-from-Spring-Boot)
+
 
 ## Acknowledgments
 
